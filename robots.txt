@@ -1,4 +1,17 @@
 User-agent: *
 Allow: /
 
+# Allow crawling of all content
+Allow: /bentobii/
+Allow: /images/
+Allow: /logo/
+
+# Disallow admin or private areas (if any)
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap location
 Sitemap: https://gancim.com/sitemap.xml
+
+# Crawl delay (optional, for very busy sites)
+Crawl-delay: 1
