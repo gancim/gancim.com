@@ -24,11 +24,7 @@ body {
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
-    background-image: url('logo/backgroundveg.png');
-    background-attachment: scroll;
-    background-size: 200px 200px;
-    background-position: center top;
-    background-repeat: repeat;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     min-height: 100vh;
     margin: 0;
     padding: 0;
@@ -785,9 +781,7 @@ body {
     
     /* Mobile background fixes */
     body {
-        background-attachment: scroll;
-        background-size: 150px 150px;
-        background-position: center top;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
         min-height: 100vh;
         width: 100%;
         margin: 0;
@@ -1112,8 +1106,7 @@ body {
     
     /* Small mobile background fixes */
     body {
-        background-size: 120px 120px;
-        background-position: center top;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
         min-height: 100vh;
         width: 100%;
         margin: 0;
