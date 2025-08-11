@@ -161,6 +161,7 @@ body {
     backdrop-filter: blur(5px);
     margin-top: 0;
     overflow: visible;
+    position: relative;
 }
 
 .hero-sublogo{
@@ -864,6 +865,8 @@ body {
         margin-top: 0;
         height: auto;
         display: block;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
     
     .hero-title {
@@ -875,6 +878,7 @@ body {
         max-width: 100%;
         overflow: visible;
         margin-bottom: 1rem;
+        padding: 0 0.5rem;
     }
     
     .hero-subtitle {
@@ -886,6 +890,9 @@ body {
         max-width: 100%;
         overflow: visible;
         margin-bottom: 1.5rem;
+        padding: 0 0.5rem;
+        white-space: normal;
+        word-break: normal;
     }
     
     .hero-content {
@@ -896,6 +903,9 @@ body {
         height: auto;
         max-width: 100%;
         padding: 0 1rem;
+        align-items: flex-start;
+        justify-items: center;
+        min-height: auto;
     }
     
     .hero-text {
@@ -908,6 +918,7 @@ body {
         overflow: visible;
         padding: 0 0.5rem;
         text-align: center;
+        margin-bottom: 2rem;
     }
     
     .hero-buttons {
@@ -1023,6 +1034,8 @@ body {
         height: auto;
         min-height: auto;
         display: block;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
     
     .hero-title {
@@ -1045,6 +1058,9 @@ body {
         max-width: 100%;
         overflow: visible;
         margin-bottom: 1.5rem;
+        padding: 0 0.5rem;
+        white-space: normal;
+        word-break: normal;
     }
     
     .hero-sublogo {
