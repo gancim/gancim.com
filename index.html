@@ -3,54 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gancim - Welcome</title>
-    <meta name="description" content="Welcome to Gancim's website">
+    <title>Gancim</title>
+    <meta name="description" content="Gancim - Digital presence and innovation">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="nav-container">
-                <h1 class="logo">Gancim</h1>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="bentobii/">Bentobii</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <div class="container">
+        <header class="header">
+            <nav class="nav">
+                <div class="nav-brand">G</div>
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="bentobii/">Bentobii</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
+        </header>
 
-    <main>
-        <section id="home" class="hero">
-            <div class="container">
-                <h2>Welcome to Gancim</h2>
-                <p>Your digital presence starts here</p>
-                <a href="#about" class="cta-button">Learn More</a>
-            </div>
-        </section>
+        <main class="main">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-line">Hello, I'm</span>
+                        <span class="title-main">Gancim</span>
+                    </h1>
+                    <p class="hero-subtitle">Building digital experiences with purpose</p>
+                    <div class="hero-actions">
+                        <a href="#about" class="btn btn-primary">Learn More</a>
+                        <a href="bentobii/" class="btn btn-secondary">View Work</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-element"></div>
+                </div>
+            </section>
 
-        <section id="about" class="about">
-            <div class="container">
-                <h2>About</h2>
-                <p>This is where you can add information about yourself, your projects, or your business.</p>
-            </div>
-        </section>
+            <section id="about" class="about">
+                <div class="section-content">
+                    <h2 class="section-title">About</h2>
+                    <p class="section-text">
+                        I create digital solutions that matter. From web applications to innovative projects, 
+                        every line of code serves a purpose.
+                    </p>
+                    <div class="skills">
+                        <span class="skill-tag">Web Development</span>
+                        <span class="skill-tag">UI/UX Design</span>
+                        <span class="skill-tag">Innovation</span>
+                    </div>
+                </div>
+            </section>
 
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2>Contact</h2>
-                <p>Get in touch with me at: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
-            </div>
-        </section>
-    </main>
+            <section id="contact" class="contact">
+                <div class="section-content">
+                    <h2 class="section-title">Get in Touch</h2>
+                    <p class="section-text">
+                        Ready to collaborate? Let's build something amazing together.
+                    </p>
+                    <a href="mailto:hello@gancim.com" class="contact-link">hello@gancim.com</a>
+                </div>
+            </section>
+        </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Gancim. All rights reserved.</p>
-        </div>
-    </footer>
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2024 Gancim</p>
+                <div class="footer-links">
+                    <a href="https://github.com/gancim" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
