@@ -3,62 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bentobii - Gancim</title>
-    <meta name="description" content="Bentobii subpage on Gancim's website">
-    <link rel="stylesheet" href="../styles.css">
+    <title data-i18n="page.title">BentoBii - Healthy. Global. Delicious.</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="nav-container">
-                <h1 class="logo">Gancim</h1>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="../index.html#about">About</a></li>
-                    <li><a href="../index.html#contact">Contact</a></li>
-                    <li><a href="index.html" class="active">Bentobii</a></li>
-                </ul>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="logo/logo.png" alt="BentoBii Logo" class="logo-img">
             </div>
-        </nav>
+            <nav class="nav">
+                <a href="#bentobii" >BentoBii</a>
+                <a href="#features" data-i18n="nav.features">Features</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
+            </nav>
+            <div class="language-selector">
+                <select id="language-select" onchange="changeLanguage(this.value)">
+                    <option value="en">🇺🇸 English</option>
+                    <option value="ja">🇯🇵 日本語</option>
+                    <option value="it">🇮🇹 Italiano</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="zh-cn">🇨🇳 简体中文</option>
+                    <option value="zh-tw">🇹🇼 繁體中文</option>
+                    <option value="hi">🇮🇳 हिन्दी</option>
+                    <option value="ar">🇸🇦 العربية</option>
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="ru">🇷🇺 Русский</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="pt">🇧🇷 Português</option>
+                    <option value="ko">🇰🇷 한국어</option>
+                </select>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h2>Bentobii</h2>
-                <p>Welcome to the Bentobii section</p>
-            </div>
-        </section>
-
-        <section class="content">
-            <div class="container">
-                <h2>About Bentobii</h2>
-                <p>This is the Bentobii subpage. You can add specific content, projects, or information related to Bentobii here.</p>
-                
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h3>Feature 1</h3>
-                        <p>Description of the first feature or aspect of Bentobii.</p>
+    <!-- Hero Section -->
+    <section class="hero" id="bentobii">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <img src="logo/hero.png" alt="BentoBii" class="hero-sublogo">
+                    <h1 class="hero-title" data-i18n="hero.title">
+                        Healthy. Global. Delicious.
+                    </h1>
+                    <p class="hero-subtitle" data-i18n="hero.subtitle">Over 100 authentic recipes from around the world, specially adapted for diabetes management without sacrificing authentic flavors.</p>
+                    <div class="hero-buttons">
+                        <a href="#download">
+                            <img src="logo/download.svg" alt="Download on App Store" class="appstore-icon">
+                        </a>
+                        <a href="#features" class="btn btn-secondary" data-i18n="hero.learn">Learn More</a>
                     </div>
-                    <div class="feature-card">
-                        <h3>Feature 2</h3>
-                        <p>Description of the second feature or aspect of Bentobii.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>Feature 3</h3>
-                        <p>Description of the third feature or aspect of Bentobii.</p>
+                </div>
+                <div class="hero-image">
+                    <div class="screenshot-viewer">
+                        <div class="screenshots-scroll">
+                            <div class="iphone-frame">
+                                <img src="images/home.png" alt="BentoBii App" class="hero-app">
+                            </div>
+                            <div class="iphone-frame">
+                                <img src="images/details.png" alt="BentoBii App" class="hero-app">
+                            </div>
+                            <div class="iphone-frame">
+                                <img src="images/favorites.png" alt="BentoBii App" class="hero-app">
+                            </div>
+                            <div class="iphone-frame">
+                                <img src="images/languages.png" alt="BentoBii App" class="hero-app">
+                            </div>
+                            <div class="iphone-frame">
+                                <img src="images/china.png" alt="BentoBii App" class="hero-app">
+                            </div>
+                            <div class="iphone-frame">
+                                <img src="images/india.png" alt="BentoBii App" class="hero-app">
+                            </div>
+                            <div class="iphone-frame">
+                                <img src="images/italy.png" alt="BentoBii App" class="hero-app">
+                            </div>
+                            <div class="iphone-frame">
+                                <img src="images/japan.png" alt="BentoBii App" class="hero-app">
+                            </div>
+                            <div class="iphone-frame">
+                                <img src="images/korean.png" alt="BentoBii App" class="hero-app">
+                            </div>
+                            <div class="iphone-frame">
+                                <img src="images/russia.png" alt="BentoBii App" class="hero-app">
+                            </div>
+                        </div>
+                        <div class="screenshot-nav">
+                            <button class="nav-btn prev-btn">
+                                <span>‹</span>
+                            </button>
+                            <div class="screenshot-dots">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                            <button class="nav-btn next-btn">
+                                <span>›</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
+    <!-- Features Section -->
+    <section id="features" class="features">
         <div class="container">
-            <p>&copy; 2024 Gancim. All rights reserved.</p>
+            <h2 class="section-title" data-i18n="features.title">Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 data-i18n="features.global.title">100+ Global Recipes</h3>
+                    <p data-i18n="features.global.desc">Authentic dishes from Japan, Italy, India, China and more countries, all adapted for diabetic-friendly nutrition.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 data-i18n="features.nutrition.title">Diabetes-Smart Nutrition</h3>
+                    <p data-i18n="features.nutrition.desc">Each recipe displays calories, carbs, and protein to help you make informed food choices.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 data-i18n="features.languages.title">13 Supported Languages</h3>
+                    <p data-i18n="features.languages.desc">Cook in Japanese, Italian, English, Spanish, Chinese, Hindi, Arabic, French, Russian, German, Portuguese, and Korean.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 data-i18n="features.search.title">Smart Search & Filters</h3>
+                    <p data-i18n="features.search.desc">Find recipes by ingredients, meal type, or country. Browse by breakfast, lunch, dinner categories.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 data-i18n="features.offline.title">Offline Access</h3>
+                    <p data-i18n="features.offline.desc">Download recipes to cook without internet. Clean, distraction-free interface focuses on cooking.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 data-i18n="features.favorites.title">Favorites & Collections</h3>
+                    <p data-i18n="features.favorites.desc">Save your favorite recipes and create personal collections for easy access.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" data-i18n="contact.title">Get in Touch</h2>
+            <p class="contact-subtitle" data-i18n="contact.subtitle">Have questions or feedback? We'd love to hear from you!</p>
+            
+                                       
+                <div class="contact-simple">
+                    <p class="contact-text" data-i18n="contact.email.ready">Ready to get in touch? Send us an email!</p>
+                    <a href="mailto:marco.ganci@gmail.com?subject=BentoBii%20Inquiry&body=Hello%20BentoBii%20team,%0D%0A%0D%0AI%20would%20like%20to%20get%20in%20touch%20with%20you.%0D%0A%0D%0ABest%20regards," class="btn btn-primary contact-email-btn">
+                        <span data-i18n="contact.email.button">Send Email</span>
+                    </a>
+                    <p class="contact-note" data-i18n="contact.email.note">This will open your default email client</p>
+                </div>
+    
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 gancim.com <span data-i18n="footer.rights">All rights reserved.</span></p>
+            </div>
         </div>
     </footer>
 
-    <script src="../script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
