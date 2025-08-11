@@ -10,11 +10,6 @@
     "price": "0",
     "priceCurrency": "USD"
   },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "ratingCount": "150"
-  },
   "featureList": [
     "100+ authentic global recipes",
     "Diabetes management focused",
@@ -23,17 +18,12 @@
     "Recipe favorites",
     "Country-based cuisine selection"
   ],
-  "screenshot": [
-    "https://gancim.com/bentobii/images/home.png",
-    "https://gancim.com/bentobii/images/details.png",
-    "https://gancim.com/bentobii/images/favorites.png"
-  ],
   "author": {
     "@type": "Person",
-    "name": "Gancim"
+    "name": "Marco Ganci"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Gancim"
+    "name": "gancim.com"
   }
 }

@@ -19,81 +19,95 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://gancim.com/bentobii/privacy-policy.html">
     
-    <link rel="stylesheet" href="styles.css">
     <style>
-        .privacy-container {
-            max-width: 800px;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 700px;
             margin: 0 auto;
             padding: 2rem;
-            line-height: 1.8;
         }
         
-        .privacy-header {
+        .language-selector {
             text-align: center;
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 2rem;
         }
         
-        .privacy-header h1 {
+        .language-selector select {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: 2px solid #2c7a7b;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .language-selector select:hover {
+            border-color: #1a5a5b;
+            box-shadow: 0 2px 8px rgba(44, 122, 123, 0.2);
+        }
+        
+        .language-selector select:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        
+        h1 {
             color: #2c7a7b;
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            text-align: center;
         }
         
-        .privacy-header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-        
-        .privacy-section {
-            margin-bottom: 2.5rem;
-        }
-        
-        .privacy-section h2 {
+        h2 {
             color: #1e293b;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            margin: 2rem 0 1rem 0;
             border-left: 4px solid #2c7a7b;
             padding-left: 1rem;
         }
         
-        .privacy-section h3 {
-            color: #374151;
-            font-size: 1.4rem;
-            margin: 1.5rem 0 1rem 0;
-        }
-        
-        .privacy-section p {
+        p {
             color: #4b5563;
             margin-bottom: 1rem;
         }
         
-        .privacy-section ul {
+        ul {
             margin: 1rem 0;
             padding-left: 2rem;
         }
         
-        .privacy-section li {
+        li {
             margin-bottom: 0.5rem;
             color: #4b5563;
         }
         
-        .privacy-section strong {
+        strong {
             color: #1e293b;
         }
         
-        .contact-info {
-            background: #f8fafc;
-            padding: 2rem;
+        .privacy-benefits {
+            background: #f0f9ff;
+            padding: 1.5rem;
             border-radius: 10px;
-            border: 1px solid #e2e8f0;
+            border: 2px solid #0ea5e9;
             margin: 2rem 0;
         }
         
-        .contact-info h3 {
-            color: #2c7a7b;
-            margin-bottom: 1rem;
+        .privacy-benefits h2 {
+            color: #0ea5e9;
+            border-left-color: #0ea5e9;
+            margin-top: 0;
         }
         
         .back-link {
@@ -117,344 +131,660 @@
             text-align: center;
             color: #666;
             font-style: italic;
-            margin-top: 3rem;
-            padding-top: 2rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
             border-top: 1px solid #e0e0e0;
         }
         
         @media (max-width: 768px) {
-            .privacy-container {
+            .container {
                 padding: 1rem;
             }
             
-            .privacy-header h1 {
+            h1 {
                 font-size: 2rem;
             }
             
-            .privacy-section h2 {
-                font-size: 1.5rem;
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            .language-selector select {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <img src="logo/logo.png" alt="BentoBii Logo" class="logo-img">
-            </div>
-            <nav class="nav">
-                <a href="index.html">BentoBii</a>
-                <a href="index.html#features">Features</a>
-                <a href="index.html#contact">Contact</a>
-            </nav>
-            <div class="language-selector">
-                <select id="language-select" onchange="changeLanguage(this.value)">
-                    <option value="en">🇺🇸 English</option>
-                    <option value="ja">🇯🇵 日本語</option>
-                    <option value="it">🇮🇹 Italiano</option>
-                    <option value="es">🇪🇸 Español</option>
-                    <option value="zh-cn">🇨🇳 简体中文</option>
-                    <option value="zh-tw">🇹🇼 繁體中文</option>
-                    <option value="hi">🇮🇳 हिन्दी</option>
-                    <option value="ar">🇸🇦 العربية</option>
-                    <option value="fr">🇫🇷 Français</option>
-                    <option value="ru">🇷🇺 Русский</option>
-                    <option value="de">🇩🇪 Deutsch</option>
-                    <option value="pt">🇧🇷 Português</option>
-                    <option value="ko">🇰🇷 한국어</option>
-                </select>
-            </div>
+    <div class="container">
+        <div class="language-selector">
+            <select id="language-select" onchange="changeLanguage(this.value)">
+                <option value="en">🇺🇸 English</option>
+                <option value="ja">🇯🇵 日本語</option>
+                <option value="it">🇮🇹 Italiano</option>
+                <option value="es">🇪🇸 Español</option>
+                <option value="zh-cn">🇨🇳 简体中文</option>
+                <option value="zh-tw">🇹🇼 繁體中文</option>
+                <option value="hi">🇮🇳 हिन्दी</option>
+                <option value="ar">🇸🇦 العربية</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="ru">🇷🇺 Русский</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="pt">🇧🇷 Português</option>
+                <option value="ko">🇰🇷 한국어</option>
+            </select>
         </div>
-    </header>
 
-    <main class="main" style="margin-top: 120px;">
-        <div class="privacy-container">
-            <div class="privacy-header">
-                <h1>Privacy Policy</h1>
-                <p>BentoBii - Healthy Global Delicious</p>
-            </div>
+        <h1 data-i18n="privacy.title">Privacy Policy</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 2rem;" data-i18n="privacy.subtitle">BentoBii - Healthy Global Delicious</p>
 
-            <div class="privacy-section">
-                <h2>1. Introduction</h2>
-                <p>Welcome to BentoBii ("we," "our," or "us"). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our BentoBii mobile application (the "App").</p>
-                <p>By using our App, you agree to the collection and use of information in accordance with this policy. If you do not agree with this policy, please do not use our App.</p>
-            </div>
-
-            <div class="privacy-section" style="background: #f0f9ff; padding: 2rem; border-radius: 10px; border: 2px solid #0ea5e9;">
-                <h2 style="color: #0ea5e9; border-left-color: #0ea5e9;">🔒 Key Privacy Benefits</h2>
-                <p><strong>BentoBii is designed with privacy as a core principle. Here's what this means for you:</strong></p>
-                <ul>
-                    <li><strong>Zero Data Collection:</strong> We don't collect, store, or transmit any personal information</li>
-                    <li><strong>Complete Anonymity:</strong> Use the app without creating accounts or providing personal details</li>
-                    <li><strong>Local-Only Operation:</strong> All data stays on your device - no external servers involved</li>
-                    <li><strong>No Tracking:</strong> We don't monitor your usage, preferences, or behavior</li>
-                    <li><strong>No Third-Party Services:</strong> No analytics, advertising, or external integrations</li>
-                    <li><strong>Instant Privacy:</strong> Uninstall the app to completely remove all local data</li>
-                </ul>
-                <p style="margin-top: 1rem; font-weight: 600; color: #0ea5e9;">This is the most privacy-friendly approach possible - we simply don't have any data to protect because we don't collect any!</p>
-            </div>
-
-            <div class="privacy-section">
-                <h2>2. Information We Collect</h2>
-                
-                <p><strong>BentoBii does not collect, store, or transmit any personal information from users.</strong></p>
-                
-                <h3>2.1 No Data Collection</h3>
-                <p>Our app operates entirely offline and locally on your device:</p>
-                <ul>
-                    <li><strong>No Account Creation:</strong> The app works without requiring user accounts or registration</li>
-                    <li><strong>No Personal Data:</strong> We do not collect names, emails, or any personal identifiers</li>
-                    <li><strong>No Usage Tracking:</strong> We do not monitor how you use the app or which recipes you view</li>
-                    <li><strong>No Device Information:</strong> We do not collect device data, location, or technical specifications</li>
-                </ul>
-
-                <h3>2.2 Local-Only Operation</h3>
-                <p>All app functionality happens locally on your device:</p>
-                <ul>
-                    <li>Recipe data is stored locally on your device</li>
-                    <li>Favorites and preferences are saved only on your device</li>
-                    <li>No data is sent to external servers or third parties</li>
-                    <li>No internet connection is required for app functionality</li>
-                </ul>
-            </div>
-
-            <div class="privacy-section">
-                <h2>3. How We Use Your Information</h2>
-                <p><strong>Since BentoBii does not collect any user data, we do not use personal information for any purposes.</strong></p>
-                
-                <h3>3.1 App Functionality</h3>
-                <p>The app provides all features without requiring user data:</p>
-                <ul>
-                    <li><strong>Recipe Access:</strong> All recipes are pre-loaded and available offline</li>
-                    <li><strong>Local Storage:</strong> Your favorites and preferences are stored only on your device</li>
-                    <li><strong>No Analytics:</strong> We do not track usage patterns or collect statistics</li>
-                    <li><strong>No Personalization:</strong> The app works the same for all users</li>
-                </ul>
-
-                <h3>3.2 Privacy-First Design</h3>
-                <p>Our app is designed with privacy as a core principle:</p>
-                <ul>
-                    <li>No data collection means no privacy concerns</li>
-                    <li>No tracking means complete user anonymity</li>
-                    <li>No external servers means your data stays on your device</li>
-                    <li>No internet dependency means complete privacy</li>
-                </ul>
-            </div>
-
-            <div class="privacy-section">
-                <h2>4. Information Sharing and Disclosure</h2>
-                <p><strong>Since BentoBii does not collect any user data, there is no information to share or disclose.</strong></p>
-                
-                <h3>4.1 No Data Sharing</h3>
-                <p>Our privacy-first approach means:</p>
-                <ul>
-                    <li><strong>No Third Parties:</strong> We have no user data to share with service providers</li>
-                    <li><strong>No Legal Disclosures:</strong> We cannot disclose data we don't collect</li>
-                    <li><strong>No Business Transfers:</strong> No user information exists to transfer</li>
-                    <li><strong>No Consent Required:</strong> Since we don't collect data, no sharing consent is needed</li>
-                </ul>
-
-                <h3>4.2 Complete Privacy</h3>
-                <p>Your privacy is guaranteed because:</p>
-                <ul>
-                    <li>All app data stays on your device</li>
-                    <li>No external servers store your information</li>
-                    <li>No analytics or tracking systems exist</li>
-                    <li>No user profiles or accounts are created</li>
-                </ul>
-            </div>
-
-            <div class="privacy-section">
-                <h2>5. Data Security</h2>
-                <p><strong>Since BentoBii does not collect or store user data on our servers, traditional data security concerns do not apply.</strong></p>
-                
-                <h3>5.1 Local Device Security</h3>
-                <p>Your data security is handled by your device's built-in security:</p>
-                <ul>
-                    <li><strong>Device Encryption:</strong> Your device's encryption protects any local data</li>
-                    <li><strong>App Sandboxing:</strong> iOS app sandboxing provides additional security</li>
-                    <li><strong>No Server Vulnerabilities:</strong> Since we don't store data, there are no server security risks</li>
-                    <li><strong>No Data Breaches:</strong> We cannot lose data we don't have</li>
-                </ul>
-
-                <h3>5.2 Privacy by Design</h3>
-                <p>Our app is designed with security in mind:</p>
-                <ul>
-                    <li>No network communication means no data interception</li>
-                    <li>No user accounts mean no authentication vulnerabilities</li>
-                    <li>No external storage means no cloud security concerns</li>
-                    <li>Local-only operation provides maximum privacy</li>
-                </ul>
-            </div>
-
-            <div class="privacy-section">
-                <h2>6. Data Retention</h2>
-                <p><strong>Since BentoBii does not collect or store user data on our servers, we have no data retention policies.</strong></p>
-                
-                <h3>6.1 Local Data Control</h3>
-                <p>You have complete control over your local data:</p>
-                <ul>
-                    <li><strong>Device Storage:</strong> All your data is stored locally on your device</li>
-                    <li><strong>User Control:</strong> You can delete the app at any time to remove all local data</li>
-                    <li><strong>No Server Data:</strong> We have no data to retain or delete</li>
-                    <li><strong>Immediate Deletion:</strong> Uninstalling the app removes all local data instantly</li>
-                </ul>
-
-                <h3>6.2 No Retention Concerns</h3>
-                <p>Our no-data-collection approach means:</p>
-                <ul>
-                    <li>No data retention policies needed</li>
-                    <li>No data deletion requests required</li>
-                    <li>No data backup or archival concerns</li>
-                    <li>Complete user control over their information</li>
-                </ul>
-            </div>
-
-            <div class="privacy-section">
-                <h2>7. Your Rights and Choices</h2>
-                <p><strong>Since BentoBii does not collect personal information, traditional data rights do not apply. However, you have complete control over your local experience.</strong></p>
-                
-                <h3>7.1 Complete Control</h3>
-                <p>You have full control over your app experience:</p>
-                <ul>
-                    <li><strong>Local Data:</strong> All your data is stored locally on your device</li>
-                    <li><strong>Instant Deletion:</strong> Uninstall the app to remove all local data</li>
-                    <li><strong>No Accounts:</strong> No user accounts to manage or delete</li>
-                    <li><strong>Privacy Settings:</strong> No privacy settings to configure</li>
-                </ul>
-
-                <h3>7.2 No Data Rights Needed</h3>
-                <p>Our no-data-collection approach means:</p>
-                <ul>
-                    <li>No need to request data access (we don't have any)</li>
-                    <li>No need to correct data (we don't collect any)</li>
-                    <li>No need to request data deletion (we don't store any)</li>
-                    <li>No need to opt out (we don't collect anything)</li>
-                </ul>
-            </div>
-
-            <div class="privacy-section">
-                <h2>8. Third-Party Services</h2>
-                <p><strong>BentoBii operates completely independently without any third-party integrations or services.</strong></p>
-                
-                <h3>8.1 No External Dependencies</h3>
-                <p>Our app is designed to be completely self-contained:</p>
-                <ul>
-                    <li><strong>No Third-Party APIs:</strong> We don't connect to external services</li>
-                    <li><strong>No Analytics Services:</strong> No tracking or analytics providers</li>
-                    <li><strong>No Social Media Integration:</strong> No social platform connections</li>
-                    <li><strong>No Advertising Networks:</strong> No ad services or tracking</li>
-                </ul>
-
-                <h3>8.2 Complete Independence</h3>
-                <p>This means:</p>
-                <ul>
-                    <li>No third-party privacy concerns</li>
-                    <li>No external data sharing</li>
-                    <li>No dependency on internet services</li>
-                    <li>Maximum privacy and security</li>
-                </ul>
-            </div>
-
-            <div class="privacy-section">
-                <h2>9. Children's Privacy</h2>
-                <p><strong>Since BentoBii does not collect any personal information from users of any age, children's privacy concerns are automatically addressed.</strong></p>
-                
-                <h3>9.1 Safe for All Ages</h3>
-                <p>Our app is safe for users of all ages because:</p>
-                <ul>
-                    <li><strong>No Data Collection:</strong> We don't collect information from anyone, including children</li>
-                    <li><strong>No User Accounts:</strong> No age verification or personal details required</li>
-                    <li><strong>No Tracking:</strong> No monitoring of user behavior or age</li>
-                    <li><strong>No Communication:</strong> No way for children to share personal information</li>
-                </ul>
-
-                <h3>9.2 Family-Friendly Design</h3>
-                <p>The app is designed to be family-friendly:</p>
-                <ul>
-                    <li>Healthy recipe content suitable for all ages</li>
-                    <li>No social features or user interactions</li>
-                    <li>No external links or inappropriate content</li>
-                    <li>Complete privacy protection for all users</li>
-                </ul>
-            </div>
-
-            <div class="privacy-section">
-                <h2>10. International Data Transfers</h2>
-                <p><strong>Since BentoBii does not collect or store user data, there are no international data transfers to regulate or safeguard.</strong></p>
-                
-                <h3>10.1 No Data Movement</h3>
-                <p>Our local-only approach eliminates data transfer concerns:</p>
-                <ul>
-                    <li><strong>No Cross-Border Transfers:</strong> We don't move data between countries</li>
-                    <li><strong>No International Processing:</strong> No data processing in foreign jurisdictions</li>
-                    <li><strong>No Compliance Requirements:</strong> No GDPR, CCPA, or other international privacy laws apply</li>
-                    <li><strong>No Data Localization:</strong> No need to store data in specific countries</li>
-                </ul>
-
-                <h3>10.2 Global Privacy Compliance</h3>
-                <p>Our approach automatically complies with privacy laws worldwide:</p>
-                <ul>
-                    <li>No data collection means no privacy law violations</li>
-                    <li>Local storage means no international transfer concerns</li>
-                    <li>No user accounts mean no jurisdictional issues</li>
-                    <li>Complete privacy protection regardless of location</li>
-                </ul>
-            </div>
-
-            <div class="privacy-section">
-                <h2>11. Changes to This Privacy Policy</h2>
-                <p><strong>While this Privacy Policy may be updated, the core principle of no data collection will remain unchanged.</strong></p>
-                
-                <h3>11.1 Policy Updates</h3>
-                <p>We may update this policy to reflect:</p>
-                <ul>
-                    <li><strong>Legal Requirements:</strong> Changes in privacy laws or regulations</li>
-                    <li><strong>App Features:</strong> New functionality that maintains our no-data approach</li>
-                    <li><strong>Clarifications:</strong> Better explanations of our privacy practices</li>
-                    <li><strong>Contact Information:</strong> Updated ways to reach us</li>
-                </ul>
-
-                <h3>11.2 Core Commitment</h3>
-                <p>Our fundamental privacy commitment will not change:</p>
-                <ul>
-                    <li>We will never collect personal user data</li>
-                    <li>We will never track user behavior</li>
-                    <li>We will never share user information</li>
-                    <li>We will maintain complete user privacy</li>
-                </ul>
-            </div>
-
-            <div class="contact-info">
-                <h3>Contact Us</h3>
-                <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
-                <ul>
-                    <li><strong>Email:</strong> privacy@gancim.com</li>
-                    <li><strong>Website:</strong> <a href="https://gancim.com" target="_blank">gancim.com</a></li>
-                    <li><strong>App Support:</strong> Available through the BentoBii app</li>
-                </ul>
-            </div>
-
-            <div class="last-updated">
-                <p><strong>Last Updated:</strong> December 19, 2024</p>
-                <p><strong>Version:</strong> 1.0</p>
-            </div>
-
-            <a href="index.html" class="back-link">← Back to BentoBii</a>
+        <div class="privacy-benefits">
+            <h2 data-i18n="privacy.benefits.title">🔒 Key Privacy Benefits</h2>
+            <p data-i18n="privacy.benefits.intro"><strong>BentoBii is designed with privacy as a core principle:</strong></p>
+            <ul>
+                <li data-i18n="privacy.benefits.zero"><strong>Zero Data Collection:</strong> We don't collect, store, or transmit any personal information</li>
+                <li data-i18n="privacy.benefits.anonymity"><strong>Complete Anonymity:</strong> Use the app without creating accounts or providing personal details</li>
+                <li data-i18n="privacy.benefits.local"><strong>Local-Only Operation:</strong> All data stays on your device - no external servers involved</li>
+                <li data-i18n="privacy.benefits.tracking"><strong>No Tracking:</strong> We don't monitor your usage, preferences, or behavior</li>
+            </ul>
         </div>
-    </main>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2024 Gancim</p>
-            <div class="footer-links">
-                <a href="https://github.com/gancim" target="_blank" rel="noopener">GitHub</a>
-            </div>
+        <h2 data-i18n="privacy.collection.title">1. Information We Collect</h2>
+        <p data-i18n="privacy.collection.main"><strong>BentoBii does not collect, store, or transmit any personal information from users.</strong></p>
+        <p data-i18n="privacy.collection.detail">Our app operates entirely offline and locally on your device. No user accounts, personal data, usage tracking, or device information is collected.</p>
+
+        <h2 data-i18n="privacy.usage.title">2. How We Use Your Information</h2>
+        <p data-i18n="privacy.usage.main"><strong>Since BentoBii does not collect any user data, we do not use personal information for any purposes.</strong></p>
+        <p data-i18n="privacy.usage.detail">The app provides all features (recipe access, favorites, preferences) without requiring user data. All data is stored locally on your device.</p>
+
+        <h2 data-i18n="privacy.sharing.title">3. Information Sharing and Disclosure</h2>
+        <p data-i18n="privacy.sharing.main"><strong>Since BentoBii does not collect any user data, there is no information to share or disclose.</strong></p>
+        <p data-i18n="privacy.sharing.detail">We have no user data to share with third parties, service providers, or for legal disclosures.</p>
+
+        <h2 data-i18n="privacy.security.title">4. Data Security</h2>
+        <p data-i18n="privacy.security.main"><strong>Since BentoBii does not collect or store user data on our servers, traditional data security concerns do not apply.</strong></p>
+        <p data-i18n="privacy.security.detail">Your data security is handled by your device's built-in security features. The app operates completely offline with no external server vulnerabilities.</p>
+
+        <h2 data-i18n="privacy.rights.title">5. Your Rights and Choices</h2>
+        <p data-i18n="privacy.rights.main"><strong>Since BentoBii does not collect personal information, traditional data rights do not apply.</strong></p>
+        <p data-i18n="privacy.rights.detail">You have complete control over your local data. Uninstall the app to remove all local data instantly.</p>
+
+        <h2 data-i18n="privacy.thirdparty.title">6. Third-Party Services</h2>
+        <p data-i18n="privacy.thirdparty.main"><strong>BentoBii operates completely independently without any third-party integrations or services.</strong></p>
+        <p data-i18n="privacy.thirdparty.detail">No analytics, advertising, social media integration, or external APIs are used.</p>
+
+        <h2 data-i18n="privacy.children.title">7. Children's Privacy</h2>
+        <p data-i18n="privacy.children.main"><strong>Since BentoBii does not collect any personal information from users of any age, children's privacy concerns are automatically addressed.</strong></p>
+        <p data-i18n="privacy.children.detail">The app is safe for users of all ages with no data collection, user accounts, or tracking.</p>
+
+        <h2 data-i18n="privacy.international.title">8. International Data Transfers</h2>
+        <p data-i18n="privacy.international.main"><strong>Since BentoBii does not collect or store user data, there are no international data transfers to regulate.</strong></p>
+        <p data-i18n="privacy.international.detail">Our local-only approach automatically complies with privacy laws worldwide.</p>
+
+        <h2 data-i18n="privacy.changes.title">9. Changes to This Privacy Policy</h2>
+        <p data-i18n="privacy.changes.main"><strong>While this Privacy Policy may be updated, the core principle of no data collection will remain unchanged.</strong></p>
+        <p data-i18n="privacy.changes.detail">We may update this policy to reflect legal requirements or app features, but our fundamental privacy commitment will not change.</p>
+
+        <div class="last-updated">
+            <p data-i18n="privacy.updated"><strong>Last Updated:</strong> August 11, 2025</p>
+            <p data-i18n="privacy.version"><strong>Version:</strong> 1.0</p>
         </div>
-    </footer>
 
-    <script src="script.js"></script>
+        <a href="index.html" class="back-link" data-i18n="privacy.back">← Back to BentoBii</a>
+    </div>
+
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                "privacy.title": "Privacy Policy",
+                "privacy.subtitle": "BentoBii - Healthy Global Delicious",
+                "privacy.benefits.title": "🔒 Key Privacy Benefits",
+                "privacy.benefits.intro": "BentoBii is designed with privacy as a core principle:",
+                "privacy.benefits.zero": "Zero Data Collection: We don't collect, store, or transmit any personal information",
+                "privacy.benefits.anonymity": "Complete Anonymity: Use the app without creating accounts or providing personal details",
+                "privacy.benefits.local": "Local-Only Operation: All data stays on your device - no external servers involved",
+                "privacy.benefits.tracking": "No Tracking: We don't monitor your usage, preferences, or behavior",
+                "privacy.collection.title": "1. Information We Collect",
+                "privacy.collection.main": "BentoBii does not collect, store, or transmit any personal information from users.",
+                "privacy.collection.detail": "Our app operates entirely offline and locally on your device. No user accounts, personal data, usage tracking, or device information is collected.",
+                "privacy.usage.title": "2. How We Use Your Information",
+                "privacy.usage.main": "Since BentoBii does not collect any user data, we do not use personal information for any purposes.",
+                "privacy.usage.detail": "The app provides all features (recipe access, favorites, preferences) without requiring user data. All data is stored locally on your device.",
+                "privacy.sharing.title": "3. Information Sharing and Disclosure",
+                "privacy.sharing.main": "Since BentoBii does not collect any user data, there is no information to share or disclose.",
+                "privacy.sharing.detail": "We have no user data to share with third parties, service providers, or for legal disclosures.",
+                "privacy.security.title": "4. Data Security",
+                "privacy.security.main": "Since BentoBii does not collect or store user data on our servers, traditional data security concerns do not apply.",
+                "privacy.security.detail": "Your data security is handled by your device's built-in security features. The app operates completely offline with no external server vulnerabilities.",
+                "privacy.rights.title": "5. Your Rights and Choices",
+                "privacy.rights.main": "Since BentoBii does not collect personal information, traditional data rights do not apply.",
+                "privacy.rights.detail": "You have complete control over your local data. Uninstall the app to remove all local data instantly.",
+                "privacy.thirdparty.title": "6. Third-Party Services",
+                "privacy.thirdparty.main": "BentoBii operates completely independently without any third-party integrations or services.",
+                "privacy.thirdparty.detail": "No analytics, advertising, social media integration, or external APIs are used.",
+                "privacy.children.title": "7. Children's Privacy",
+                "privacy.children.main": "Since BentoBii does not collect any personal information from users of any age, children's privacy concerns are automatically addressed.",
+                "privacy.children.detail": "The app is safe for users of all ages with no data collection, user accounts, or tracking.",
+                "privacy.international.title": "8. International Data Transfers",
+                "privacy.international.main": "Since BentoBii does not collect or store user data, there are no international data transfers to regulate.",
+                "privacy.international.detail": "Our local-only approach automatically complies with privacy laws worldwide.",
+                "privacy.changes.title": "9. Changes to This Privacy Policy",
+                "privacy.changes.main": "While this Privacy Policy may be updated, the core principle of no data collection will remain unchanged.",
+                "privacy.changes.detail": "We may update this policy to reflect legal requirements or app features, but our fundamental privacy commitment will not change.",
+                "privacy.updated": "Last Updated: August 11, 2025",
+                "privacy.version": "Version: 1.0",
+                "privacy.back": "← Back to BentoBii"
+            },
+            ja: {
+                "privacy.title": "プライバシーポリシー",
+                "privacy.subtitle": "BentoBii - 健康的でグローバルなおいしさ",
+                "privacy.benefits.title": "🔒 主要なプライバシー利点",
+                "privacy.benefits.intro": "BentoBiiはプライバシーを核となる原則として設計されています：",
+                "privacy.benefits.zero": "データ収集ゼロ：個人情報を収集、保存、送信しません",
+                "privacy.benefits.anonymity": "完全な匿名性：アカウント作成や個人詳細の提供なしでアプリを使用",
+                "privacy.benefits.local": "ローカルのみの操作：すべてのデータはデバイスに保存 - 外部サーバーは関与しません",
+                "privacy.benefits.tracking": "追跡なし：使用状況、好み、行動を監視しません",
+                "privacy.collection.title": "1. 収集する情報",
+                "privacy.collection.main": "BentoBiiはユーザーから個人情報を収集、保存、送信しません。",
+                "privacy.collection.detail": "アプリは完全にオフラインでデバイス上でローカルに動作します。ユーザーアカウント、個人データ、使用追跡、デバイス情報は収集されません。",
+                "privacy.usage.title": "2. 情報の使用方法",
+                "privacy.usage.main": "BentoBiiはユーザーデータを収集しないため、個人情報を目的に使用しません。",
+                "privacy.usage.detail": "アプリはユーザーデータを必要とせずにすべての機能（レシピアクセス、お気に入り、設定）を提供します。すべてのデータはデバイス上にローカルに保存されます。",
+                "privacy.sharing.title": "3. 情報の共有と開示",
+                "privacy.sharing.main": "BentoBiiはユーザーデータを収集しないため、共有または開示する情報はありません。",
+                "privacy.sharing.detail": "第三者、サービスプロバイダー、法的開示のために共有するユーザーデータはありません。",
+                "privacy.security.title": "4. データセキュリティ",
+                "privacy.security.main": "BentoBiiはサーバー上でユーザーデータを収集または保存しないため、従来のデータセキュリティの懸念は適用されません。",
+                "privacy.security.detail": "データセキュリティはデバイスの組み込みセキュリティ機能によって処理されます。アプリは完全にオフラインで動作し、外部サーバーの脆弱性はありません。",
+                "privacy.rights.title": "5. あなたの権利と選択肢",
+                "privacy.rights.main": "BentoBiiは個人情報を収集しないため、従来のデータ権利は適用されません。",
+                "privacy.rights.detail": "ローカルデータを完全に制御できます。アプリをアンインストールすると、すべてのローカルデータが即座に削除されます。",
+                "privacy.thirdparty.title": "6. 第三者サービス",
+                "privacy.thirdparty.main": "BentoBiiは第三者統合やサービスなしで完全に独立して動作します。",
+                "privacy.thirdparty.detail": "分析、広告、ソーシャルメディア統合、外部APIは使用されません。",
+                "privacy.children.title": "7. 子供のプライバシー",
+                "privacy.children.main": "BentoBiiはあらゆる年齢のユーザーから個人情報を収集しないため、子供のプライバシーの懸念は自動的に解決されます。",
+                "privacy.children.detail": "アプリはデータ収集、ユーザーアカウント、追跡なしで全年代のユーザーに安全です。",
+                "privacy.international.title": "8. 国際データ転送",
+                "privacy.international.main": "BentoBiiはユーザーデータを収集または保存しないため、規制する国際データ転送はありません。",
+                "privacy.international.detail": "ローカルのみのアプローチは、世界中のプライバシー法に自動的に準拠します。",
+                "privacy.changes.title": "9. このプライバシーポリシーの変更",
+                "privacy.changes.main": "このプライバシーポリシーは更新される場合がありますが、データ収集なしという核となる原則は変更されません。",
+                "privacy.changes.detail": "法的要件やアプリ機能を反映してポリシーを更新する場合がありますが、基本的なプライバシーコミットメントは変更されません。",
+                "privacy.updated": "最終更新：2025年8月11日",
+                "privacy.version": "バージョン：1.0",
+                "privacy.back": "← BentoBiiに戻る"
+            },
+            it: {
+                "privacy.title": "Informativa sulla Privacy",
+                "privacy.subtitle": "BentoBii - Salute Globale Deliziosa",
+                "privacy.benefits.title": "🔒 Vantaggi Chiave della Privacy",
+                "privacy.benefits.intro": "BentoBii è progettato con la privacy come principio fondamentale:",
+                "privacy.benefits.zero": "Raccolta Dati Zero: Non raccogliamo, memorizziamo o trasmettiamo informazioni personali",
+                "privacy.benefits.anonymity": "Anonimato Completo: Usa l'app senza creare account o fornire dettagli personali",
+                "privacy.benefits.local": "Operazione Solo Locale: Tutti i dati rimangono sul tuo dispositivo - nessun server esterno coinvolto",
+                "privacy.benefits.tracking": "Nessun Tracciamento: Non monitoriamo il tuo utilizzo, preferenze o comportamento",
+                "privacy.collection.title": "1. Informazioni che Raccogliamo",
+                "privacy.collection.main": "BentoBii non raccoglie, memorizza o trasmette informazioni personali dagli utenti.",
+                "privacy.collection.detail": "La nostra app funziona completamente offline e localmente sul tuo dispositivo. Nessun account utente, dato personale, tracciamento dell'utilizzo o informazione del dispositivo viene raccolto.",
+                "privacy.usage.title": "2. Come Utilizziamo le Tue Informazioni",
+                "privacy.usage.main": "Poiché BentoBii non raccoglie dati utente, non utilizziamo informazioni personali per alcun scopo.",
+                "privacy.usage.detail": "L'app fornisce tutte le funzionalità (accesso alle ricette, preferiti, impostazioni) senza richiedere dati utente. Tutti i dati sono memorizzati localmente sul tuo dispositivo.",
+                "privacy.sharing.title": "3. Condivisione e Divulgazione delle Informazioni",
+                "privacy.sharing.main": "Poiché BentoBii non raccoglie dati utente, non ci sono informazioni da condividere o divulgare.",
+                "privacy.sharing.detail": "Non abbiamo dati utente da condividere con terze parti, fornitori di servizi o per divulgazioni legali.",
+                "privacy.security.title": "4. Sicurezza dei Dati",
+                "privacy.security.main": "Poiché BentoBii non raccoglie o memorizza dati utente sui nostri server, le preoccupazioni tradizionali sulla sicurezza dei dati non si applicano.",
+                "privacy.security.detail": "La sicurezza dei tuoi dati è gestita dalle funzionalità di sicurezza integrate del tuo dispositivo. L'app funziona completamente offline senza vulnerabilità del server esterno.",
+                "privacy.rights.title": "5. I Tuoi Diritti e Scelte",
+                "privacy.rights.main": "Poiché BentoBii non raccoglie informazioni personali, i diritti tradizionali sui dati non si applicano.",
+                "privacy.rights.detail": "Hai il controllo completo sui tuoi dati locali. Disinstalla l'app per rimuovere istantaneamente tutti i dati locali.",
+                "privacy.thirdparty.title": "6. Servizi di Terze Parti",
+                "privacy.thirdparty.main": "BentoBii funziona completamente in modo indipendente senza integrazioni o servizi di terze parti.",
+                "privacy.thirdparty.detail": "Non vengono utilizzati analytics, pubblicità, integrazione social media o API esterne.",
+                "privacy.children.title": "7. Privacy dei Bambini",
+                "privacy.children.main": "Poiché BentoBii non raccoglie informazioni personali da utenti di qualsiasi età, le preoccupazioni sulla privacy dei bambini sono automaticamente affrontate.",
+                "privacy.children.detail": "L'app è sicura per utenti di tutte le età senza raccolta di dati, account utente o tracciamento.",
+                "privacy.international.title": "8. Trasferimenti Internazionali di Dati",
+                "privacy.international.main": "Poiché BentoBii non raccoglie o memorizza dati utente, non ci sono trasferimenti internazionali di dati da regolamentare.",
+                "privacy.international.detail": "Il nostro approccio solo locale si conforma automaticamente alle leggi sulla privacy in tutto il mondo.",
+                "privacy.changes.title": "9. Modifiche a Questa Informativa sulla Privacy",
+                "privacy.changes.main": "Sebbene questa Informativa sulla Privacy possa essere aggiornata, il principio fondamentale di nessuna raccolta di dati rimarrà invariato.",
+                "privacy.changes.detail": "Potremmo aggiornare questa politica per riflettere requisiti legali o funzionalità dell'app, ma il nostro impegno fondamentale per la privacy non cambierà.",
+                "privacy.updated": "Ultimo Aggiornamento: 11 Agosto 2025",
+                "privacy.version": "Versione: 1.0",
+                "privacy.back": "← Torna a BentoBii"
+            },
+            es: {
+                "privacy.title": "Política de Privacidad",
+                "privacy.subtitle": "BentoBii - Saludable y Delicioso Global",
+                "privacy.benefits.title": "🔒 Beneficios Clave de Privacidad",
+                "privacy.benefits.intro": "BentoBii está diseñado con la privacidad como principio fundamental:",
+                "privacy.benefits.zero": "Cero Recolección de Datos: No recopilamos, almacenamos o transmitimos información personal",
+                "privacy.benefits.anonymity": "Anonimato Completo: Usa la app sin crear cuentas o proporcionar detalles personales",
+                "privacy.benefits.local": "Operación Solo Local: Todos los datos permanecen en tu dispositivo - ningún servidor externo involucrado",
+                "privacy.benefits.tracking": "Sin Seguimiento: No monitoreamos tu uso, preferencias o comportamiento",
+                "privacy.collection.title": "1. Información que Recopilamos",
+                "privacy.collection.main": "BentoBii no recopila, almacena o transmite información personal de los usuarios.",
+                "privacy.collection.detail": "Nuestra app funciona completamente sin conexión y localmente en tu dispositivo. No se recopilan cuentas de usuario, datos personales, seguimiento de uso o información del dispositivo.",
+                "privacy.usage.title": "2. Cómo Usamos tu Información",
+                "privacy.usage.main": "Dado que BentoBii no recopila datos de usuario, no utilizamos información personal para ningún propósito.",
+                "privacy.usage.detail": "La app proporciona todas las funciones (acceso a recetas, favoritos, preferencias) sin requerir datos de usuario. Todos los datos se almacenan localmente en tu dispositivo.",
+                "privacy.sharing.title": "3. Compartir y Divulgar Información",
+                "privacy.sharing.main": "Dado que BentoBii no recopila datos de usuario, no hay información que compartir o divulgar.",
+                "privacy.sharing.detail": "No tenemos datos de usuario para compartir con terceros, proveedores de servicios o para divulgaciones legales.",
+                "privacy.security.title": "4. Seguridad de Datos",
+                "privacy.security.main": "Dado que BentoBii no recopila o almacena datos de usuario en nuestros servidores, las preocupaciones tradicionales de seguridad de datos no se aplican.",
+                "privacy.security.detail": "La seguridad de tus datos es manejada por las características de seguridad integradas de tu dispositivo. La app funciona completamente sin conexión sin vulnerabilidades del servidor externo.",
+                "privacy.rights.title": "5. Tus Derechos y Opciones",
+                "privacy.rights.main": "Dado que BentoBii no recopila información personal, los derechos tradicionales de datos no se aplican.",
+                "privacy.rights.detail": "Tienes control completo sobre tus datos locales. Desinstala la app para eliminar instantáneamente todos los datos locales.",
+                "privacy.thirdparty.title": "6. Servicios de Terceros",
+                "privacy.thirdparty.main": "BentoBii funciona completamente de forma independiente sin integraciones o servicios de terceros.",
+                "privacy.thirdparty.detail": "No se utilizan analytics, publicidad, integración de redes sociales o APIs externas.",
+                "privacy.children.title": "7. Privacidad de los Niños",
+                "privacy.children.main": "Dado que BentoBii no recopila información personal de usuarios de cualquier edad, las preocupaciones de privacidad de los niños se abordan automáticamente.",
+                "privacy.children.detail": "La app es segura para usuarios de todas las edades sin recopilación de datos, cuentas de usuario o seguimiento.",
+                "privacy.international.title": "8. Transferencias Internacionales de Datos",
+                "privacy.international.main": "Dado que BentoBii no recopila o almacena datos de usuario, no hay transferencias internacionales de datos que regular.",
+                "privacy.international.detail": "Nuestro enfoque solo local cumple automáticamente con las leyes de privacidad en todo el mundo.",
+                "privacy.changes.title": "9. Cambios en esta Política de Privacidad",
+                "privacy.changes.main": "Aunque esta Política de Privacidad puede ser actualizada, el principio fundamental de ninguna recopilación de datos permanecerá sin cambios.",
+                "privacy.changes.detail": "Podemos actualizar esta política para reflejar requisitos legales o características de la app, pero nuestro compromiso fundamental de privacidad no cambiará.",
+                "privacy.updated": "Última Actualización: 11 de Agosto de 2025",
+                "privacy.version": "Versión: 1.0",
+                "privacy.back": "← Volver a BentoBii"
+            },
+            "zh-cn": {
+                "privacy.title": "隐私政策",
+                "privacy.subtitle": "BentoBii - 健康全球美味",
+                "privacy.benefits.title": "🔒 主要隐私优势",
+                "privacy.benefits.intro": "BentoBii以隐私为核心原则设计：",
+                "privacy.benefits.zero": "零数据收集：我们不收集、存储或传输任何个人信息",
+                "privacy.benefits.anonymity": "完全匿名：无需创建账户或提供个人详细信息即可使用应用",
+                "privacy.benefits.local": "仅本地操作：所有数据都保存在您的设备上 - 不涉及外部服务器",
+                "privacy.benefits.tracking": "无跟踪：我们不监控您的使用情况、偏好或行为",
+                "privacy.collection.title": "1. 我们收集的信息",
+                "privacy.collection.main": "BentoBii不收集、存储或传输用户的任何个人信息。",
+                "privacy.collection.detail": "我们的应用完全离线运行，仅在您的设备上本地运行。不收集用户账户、个人数据、使用跟踪或设备信息。",
+                "privacy.usage.title": "2. 我们如何使用您的信息",
+                "privacy.usage.main": "由于BentoBii不收集任何用户数据，我们不会将个人信息用于任何目的。",
+                "privacy.usage.detail": "应用提供所有功能（食谱访问、收藏、偏好设置），无需用户数据。所有数据都本地存储在您的设备上。",
+                "privacy.sharing.title": "3. 信息共享和披露",
+                "privacy.sharing.main": "由于BentoBii不收集任何用户数据，没有信息可以共享或披露。",
+                "privacy.sharing.detail": "我们没有用户数据可以与第三方、服务提供商共享或用于法律披露。",
+                "privacy.security.title": "4. 数据安全",
+                "privacy.security.main": "由于BentoBii不在我们的服务器上收集或存储用户数据，传统的数据安全担忧不适用。",
+                "privacy.security.detail": "您的数据安全由设备的内置安全功能处理。应用完全离线运行，没有外部服务器漏洞。",
+                "privacy.rights.title": "5. 您的权利和选择",
+                "privacy.rights.main": "由于BentoBii不收集个人信息，传统的数据权利不适用。",
+                "privacy.rights.detail": "您对本地数据有完全控制权。卸载应用即可立即删除所有本地数据。",
+                "privacy.thirdparty.title": "6. 第三方服务",
+                "privacy.thirdparty.main": "BentoBii完全独立运行，没有任何第三方集成或服务。",
+                "privacy.thirdparty.detail": "不使用分析、广告、社交媒体集成或外部API。",
+                "privacy.children.title": "7. 儿童隐私",
+                "privacy.children.main": "由于BentoBii不从任何年龄的用户收集个人信息，儿童隐私担忧会自动解决。",
+                "privacy.children.detail": "应用对所有年龄的用户都安全，没有数据收集、用户账户或跟踪。",
+                "privacy.international.title": "8. 国际数据传输",
+                "privacy.international.main": "由于BentoBii不收集或存储用户数据，没有需要监管的国际数据传输。",
+                "privacy.international.detail": "我们仅本地的方法自动符合全球隐私法律。",
+                "privacy.changes.title": "9. 本隐私政策的变更",
+                "privacy.changes.main": "虽然本隐私政策可能会更新，但不收集数据的核心原则将保持不变。",
+                "privacy.changes.detail": "我们可能会更新此政策以反映法律要求或应用功能，但我们基本的隐私承诺不会改变。",
+                "privacy.updated": "最后更新：2025年8月11日",
+                "privacy.version": "版本：1.0",
+                "privacy.back": "← 返回BentoBii"
+            },
+            "zh-tw": {
+                "privacy.title": "隱私政策",
+                "privacy.subtitle": "BentoBii - 健康全球美味",
+                "privacy.benefits.title": "🔒 主要隱私優勢",
+                "privacy.benefits.intro": "BentoBii以隱私為核心原則設計：",
+                "privacy.benefits.zero": "零數據收集：我們不收集、存儲或傳輸任何個人信息",
+                "privacy.benefits.anonymity": "完全匿名：無需創建賬戶或提供個人詳細信息即可使用應用",
+                "privacy.benefits.local": "僅本地操作：所有數據都保存在您的設備上 - 不涉及外部服務器",
+                "privacy.benefits.tracking": "無跟蹤：我們不監控您的使用情況、偏好或行為",
+                "privacy.collection.title": "1. 我們收集的信息",
+                "privacy.collection.main": "BentoBii不收集、存儲或傳輸用戶的任何個人信息。",
+                "privacy.collection.detail": "我們的應用完全離線運行，僅在您的設備上本地運行。不收集用戶賬戶、個人數據、使用跟蹤或設備信息。",
+                "privacy.usage.title": "2. 我們如何使用您的信息",
+                "privacy.usage.main": "由於BentoBii不收集任何用戶數據，我們不會將個人信息用於任何目的。",
+                "privacy.usage.detail": "應用提供所有功能（食譜訪問、收藏、偏好設置），無需用戶數據。所有數據都本地存儲在您的設備上。",
+                "privacy.sharing.title": "3. 信息共享和披露",
+                "privacy.sharing.main": "由於BentoBii不收集任何用戶數據，沒有信息可以共享或披露。",
+                "privacy.sharing.detail": "我們沒有用戶數據可以與第三方、服務提供商共享或用於法律披露。",
+                "privacy.security.title": "4. 數據安全",
+                "privacy.security.main": "由於BentoBii不在我們的服務器上收集或存儲用戶數據，傳統的數據安全擔憂不適用。",
+                "privacy.security.detail": "您的數據安全由設備的內置安全功能處理。應用完全離線運行，沒有外部服務器漏洞。",
+                "privacy.rights.title": "5. 您的權利和選擇",
+                "privacy.rights.main": "由於BentoBii不收集個人信息，傳統的數據權利不適用。",
+                "privacy.rights.detail": "您對本地數據有完全控制權。卸載應用即可立即刪除所有本地數據。",
+                "privacy.thirdparty.title": "6. 第三方服務",
+                "privacy.thirdparty.main": "BentoBii完全獨立運行，沒有任何第三方集成或服務。",
+                "privacy.thirdparty.detail": "不使用分析、廣告、社交媒體集成或外部API。",
+                "privacy.children.title": "7. 兒童隱私",
+                "privacy.children.main": "由於BentoBii不從任何年齡的用戶收集個人信息，兒童隱私擔憂會自動解決。",
+                "privacy.children.detail": "應用對所有年齡的用戶都安全，沒有數據收集、用戶賬戶或跟蹤。",
+                "privacy.international.title": "8. 國際數據傳輸",
+                "privacy.international.main": "由於BentoBii不收集或存儲用戶數據，沒有需要監管的國際數據傳輸。",
+                "privacy.international.detail": "我們僅本地的方法自動符合全球隱私法律。",
+                "privacy.changes.title": "9. 本隱私政策的變更",
+                "privacy.changes.main": "雖然本隱私政策可能會更新，但不收集數據的核心原則將保持不變。",
+                "privacy.changes.detail": "我們可能會更新此政策以反映法律要求或應用功能，但我們基本的隱私承諾不會改變。",
+                "privacy.updated": "最後更新：2025年8月11日",
+                "privacy.version": "版本：1.0",
+                "privacy.back": "← 返回BentoBii"
+            },
+            hi: {
+                "privacy.title": "गोपनीयता नीति",
+                "privacy.subtitle": "BentoBii - स्वस्थ वैश्विक स्वादिष्ट",
+                "privacy.benefits.title": "🔒 मुख्य गोपनीयता लाभ",
+                "privacy.benefits.intro": "BentoBii को गोपनीयता को मुख्य सिद्धांत के रूप में डिज़ाइन किया गया है:",
+                "privacy.benefits.zero": "शून्य डेटा संग्रह: हम किसी भी व्यक्तिगत जानकारी को एकत्र, संग्रहीत या प्रसारित नहीं करते",
+                "privacy.benefits.anonymity": "पूर्ण गुमनामी: खाते बनाए बिना या व्यक्तिगत विवरण प्रदान किए बिना ऐप का उपयोग करें",
+                "privacy.benefits.local": "केवल स्थानीय संचालन: सभी डेटा आपके डिवाइस पर रहता है - कोई बाहरी सर्वर शामिल नहीं",
+                "privacy.benefits.tracking": "कोई ट्रैकिंग नहीं: हम आपके उपयोग, प्राथमिकताओं या व्यवहार की निगरानी नहीं करते",
+                "privacy.collection.title": "1. हम कौन सी जानकारी एकत्र करते हैं",
+                "privacy.collection.main": "BentoBii उपयोगकर्ताओं से कोई व्यक्तिगत जानकारी एकत्र, संग्रहीत या प्रसारित नहीं करता।",
+                "privacy.collection.detail": "हमारा ऐप पूरी तरह से ऑफलाइन और आपके डिवाइस पर स्थानीय रूप से काम करता है। कोई उपयोगकर्ता खाते, व्यक्तिगत डेटा, उपयोग ट्रैकिंग या डिवाइस जानकारी एकत्र नहीं की जाती।",
+                "privacy.usage.title": "2. हम आपकी जानकारी का उपयोग कैसे करते हैं",
+                "privacy.usage.main": "चूंकि BentoBii कोई उपयोगकर्ता डेटा एकत्र नहीं करता, हम व्यक्तिगत जानकारी का उपयोग किसी भी उद्देश्य के लिए नहीं करते।",
+                "privacy.usage.detail": "ऐप सभी सुविधाएं (रेसिपी एक्सेस, पसंदीदा, प्राथमिकताएं) प्रदान करता है बिना उपयोगकर्ता डेटा की आवश्यकता के। सभी डेटा आपके डिवाइस पर स्थानीय रूप से संग्रहीत किया जाता है।",
+                "privacy.sharing.title": "3. जानकारी साझा करना और प्रकट करना",
+                "privacy.sharing.main": "चूंकि BentoBii कोई उपयोगकर्ता डेटा एकत्र नहीं करता, साझा करने या प्रकट करने के लिए कोई जानकारी नहीं है।",
+                "privacy.sharing.detail": "हमारे पास तृतीय पक्षों, सेवा प्रदाताओं या कानूनी प्रकटीकरण के लिए साझा करने के लिए कोई उपयोगकर्ता डेटा नहीं है।",
+                "privacy.security.title": "4. डेटा सुरक्षा",
+                "privacy.security.main": "चूंकि BentoBii हमारे सर्वर पर उपयोगकर्ता डेटा एकत्र या संग्रहीत नहीं करता, पारंपरिक डेटा सुरक्षा चिंताएं लागू नहीं होतीं।",
+                "privacy.security.detail": "आपकी डेटा सुरक्षा आपके डिवाइस के अंतर्निहित सुरक्षा सुविधाओं द्वारा संभाली जाती है। ऐप पूरी तरह से ऑफलाइन काम करता है बिना किसी बाहरी सर्वर कमजोरियों के।",
+                "privacy.rights.title": "5. आपके अधिकार और विकल्प",
+                "privacy.rights.main": "चूंकि BentoBii व्यक्तिगत जानकारी एकत्र नहीं करता, पारंपरिक डेटा अधिकार लागू नहीं होते।",
+                "privacy.rights.detail": "आपके पास अपने स्थानीय डेटा पर पूर्ण नियंत्रण है। सभी स्थानीय डेटा को तुरंत हटाने के लिए ऐप को अनइंस्टॉल करें।",
+                "privacy.thirdparty.title": "6. तृतीय पक्ष सेवाएं",
+                "privacy.thirdparty.main": "BentoBii पूरी तरह से स्वतंत्र रूप से काम करता है बिना किसी तृतीय पक्ष एकीकरण या सेवाओं के।",
+                "privacy.thirdparty.detail": "कोई विश्लेषण, विज्ञापन, सोशल मीडिया एकीकरण या बाहरी API का उपयोग नहीं किया जाता।",
+                "privacy.children.title": "7. बच्चों की गोपनीयता",
+                "privacy.children.main": "चूंकि BentoBii किसी भी उम्र के उपयोगकर्ताओं से व्यक्तिगत जानकारी एकत्र नहीं करता, बच्चों की गोपनीयता चिंताएं स्वचालित रूप से संबोधित की जाती हैं।",
+                "privacy.children.detail": "ऐप सभी उम्र के उपयोगकर्ताओं के लिए सुरक्षित है बिना डेटा संग्रह, उपयोगकर्ता खातों या ट्रैकिंग के।",
+                "privacy.international.title": "8. अंतर्राष्ट्रीय डेटा स्थानांतरण",
+                "privacy.international.main": "चूंकि BentoBii उपयोगकर्ता डेटा एकत्र या संग्रहीत नहीं करता, विनियमित करने के लिए कोई अंतर्राष्ट्रीय डेटा स्थानांतरण नहीं है।",
+                "privacy.international.detail": "हमारा केवल स्थानीय दृष्टिकोण स्वचालित रूप से दुनिया भर के गोपनीयता कानूनों का पालन करता है।",
+                "privacy.changes.title": "9. इस गोपनीयता नीति में परिवर्तन",
+                "privacy.changes.main": "हालांकि इस गोपनीयता नीति को अपडेट किया जा सकता है, डेटा संग्रह न करने का मुख्य सिद्धांत अपरिवर्तित रहेगा।",
+                "privacy.changes.detail": "हम कानूनी आवश्यकताओं या ऐप सुविधाओं को प्रतिबिंबित करने के लिए इस नीति को अपडेट कर सकते हैं, लेकिन हमारा मौलिक गोपनीयता प्रतिबद्धता नहीं बदलेगा।",
+                "privacy.updated": "अंतिम अपडेट: 11 अगस्त 2025",
+                "privacy.version": "संस्करण: 1.0",
+                "privacy.back": "← BentoBii पर वापस जाएं"
+            },
+            ar: {
+                "privacy.title": "سياسة الخصوصية",
+                "privacy.subtitle": "BentoBii - صحي ولذيذ عالمي",
+                "privacy.benefits.title": "🔒 المزايا الرئيسية للخصوصية",
+                "privacy.benefits.intro": "تم تصميم BentoBii مع وضع الخصوصية كمبدأ أساسي:",
+                "privacy.benefits.zero": "صفر جمع للبيانات: نحن لا نجمع أو نخزن أو نرسل أي معلومات شخصية",
+                "privacy.benefits.anonymity": "الخصوصية الكاملة: استخدم التطبيق دون إنشاء حسابات أو تقديم تفاصيل شخصية",
+                "privacy.benefits.local": "التشغيل المحلي فقط: جميع البيانات تبقى على جهازك - لا توجد خوادم خارجية متضمنة",
+                "privacy.benefits.tracking": "لا تتبع: نحن لا نراقب استخدامك أو تفضيلاتك أو سلوكك",
+                "privacy.collection.title": "1. المعلومات التي نجمعها",
+                "privacy.collection.main": "لا يجمع BentoBii أو يخزن أو يرسل أي معلومات شخصية من المستخدمين.",
+                "privacy.collection.detail": "تطبيقنا يعمل بالكامل دون اتصال بالإنترنت ومحلياً على جهازك. لا يتم جمع حسابات المستخدمين أو البيانات الشخصية أو تتبع الاستخدام أو معلومات الجهاز.",
+                "privacy.usage.title": "2. كيف نستخدم معلوماتك",
+                "privacy.usage.main": "بما أن BentoBii لا يجمع أي بيانات مستخدم، نحن لا نستخدم المعلومات الشخصية لأي أغراض.",
+                "privacy.usage.detail": "يوفر التطبيق جميع الميزات (الوصول إلى الوصفات، المفضلة، التفضيلات) دون الحاجة إلى بيانات المستخدم. جميع البيانات مخزنة محلياً على جهازك.",
+                "privacy.sharing.title": "3. مشاركة وكشف المعلومات",
+                "privacy.sharing.main": "بما أن BentoBii لا يجمع أي بيانات مستخدم، لا توجد معلومات للمشاركة أو الكشف عنها.",
+                "privacy.sharing.detail": "ليس لدينا بيانات مستخدم لمشاركتها مع أطراف ثالثة أو مزودي الخدمات أو للكشف القانوني.",
+                "privacy.security.title": "4. أمان البيانات",
+                "privacy.security.main": "بما أن BentoBii لا يجمع أو يخزن بيانات المستخدم على خوادمنا، لا تنطبق المخاوف التقليدية لأمان البيانات.",
+                "privacy.security.detail": "أمان بياناتك يتم التعامل معه من خلال ميزات الأمان المدمجة في جهازك. يعمل التطبيق بالكامل دون اتصال بالإنترنت دون ثغرات في الخادم الخارجي.",
+                "privacy.rights.title": "5. حقوقك وخياراتك",
+                "privacy.rights.main": "بما أن BentoBii لا يجمع معلومات شخصية، لا تنطبق الحقوق التقليدية للبيانات.",
+                "privacy.rights.detail": "لديك سيطرة كاملة على بياناتك المحلية. قم بإلغاء تثبيت التطبيق لإزالة جميع البيانات المحلية فوراً.",
+                "privacy.thirdparty.title": "6. خدمات الطرف الثالث",
+                "privacy.thirdparty.main": "يعمل BentoBii بالكامل بشكل مستقل دون أي تكاملات أو خدمات من طرف ثالث.",
+                "privacy.thirdparty.detail": "لا يتم استخدام التحليلات أو الإعلانات أو تكامل وسائل التواصل الاجتماعي أو واجهات برمجة التطبيقات الخارجية.",
+                "privacy.children.title": "7. خصوصية الأطفال",
+                "privacy.children.main": "بما أن BentoBii لا يجمع معلومات شخصية من مستخدمين من أي عمر، يتم التعامل مع مخاوف خصوصية الأطفال تلقائياً.",
+                "privacy.children.detail": "التطبيق آمن لجميع الأعمار بدون جمع البيانات أو حسابات المستخدمين أو التتبع.",
+                "privacy.international.title": "8. نقل البيانات الدولية",
+                "privacy.international.main": "بما أن BentoBii لا يجمع أو يخزن بيانات المستخدم، لا توجد عمليات نقل بيانات دولية للتنظيم.",
+                "privacy.international.detail": "نهجنا المحلي فقط يتوافق تلقائياً مع قوانين الخصوصية في جميع أنحاء العالم.",
+                "privacy.changes.title": "9. التغييرات في سياسة الخصوصية هذه",
+                "privacy.changes.main": "بينما قد يتم تحديث سياسة الخصوصية هذه، سيبقى المبدأ الأساسي لعدم جمع البيانات دون تغيير.",
+                "privacy.changes.detail": "قد نقوم بتحديث هذه السياسة لتعكس المتطلبات القانونية أو ميزات التطبيق، لكن التزامنا الأساسي بالخصوصية لن يتغير.",
+                "privacy.updated": "آخر تحديث: 11 أغسطس 2025",
+                "privacy.version": "الإصدار: 1.0",
+                "privacy.back": "← العودة إلى BentoBii"
+            },
+            fr: {
+                "privacy.title": "Politique de Confidentialité",
+                "privacy.subtitle": "BentoBii - Délicieux et Sain Globalement",
+                "privacy.benefits.title": "🔒 Avantages Clés de la Confidentialité",
+                "privacy.benefits.intro": "BentoBii est conçu avec la confidentialité comme principe fondamental :",
+                "privacy.benefits.zero": "Zéro Collecte de Données : Nous ne collectons, stockons ou transmettons aucune information personnelle",
+                "privacy.benefits.anonymity": "Anonymat Complet : Utilisez l'application sans créer de comptes ou fournir de détails personnels",
+                "privacy.benefits.local": "Fonctionnement Local Uniquement : Toutes les données restent sur votre appareil - aucun serveur externe impliqué",
+                "privacy.benefits.tracking": "Aucun Suivi : Nous ne surveillons pas votre utilisation, préférences ou comportement",
+                "privacy.collection.title": "1. Informations que Nous Collectons",
+                "privacy.collection.main": "BentoBii ne collecte, stocke ou transmet aucune information personnelle des utilisateurs.",
+                "privacy.collection.detail": "Notre application fonctionne entièrement hors ligne et localement sur votre appareil. Aucun compte utilisateur, donnée personnelle, suivi d'utilisation ou information d'appareil n'est collecté.",
+                "privacy.usage.title": "2. Comment Nous Utilisons Vos Informations",
+                "privacy.usage.main": "Étant donné que BentoBii ne collecte aucune donnée utilisateur, nous n'utilisons pas d'informations personnelles à quelque fin que ce soit.",
+                "privacy.usage.detail": "L'application fournit toutes les fonctionnalités (accès aux recettes, favoris, préférences) sans nécessiter de données utilisateur. Toutes les données sont stockées localement sur votre appareil.",
+                "privacy.sharing.title": "3. Partage et Divulgation d'Informations",
+                "privacy.sharing.main": "Étant donné que BentoBii ne collecte aucune donnée utilisateur, il n'y a aucune information à partager ou divulguer.",
+                "privacy.sharing.detail": "Nous n'avons aucune donnée utilisateur à partager avec des tiers, fournisseurs de services ou pour des divulgations légales.",
+                "privacy.security.title": "4. Sécurité des Données",
+                "privacy.security.main": "Étant donné que BentoBii ne collecte ou stocke pas de données utilisateur sur nos serveurs, les préoccupations traditionnelles de sécurité des données ne s'appliquent pas.",
+                "privacy.security.detail": "La sécurité de vos données est gérée par les fonctionnalités de sécurité intégrées de votre appareil. L'application fonctionne entièrement hors ligne sans vulnérabilités du serveur externe.",
+                "privacy.rights.title": "5. Vos Droits et Choix",
+                "privacy.rights.main": "Étant donné que BentoBii ne collecte pas d'informations personnelles, les droits traditionnels sur les données ne s'appliquent pas.",
+                "privacy.rights.detail": "Vous avez un contrôle complet sur vos données locales. Désinstallez l'application pour supprimer instantanément toutes les données locales.",
+                "privacy.thirdparty.title": "6. Services Tiers",
+                "privacy.thirdparty.main": "BentoBii fonctionne entièrement de manière indépendante sans aucune intégration ou service tiers.",
+                "privacy.thirdparty.detail": "Aucune analyse, publicité, intégration de réseaux sociaux ou API externe n'est utilisée.",
+                "privacy.children.title": "7. Confidentialité des Enfants",
+                "privacy.children.main": "Étant donné que BentoBii ne collecte aucune information personnelle d'utilisateurs de tout âge, les préoccupations de confidentialité des enfants sont automatiquement abordées.",
+                "privacy.children.detail": "L'application est sûre pour les utilisateurs de tous âges sans collecte de données, comptes utilisateur ou suivi.",
+                "privacy.international.title": "8. Transferts Internationaux de Données",
+                "privacy.international.main": "Étant donné que BentoBii ne collecte ou stocke pas de données utilisateur, il n'y a aucun transfert international de données à réglementer.",
+                "privacy.international.detail": "Notre approche locale uniquement se conforme automatiquement aux lois de confidentialité dans le monde entier.",
+                "privacy.changes.title": "9. Modifications de cette Politique de Confidentialité",
+                "privacy.changes.main": "Bien que cette Politique de Confidentialité puisse être mise à jour, le principe fondamental de non-collecte de données restera inchangé.",
+                "privacy.changes.detail": "Nous pouvons mettre à jour cette politique pour refléter les exigences légales ou les fonctionnalités de l'application, mais notre engagement fondamental en matière de confidentialité ne changera pas.",
+                "privacy.updated": "Dernière Mise à Jour : 11 Août 2025",
+                "privacy.version": "Version : 1.0",
+                "privacy.back": "← Retour à BentoBii"
+            },
+            ru: {
+                "privacy.title": "Политика Конфиденциальности",
+                "privacy.subtitle": "BentoBii - Здоровое Глобальное Вкусно",
+                "privacy.benefits.title": "🔒 Ключевые Преимущества Конфиденциальности",
+                "privacy.benefits.intro": "BentoBii разработан с конфиденциальностью как основным принципом:",
+                "privacy.benefits.zero": "Нулевой Сбор Данных: Мы не собираем, не храним и не передаем никакую личную информацию",
+                "privacy.benefits.anonymity": "Полная Анонимность: Используйте приложение без создания аккаунтов или предоставления личных деталей",
+                "privacy.benefits.local": "Только Локальная Работа: Все данные остаются на вашем устройстве - внешние серверы не задействованы",
+                "privacy.benefits.tracking": "Отсутствие Отслеживания: Мы не отслеживаем ваше использование, предпочтения или поведение",
+                "privacy.collection.title": "1. Информация, Которую Мы Собираем",
+                "privacy.collection.main": "BentoBii не собирает, не хранит и не передает никакую личную информацию от пользователей.",
+                "privacy.collection.detail": "Наше приложение работает полностью офлайн и локально на вашем устройстве. Не собираются аккаунты пользователей, личные данные, отслеживание использования или информация об устройстве.",
+                "privacy.usage.title": "2. Как Мы Используем Вашу Информацию",
+                "privacy.usage.main": "Поскольку BentoBii не собирает никаких пользовательских данных, мы не используем личную информацию для каких-либо целей.",
+                "privacy.usage.detail": "Приложение предоставляет все функции (доступ к рецептам, избранное, настройки) без необходимости пользовательских данных. Все данные хранятся локально на вашем устройстве.",
+                "privacy.sharing.title": "3. Обмен и Раскрытие Информации",
+                "privacy.sharing.main": "Поскольку BentoBii не собирает никаких пользовательских данных, нет информации для обмена или раскрытия.",
+                "privacy.sharing.detail": "У нас нет пользовательских данных для обмена с третьими лицами, поставщиками услуг или для юридических раскрытий.",
+                "privacy.security.title": "4. Безопасность Данных",
+                "privacy.security.main": "Поскольку BentoBii не собирает и не хранит пользовательские данные на наших серверах, традиционные проблемы безопасности данных не применяются.",
+                "privacy.security.detail": "Безопасность ваших данных обеспечивается встроенными функциями безопасности вашего устройства. Приложение работает полностью офлайн без уязвимостей внешнего сервера.",
+                "privacy.rights.title": "5. Ваши Права и Выбор",
+                "privacy.rights.main": "Поскольку BentoBii не собирает личную информацию, традиционные права на данные не применяются.",
+                "privacy.rights.detail": "У вас есть полный контроль над вашими локальными данными. Удалите приложение, чтобы мгновенно удалить все локальные данные.",
+                "privacy.thirdparty.title": "6. Сторонние Сервисы",
+                "privacy.thirdparty.main": "BentoBii работает полностью независимо без каких-либо сторонних интеграций или сервисов.",
+                "privacy.thirdparty.detail": "Не используются аналитика, реклама, интеграция с социальными сетями или внешние API.",
+                "privacy.children.title": "7. Конфиденциальность Детей",
+                "privacy.children.main": "Поскольку BentoBii не собирает никакую личную информацию от пользователей любого возраста, проблемы конфиденциальности детей решаются автоматически.",
+                "privacy.children.detail": "Приложение безопасно для пользователей всех возрастов без сбора данных, пользовательских аккаунтов или отслеживания.",
+                "privacy.international.title": "8. Международная Передача Данных",
+                "privacy.international.main": "Поскольку BentoBii не собирает и не хранит пользовательские данные, нет международных передач данных для регулирования.",
+                "privacy.international.detail": "Наш подход только локально автоматически соответствует законам о конфиденциальности во всем мире.",
+                "privacy.changes.title": "9. Изменения в Этой Политике Конфиденциальности",
+                "privacy.changes.main": "Хотя эта Политика Конфиденциальности может быть обновлена, основной принцип отсутствия сбора данных останется неизменным.",
+                "privacy.changes.detail": "Мы можем обновить эту политику, чтобы отразить юридические требования или функции приложения, но наше основное обязательство по конфиденциальности не изменится.",
+                "privacy.updated": "Последнее Обновление: 11 Августа 2025",
+                "privacy.version": "Версия: 1.0",
+                "privacy.back": "← Назад к BentoBii"
+            },
+            de: {
+                "privacy.title": "Datenschutzerklärung",
+                "privacy.subtitle": "BentoBii - Gesund und Lecker Global",
+                "privacy.benefits.title": "🔒 Wichtige Datenschutzvorteile",
+                "privacy.benefits.intro": "BentoBii ist mit Datenschutz als Kernprinzip konzipiert:",
+                "privacy.benefits.zero": "Keine Datenerfassung: Wir sammeln, speichern oder übertragen keine persönlichen Informationen",
+                "privacy.benefits.anonymity": "Vollständige Anonymität: Nutzen Sie die App ohne Konten zu erstellen oder persönliche Details anzugeben",
+                "privacy.benefits.local": "Nur lokaler Betrieb: Alle Daten bleiben auf Ihrem Gerät - keine externen Server beteiligt",
+                "privacy.benefits.tracking": "Keine Verfolgung: Wir überwachen nicht Ihre Nutzung, Präferenzen oder Ihr Verhalten",
+                "privacy.collection.title": "1. Informationen, die wir sammeln",
+                "privacy.collection.main": "BentoBii sammelt, speichert oder überträgt keine persönlichen Informationen von Benutzern.",
+                "privacy.collection.detail": "Unsere App funktioniert vollständig offline und lokal auf Ihrem Gerät. Es werden keine Benutzerkonten, persönliche Daten, Nutzungsverfolgung oder Geräteinformationen gesammelt.",
+                "privacy.usage.title": "2. Wie wir Ihre Informationen verwenden",
+                "privacy.usage.main": "Da BentoBii keine Benutzerdaten sammelt, verwenden wir persönliche Informationen nicht für irgendwelche Zwecke.",
+                "privacy.usage.detail": "Die App bietet alle Funktionen (Rezeptzugang, Favoriten, Einstellungen) ohne Benutzerdaten zu benötigen. Alle Daten werden lokal auf Ihrem Gerät gespeichert.",
+                "privacy.sharing.title": "3. Weitergabe und Offenlegung von Informationen",
+                "privacy.sharing.main": "Da BentoBii keine Benutzerdaten sammelt, gibt es keine Informationen, die geteilt oder offengelegt werden könnten.",
+                "privacy.sharing.detail": "Wir haben keine Benutzerdaten, die wir mit Dritten, Dienstleistern oder für rechtliche Offenlegungen teilen könnten.",
+                "privacy.security.title": "4. Datensicherheit",
+                "privacy.security.main": "Da BentoBii keine Benutzerdaten auf unseren Servern sammelt oder speichert, gelten traditionelle Datensicherheitsbedenken nicht.",
+                "privacy.security.detail": "Ihre Datensicherheit wird durch die eingebauten Sicherheitsfunktionen Ihres Geräts gehandhabt. Die App funktioniert vollständig offline ohne externe Server-Schwachstellen.",
+                "privacy.rights.title": "5. Ihre Rechte und Wahlmöglichkeiten",
+                "privacy.rights.main": "Da BentoBii keine persönlichen Informationen sammelt, gelten traditionelle Datenrechte nicht.",
+                "privacy.rights.detail": "Sie haben vollständige Kontrolle über Ihre lokalen Daten. Deinstallieren Sie die App, um alle lokalen Daten sofort zu entfernen.",
+                "privacy.thirdparty.title": "6. Drittanbieter-Dienste",
+                "privacy.thirdparty.main": "BentoBii funktioniert vollständig unabhängig ohne Drittanbieter-Integrationen oder -Dienste.",
+                "privacy.thirdparty.detail": "Es werden keine Analysen, Werbung, Social-Media-Integrationen oder externe APIs verwendet.",
+                "privacy.children.title": "7. Datenschutz für Kinder",
+                "privacy.children.main": "Da BentoBii keine persönlichen Informationen von Benutzern jeden Alters sammelt, werden Datenschutzbedenken für Kinder automatisch angesprochen.",
+                "privacy.children.detail": "Die App ist für Benutzer aller Altersgruppen sicher ohne Datensammlung, Benutzerkonten oder Verfolgung.",
+                "privacy.international.title": "8. Internationale Datenübertragungen",
+                "privacy.international.main": "Da BentoBii keine Benutzerdaten sammelt oder speichert, gibt es keine internationalen Datenübertragungen zu regulieren.",
+                "privacy.international.detail": "Unser nur-lokaler Ansatz entspricht automatisch den Datenschutzgesetzen weltweit.",
+                "privacy.changes.title": "9. Änderungen dieser Datenschutzerklärung",
+                "privacy.changes.main": "Während diese Datenschutzerklärung aktualisiert werden kann, bleibt das Kernprinzip der Nicht-Datensammlung unverändert.",
+                "privacy.changes.detail": "Wir können diese Richtlinie aktualisieren, um rechtliche Anforderungen oder App-Funktionen widerzuspiegeln, aber unser grundlegendes Datenschutzversprechen wird sich nicht ändern.",
+                "privacy.updated": "Zuletzt aktualisiert: 11. August 2025",
+                "privacy.version": "Version: 1.0",
+                "privacy.back": "← Zurück zu BentoBii"
+            },
+            pt: {
+                "privacy.title": "Política de Privacidade",
+                "privacy.subtitle": "BentoBii - Saudável e Delicioso Global",
+                "privacy.benefits.title": "🔒 Benefícios Principais de Privacidade",
+                "privacy.benefits.intro": "BentoBii é projetado com privacidade como princípio fundamental:",
+                "privacy.benefits.zero": "Zero Coleta de Dados: Não coletamos, armazenamos ou transmitimos nenhuma informação pessoal",
+                "privacy.benefits.anonymity": "Anonimato Completo: Use o aplicativo sem criar contas ou fornecer detalhes pessoais",
+                "privacy.benefits.local": "Operação Apenas Local: Todos os dados permanecem no seu dispositivo - nenhum servidor externo envolvido",
+                "privacy.benefits.tracking": "Sem Rastreamento: Não monitoramos seu uso, preferências ou comportamento",
+                "privacy.collection.title": "1. Informações que Coletamos",
+                "privacy.collection.main": "BentoBii não coleta, armazena ou transmite nenhuma informação pessoal dos usuários.",
+                "privacy.collection.detail": "Nosso aplicativo funciona completamente offline e localmente no seu dispositivo. Nenhuma conta de usuário, dado pessoal, rastreamento de uso ou informação do dispositivo é coletada.",
+                "privacy.usage.title": "2. Como Usamos Suas Informações",
+                "privacy.usage.main": "Como BentoBii não coleta dados do usuário, não usamos informações pessoais para nenhum propósito.",
+                "privacy.usage.detail": "O aplicativo fornece todas as funcionalidades (acesso a receitas, favoritos, preferências) sem exigir dados do usuário. Todos os dados são armazenados localmente no seu dispositivo.",
+                "privacy.sharing.title": "3. Compartilhamento e Divulgação de Informações",
+                "privacy.sharing.main": "Como BentoBii não coleta dados do usuário, não há informações para compartilhar ou divulgar.",
+                "privacy.sharing.detail": "Não temos dados do usuário para compartilhar com terceiros, provedores de serviços ou para divulgações legais.",
+                "privacy.security.title": "4. Segurança de Dados",
+                "privacy.security.main": "Como BentoBii não coleta ou armazena dados do usuário em nossos servidores, as preocupações tradicionais de segurança de dados não se aplicam.",
+                "privacy.security.detail": "A segurança dos seus dados é gerenciada pelos recursos de segurança integrados do seu dispositivo. O aplicativo funciona completamente offline sem vulnerabilidades do servidor externo.",
+                "privacy.rights.title": "5. Seus Direitos e Escolhas",
+                "privacy.rights.main": "Como BentoBii não coleta informações pessoais, os direitos tradicionais de dados não se aplicam.",
+                "privacy.rights.detail": "Você tem controle completo sobre seus dados locais. Desinstale o aplicativo para remover instantaneamente todos os dados locais.",
+                "privacy.thirdparty.title": "6. Serviços de Terceiros",
+                "privacy.thirdparty.main": "BentoBii funciona completamente de forma independente sem integrações ou serviços de terceiros.",
+                "privacy.thirdparty.detail": "Nenhuma análise, publicidade, integração de mídia social ou API externa é usada.",
+                "privacy.children.title": "7. Privacidade das Crianças",
+                "privacy.children.main": "Como BentoBii não coleta informações pessoais de usuários de qualquer idade, as preocupações de privacidade das crianças são automaticamente abordadas.",
+                "privacy.children.detail": "O aplicativo é seguro para usuários de todas as idades sem coleta de dados, contas de usuário ou rastreamento.",
+                "privacy.international.title": "8. Transferências Internacionais de Dados",
+                "privacy.international.main": "Como BentoBii não coleta ou armazena dados do usuário, não há transferências internacionais de dados para regular.",
+                "privacy.international.detail": "Nossa abordagem apenas local automaticamente cumpre as leis de privacidade em todo o mundo.",
+                "privacy.changes.title": "9. Alterações nesta Política de Privacidade",
+                "privacy.changes.main": "Embora esta Política de Privacidade possa ser atualizada, o princípio fundamental de não coleta de dados permanecerá inalterado.",
+                "privacy.changes.detail": "Podemos atualizar esta política para refletir requisitos legais ou recursos do aplicativo, mas nosso compromisso fundamental de privacidade não mudará.",
+                "privacy.updated": "Última Atualização: 11 de Agosto de 2025",
+                "privacy.version": "Versão: 1.0",
+                "privacy.back": "← Voltar para BentoBii"
+            },
+            ko: {
+                "privacy.title": "개인정보 처리방침",
+                "privacy.subtitle": "BentoBii - 건강한 글로벌 맛",
+                "privacy.benefits.title": "🔒 주요 개인정보 보호 혜택",
+                "privacy.benefits.intro": "BentoBii는 개인정보 보호를 핵심 원칙으로 설계되었습니다:",
+                "privacy.benefits.zero": "데이터 수집 제로: 개인정보를 수집, 저장 또는 전송하지 않습니다",
+                "privacy.benefits.anonymity": "완전한 익명성: 계정 생성이나 개인 상세정보 제공 없이 앱을 사용하세요",
+                "privacy.benefits.local": "로컬 전용 운영: 모든 데이터는 기기에 저장됩니다 - 외부 서버가 관여하지 않습니다",
+                "privacy.benefits.tracking": "추적 없음: 사용, 선호도 또는 행동을 모니터링하지 않습니다",
+                "privacy.collection.title": "1. 수집하는 정보",
+                "privacy.collection.main": "BentoBii는 사용자로부터 개인정보를 수집, 저장 또는 전송하지 않습니다.",
+                "privacy.collection.detail": "앱은 완전히 오프라인으로 기기에서 로컬하게 작동합니다. 사용자 계정, 개인 데이터, 사용 추적 또는 기기 정보를 수집하지 않습니다.",
+                "privacy.usage.title": "2. 정보 사용 방법",
+                "privacy.usage.main": "BentoBii가 사용자 데이터를 수집하지 않기 때문에 개인정보를 어떤 목적으로도 사용하지 않습니다.",
+                "privacy.usage.detail": "앱은 사용자 데이터 없이도 모든 기능(레시피 접근, 즐겨찾기, 설정)을 제공합니다. 모든 데이터는 기기에 로컬하게 저장됩니다.",
+                "privacy.sharing.title": "3. 정보 공유 및 공개",
+                "privacy.sharing.main": "BentoBii가 사용자 데이터를 수집하지 않기 때문에 공유하거나 공개할 정보가 없습니다.",
+                "privacy.sharing.detail": "제3자, 서비스 제공업체 또는 법적 공개를 위해 공유할 사용자 데이터가 없습니다.",
+                "privacy.security.title": "4. 데이터 보안",
+                "privacy.security.main": "BentoBii가 서버에 사용자 데이터를 수집하거나 저장하지 않기 때문에 전통적인 데이터 보안 우려사항이 적용되지 않습니다.",
+                "privacy.security.detail": "데이터 보안은 기기의 내장 보안 기능으로 처리됩니다. 앱은 외부 서버 취약점 없이 완전히 오프라인으로 작동합니다.",
+                "privacy.rights.title": "5. 귀하의 권리와 선택",
+                "privacy.rights.main": "BentoBii가 개인정보를 수집하지 않기 때문에 전통적인 데이터 권리가 적용되지 않습니다.",
+                "privacy.rights.detail": "로컬 데이터에 대한 완전한 통제권을 가지고 있습니다. 앱을 제거하여 모든 로컬 데이터를 즉시 삭제하세요.",
+                "privacy.thirdparty.title": "6. 제3자 서비스",
+                "privacy.thirdparty.main": "BentoBii는 제3자 통합이나 서비스 없이 완전히 독립적으로 작동합니다.",
+                "privacy.thirdparty.detail": "분석, 광고, 소셜 미디어 통합 또는 외부 API를 사용하지 않습니다.",
+                "privacy.children.title": "7. 아동 개인정보 보호",
+                "privacy.children.main": "BentoBii가 모든 연령의 사용자로부터 개인정보를 수집하지 않기 때문에 아동 개인정보 보호 우려사항이 자동으로 해결됩니다.",
+                "privacy.children.detail": "앱은 데이터 수집, 사용자 계정 또는 추적 없이 모든 연령의 사용자에게 안전합니다.",
+                "privacy.international.title": "8. 국제 데이터 전송",
+                "privacy.international.main": "BentoBii가 사용자 데이터를 수집하거나 저장하지 않기 때문에 규제할 국제 데이터 전송이 없습니다.",
+                "privacy.international.detail": "로컬 전용 접근 방식은 전 세계의 개인정보 보호 법률을 자동으로 준수합니다.",
+                "privacy.changes.title": "9. 이 개인정보 처리방침의 변경",
+                "privacy.changes.main": "이 개인정보 처리방침이 업데이트될 수 있지만 데이터 수집 금지의 핵심 원칙은 변경되지 않을 것입니다.",
+                "privacy.changes.detail": "법적 요구사항이나 앱 기능을 반영하기 위해 이 정책을 업데이트할 수 있지만 기본적인 개인정보 보호 약속은 변경되지 않을 것입니다.",
+                "privacy.updated": "마지막 업데이트: 2025년 8월 11일",
+                "privacy.version": "버전: 1.0",
+                "privacy.back": "← BentoBii로 돌아가기"
+            }
+        };
+
+        // Function to change language
+        function changeLanguage(language) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[language] && translations[language][key]) {
+                    element.textContent = translations[language][key];
+                }
+            });
+            
+            // Update page language attribute
+            document.documentElement.lang = language;
+            
+            // Store language preference
+            localStorage.setItem('preferred-language', language);
+        }
+
+        // Set initial language based on stored preference or browser language
+        document.addEventListener('DOMContentLoaded', function() {
+            const storedLanguage = localStorage.getItem('preferred-language');
+            const browserLanguage = navigator.language.split('-')[0];
+            const initialLanguage = storedLanguage || (translations[browserLanguage] ? browserLanguage : 'en');
+            
+            document.getElementById('language-select').value = initialLanguage;
+            changeLanguage(initialLanguage);
+        });
+    </script>
 </body>
 </html>
