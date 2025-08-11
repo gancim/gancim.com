@@ -18,9 +18,11 @@ This repository contains the source code for [www.gancim.com](https://www.gancim
 3. Scroll down to "GitHub Pages" section
 4. Select "Deploy from a branch"
 5. Choose the `main` branch (or your default branch)
-6. Click "Save"
+6. **Add custom domain**: `gancim.com`
+7. Check "Enforce HTTPS" if available
+8. Click "Save"
 
-Your site will be available at: `https://yourusername.github.io/gancim.com`
+Your site will be available at: `https://gancim.com`
 
 ### 2. Custom Domain Setup
 
