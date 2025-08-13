@@ -2,22 +2,168 @@
   "@context": "https://schema.org",
   "@type": "MobileApplication",
   "name": "BentoBii",
+  "alternateName": "ベントビー",
   "description": "Healthy Global Delicious - Over 100 authentic recipes from around the world, specially adapted for diabetes management without sacrificing authentic flavors.",
+  "description_en": "Healthy Global Delicious - Over 100 authentic recipes from around the world, specially adapted for diabetes management without sacrificing authentic flavors.",
+  "description_ja": "ヘルシー・グローバル・デリシャス。世界中の本格レシピ100品以上を、糖尿病管理向けにアレンジし、味を損なわずに楽しめます。",
+  "description_es": "Saludable, global y delicioso: más de 100 recetas auténticas de todo el mundo, especialmente adaptadas para el manejo de la diabetes sin sacrificar el sabor auténtico.",
+  "description_fr": "Délicieux, sain et international : plus de 100 recettes authentiques du monde entier, spécialement adaptées à la gestion du diabète sans sacrifier les saveurs authentiques.",
+  "description_de": "Gesund, global, köstlich – über 100 authentische Rezepte aus aller Welt, speziell für das Diabetesmanagement angepasst, ohne auf authentischen Geschmack zu verzichten.",
+  "description_it": "Sano, globale, delizioso: oltre 100 ricette autentiche da tutto il mondo, appositamente adattate per la gestione del diabete senza rinunciare ai sapori autentici.",
+  "description_zh": "健康、全球、美味——来自世界各地的100多道正宗食谱，专为糖尿病管理而调整，且不牺牲原汁原味。",
+  "description_ko": "건강하고 글로벌하며 맛있는 - 전 세계 100가지 이상의 정통 레시피를 당뇨병 관리를 위해 특별히 조정하여 본연의 맛을 그대로 즐길 수 있습니다.",
+  "description_ru": "Здорово, вкусно, по всему миру — более 100 аутентичных рецептов со всего мира, специально адаптированных для управления диабетом без потери настоящего вкуса.",
+  "description_pt": "Saudável, global e delicioso – mais de 100 receitas autênticas de todo o mundo, especialmente adaptadas para o controle do diabetes sem sacrificar os sabores autênticos.",
+  "description_tr": "Sağlıklı, küresel ve lezzetli – Diyabet yönetimi için özel olarak uyarlanmış, dünyanın dört bir yanından 100'den fazla otantik tarif, özgün lezzetlerden ödün vermeden.",
+  "description_vi": "Ngon lành, toàn cầu, lành mạnh – Hơn 100 công thức nấu ăn chính gốc từ khắp nơi trên thế giới, được điều chỉnh đặc biệt cho quản lý tiểu đường mà không làm mất đi hương vị đích thực.",
+  "description_id": "Sehat, global, lezat – Lebih dari 100 resep otentik dari seluruh dunia, disesuaikan khusus untuk pengelolaan diabetes tanpa mengorbankan cita rasa asli.",
+  "description_th": "อร่อย สุขภาพดี ระดับโลก - กว่า 100 สูตรอาหารต้นตำรับจากทั่วโลก ปรับสูตรพิเศษสำหรับผู้ดูแลเบาหวานโดยไม่ลดทอนรสชาติแท้",
   "applicationCategory": "HealthApplication",
   "operatingSystem": "iOS",
+  "inLanguage": [
+    "en",
+    "ja",
+    "es",
+    "fr",
+    "de",
+    "it",
+    "zh",
+    "ko",
+    "ru",
+    "pt",
+    "tr",
+    "vi",
+    "id",
+    "th"
+  ],
   "offers": {
     "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
+    "price": "200",
+    "priceCurrency": "JPY",
+    "priceSpecification": [
+      {
+        "@type": "PriceSpecification",
+        "price": "200",
+        "priceCurrency": "JPY",
+        "description_en": "Regular price: 200 yen",
+        "description_ja": "通常価格：200円"
+      }
+    ]
   },
-  "featureList": [
-    "100+ authentic global recipes",
-    "Diabetes management focused",
-    "Multi-language support",
-    "Nutritional information",
-    "Recipe favorites",
-    "Country-based cuisine selection"
-  ],
+  "featureList": {
+    "en": [
+      "100+ authentic global recipes",
+      "Diabetes management focused",
+      "Multi-language support",
+      "Nutritional information",
+      "Recipe favorites",
+      "Country-based cuisine selection"
+    ],
+    "ja": [
+      "100以上の本格的な世界のレシピ",
+      "糖尿病管理に特化",
+      "多言語対応",
+      "栄養情報付き",
+      "お気に入りレシピ機能",
+      "国別料理の選択"
+    ],
+    "es": [
+      "Más de 100 recetas auténticas de todo el mundo",
+      "Enfoque en el manejo de la diabetes",
+      "Soporte multilingüe",
+      "Información nutricional",
+      "Recetas favoritas",
+      "Selección de cocina por país"
+    ],
+    "fr": [
+      "Plus de 100 recettes authentiques du monde entier",
+      "Axé sur la gestion du diabète",
+      "Support multilingue",
+      "Informations nutritionnelles",
+      "Recettes favorites",
+      "Sélection de cuisine par pays"
+    ],
+    "de": [
+      "Über 100 authentische Rezepte aus aller Welt",
+      "Fokus auf Diabetesmanagement",
+      "Mehrsprachige Unterstützung",
+      "Nährwertangaben",
+      "Rezept-Favoriten",
+      "Länderspezifische Küchenauswahl"
+    ],
+    "it": [
+      "Oltre 100 ricette autentiche da tutto il mondo",
+      "Gestione del diabete",
+      "Supporto multilingue",
+      "Informazioni nutrizionali",
+      "Ricette preferite",
+      "Selezione di cucina per paese"
+    ],
+    "zh": [
+      "100多道正宗全球食谱",
+      "专注于糖尿病管理",
+      "多语言支持",
+      "营养信息",
+      "收藏食谱",
+      "按国家选择菜系"
+    ],
+    "ko": [
+      "100가지 이상의 정통 글로벌 레시피",
+      "당뇨병 관리에 중점",
+      "다국어 지원",
+      "영양 정보 제공",
+      "즐겨찾기 레시피",
+      "국가별 요리 선택"
+    ],
+    "ru": [
+      "Более 100 аутентичных рецептов со всего мира",
+      "Фокус на управление диабетом",
+      "Многоязычная поддержка",
+      "Пищевая информация",
+      "Избранные рецепты",
+      "Выбор кухни по странам"
+    ],
+    "pt": [
+      "Mais de 100 receitas autênticas do mundo todo",
+      "Foco no controle do diabetes",
+      "Suporte multilíngue",
+      "Informação nutricional",
+      "Receitas favoritas",
+      "Seleção de culinária por país"
+    ],
+    "tr": [
+      "100'den fazla otantik dünya tarifi",
+      "Diyabet yönetimine odaklı",
+      "Çoklu dil desteği",
+      "Besin bilgisi",
+      "Favori tarifler",
+      "Ülkeye göre mutfak seçimi"
+    ],
+    "vi": [
+      "Hơn 100 công thức nấu ăn chính gốc toàn cầu",
+      "Tập trung vào quản lý tiểu đường",
+      "Hỗ trợ đa ngôn ngữ",
+      "Thông tin dinh dưỡng",
+      "Công thức yêu thích",
+      "Lựa chọn ẩm thực theo quốc gia"
+    ],
+    "id": [
+      "Lebih dari 100 resep otentik dari seluruh dunia",
+      "Fokus pada pengelolaan diabetes",
+      "Dukungan multibahasa",
+      "Informasi nutrisi",
+      "Resep favorit",
+      "Pilihan masakan berdasarkan negara"
+    ],
+    "th": [
+      "สูตรอาหารต้นตำรับกว่า 100 รายการจากทั่วโลก",
+      "เน้นการดูแลเบาหวาน",
+      "รองรับหลายภาษา",
+      "ข้อมูลโภชนาการ",
+      "เมนูโปรด",
+      "เลือกอาหารตามประเทศ"
+    ]
+  },
   "author": {
     "@type": "Person",
     "name": "Marco Ganci"
@@ -25,5 +171,7 @@
   "publisher": {
     "@type": "Organization",
     "name": "gancim.com"
-  }
+  },
+  "image": "https://gancim.com/bentobii/app-icon.png",
+  "url": "https://gancim.com/bentobii/"
 }

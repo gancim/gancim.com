@@ -3,29 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gancim</title>
-    <meta name="description" content="Gancim - Digital presence and innovation. Web development, UI/UX design, and innovative digital solutions. Discover my portfolio and projects.">
-    <meta name="keywords" content="Gancim, web development, UI/UX design, digital innovation, portfolio, developer, designer">
-    <meta name="author" content="Gancim">
+    <title>Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker</title>
+    <meta name="description" content="Marco Ganci - Senior Engineering Manager, MoM at Mercari Japan">
+    <meta name="keywords" content="Marco Ganci, Senior Engineering Manager, Mercari, Software Engineering, Japan">
+    <meta name="author" content="Marco Ganci">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://gancim.com/">
-    <meta property="og:title" content="Gancim - Digital Presence & Innovation">
-    <meta property="og:description" content="Gancim - Digital presence and innovation. Web development, UI/UX design, and innovative digital solutions.">
-    <meta property="og:image" content="https://gancim.com/og-image.png">
-    <meta property="og:site_name" content="Gancim">
+    <meta property="og:title" content="Marco Ganci">
+    <meta property="og:description" content="Senior Engineering Manager, MoM at Mercari Japan">
+    <meta property="og:image" content="https://gancim.com/logo.png">
+    <meta property="og:site_name" content="Marco Ganci">
     <meta property="og:locale" content="en_US">
-
+    
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://gancim.com/">
-    <meta property="twitter:title" content="Gancim - Digital Presence & Innovation">
-    <meta property="twitter:description" content="Gancim - Digital presence and innovation. Web development, UI/UX design, and innovative digital solutions.">
-    <meta property="twitter:image" content="https://gancim.com/og-image.png">
-    <meta property="twitter:creator" content="@gancim">
+    <meta property="twitter:title" content="Marco Ganci">
+    <meta property="twitter:description" content="Senior Engineering Manager, MoM at Mercari Japan">
+    <meta property="twitter:image" content="https://gancim.com/logo.png">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -36,79 +35,252 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://gancim.com/">
     
-    <!-- Preconnect to external domains -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="styles.css">
+    <!-- Preload Logo Images -->
+    <link rel="preload" href="logo.png" as="image">
+    <link rel="preload" href="logo_2.png" as="image">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .main-container {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+        }
+        
+        
+        .logo-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .logo {
+            width: 400px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+        
+        .logo-hover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .logo-container:hover .logo {
+            opacity: 0;
+        }
+        
+        .logo-container:hover .logo-hover {
+            opacity: 1;
+        }
+        
+        .links-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #000000;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+        }
+        
+        .link-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        
+        .link-text {
+            display: none;
+        }
+        
+        .footer {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        .link-icon {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            transform: rotate(var(--rotation));
+        }
+        
+        .link-item:hover .link-icon {
+            transform: rotate(var(--rotation)) scale(1.2);
+        }
+        
+        .link-icon-image {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            filter: grayscale(100%) contrast(120%);
+        }
+        
+        .link-icon svg {
+            width: 100px;
+            height: 100px;
+            color: #666;
+            transition: all 0.3s ease;
+            filter: grayscale(100%) contrast(120%);
+        }
+        
+        .link-item:hover .link-icon-image,
+        .link-item:hover svg {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+            
+            .logo,
+            .logo-hover {
+                width: 300px;
+            }
+            
+            .links-container {
+                gap: 1.5rem;
+            }
+            
+            .link-item {
+                padding: 0.4rem;
+            }
+            
+            .link-icon {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .link-icon-image,
+            .link-icon svg {
+                width: 90px;
+                height: 90px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo,
+            .logo-hover {
+                width: 240px;
+            }
+            
+            .links-container {
+                gap: 1rem;
+            }
+            
+            .link-icon {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .link-icon-image,
+            .link-icon svg {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <nav class="nav">
-                <div class="nav-brand">G</div>
-                <div class="nav-links">
-                    <a href="#about">About</a>
-                    <a href="bentobii/">Bentobii</a>
-                    <a href="#contact">Contact</a>
+    <div class="main-container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="logo.png" alt="Marco Ganci" class="logo">
+            <img src="logo_2.png" alt="Marco Ganci" class="logo-hover">
+        </div>
+        
+        <!-- Links -->
+        <div class="links-container">
+            <a href="https://linkedin.com/in/marcoganci" target="_blank" class="link-item">
+                <div class="link-icon" style="--rotation: -5deg;">
+                    <img src="images/linkedin.png" alt="LinkedIn" class="link-icon-image">
                 </div>
-            </nav>
-        </header>
-
-        <main class="main">
-            <section class="hero">
-                <div class="hero-content">
-                    <h1 class="hero-title">
-                        <span class="title-line">Hello, I'm</span>
-                        <span class="title-main">Gancim</span>
-                    </h1>
-                    <p class="hero-subtitle">Building digital experiences with purpose</p>
-                    <div class="hero-actions">
-                        <a href="#about" class="btn btn-primary">Learn More</a>
-                        <a href="bentobii/" class="btn btn-secondary">View Work</a>
-                    </div>
+            </a>
+            
+            <a href="https://apps.apple.com/us/developer/marco-ganci/id1832268650" class="link-item">
+                <div class="link-icon" style="--rotation: 3deg;">
+                    <img src="images/applestore.png" alt="App Store" class="link-icon-image">
                 </div>
-                <div class="hero-visual">
-                    <div class="floating-element"></div>
+            </a>
+            
+            <a href="https://github.com/gancim" target="_blank" class="link-item">
+                <div class="link-icon" style="--rotation: -2deg;">
+                    <img src="images/github.png" alt="Github" class="link-icon-image">
                 </div>
-            </section>
-
-            <section id="about" class="about">
-                <div class="section-content">
-                    <h2 class="section-title">About</h2>
-                    <p class="section-text">
-                        I create digital solutions that matter. From web applications to innovative projects, 
-                        every line of code serves a purpose.
-                    </p>
-                    <div class="skills">
-                        <span class="skill-tag">Web Development</span>
-                        <span class="skill-tag">UI/UX Design</span>
-                        <span class="skill-tag">Innovation</span>
-                    </div>
+            </a>
+            
+            <a href="https://twitter.com/MrGanci" target="_blank" class="link-item">
+                <div class="link-icon" style="--rotation: 4deg;">
+                    <img src="images/x.png" alt="X (Twitter)" class="link-icon-image">
                 </div>
-            </section>
-
-            <section id="contact" class="contact">
-                <div class="section-content">
-                    <h2 class="section-title">Get in Touch</h2>
-                    <p class="section-text">
-                        Ready to collaborate? Let's build something amazing together.
-                    </p>
-                    <a href="mailto:hello@gancim.com" class="contact-link">hello@gancim.com</a>
+            </a>
+            
+            <a href="https://www.instagram.com/gancirama/" target="_blank" class="link-item">
+                <div class="link-icon" style="--rotation: -3deg;">
+                    <img src="images/instagram.png" alt="Instagram" class="link-icon-image">
                 </div>
-            </section>
-        </main>
-
-        <footer class="footer">
-            <div class="footer-content">
-                <p>&copy; 2024 Gancim</p>
-                <div class="footer-links">
-                    <a href="https://github.com/gancim" target="_blank" rel="noopener">GitHub</a>
+            </a>
+            
+            <a href="mailto:marco.ganci@gmail.com" class="link-item">
+                <div class="link-icon" style="--rotation: 1deg;">
+                    <img src="images/mail.png" alt="Email" class="link-icon-image">
                 </div>
-            </div>
-        </footer>
+            </a>
+        </div>
     </div>
-
-    <script src="script.js"></script>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Marco Ganci / gancim.com</p>
+    </div>
 </body>
 </html>
