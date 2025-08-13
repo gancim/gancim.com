@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marco Ganci - Dad, Surfer, Pizza Expert, Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・ソフトウェア開発者</title>
-    <meta name="description" content="Marco Ganci - Senior Engineering Manager, MoM at Mercari Japan | マルコ・ガンチ - メルカリジャパンのシニアエンジニアリングマネージャー">
-    <meta name="keywords" content="Marco Ganci, Senior Engineering Manager, Mercari, Software Engineering, Japan, マルコ・ガンチ, メルカリ, ソフトウェアエンジニア, 日本">
+    <title>Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者</title>
+    <meta name="description" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
+    <meta name="keywords" content="Marco Ganci, Dad, Surfer, Pizza Expert, Software Maker, マルコ・ガンチ, パパ, サーファー, ピザ職人, ソフトウェア開発者">
     <meta name="author" content="Marco Ganci">
     <meta name="robots" content="index, follow">
     <meta name="language" content="en, ja">
@@ -13,8 +13,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://gancim.com/">
-    <meta property="og:title" content="Marco Ganci | マルコ・ガンチ">
-    <meta property="og:description" content="Senior Engineering Manager, MoM at Mercari Japan | メルカリジャパンのシニアエンジニアリングマネージャー">
+    <meta property="og:title" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
+    <meta property="og:description" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
     <meta property="og:image" content="https://gancim.com/logo.png">
     <meta property="og:site_name" content="Marco Ganci | マルコ・ガンチ">
     <meta property="og:locale" content="en_US">
@@ -23,8 +23,8 @@
     <!-- Twitter / X -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://gancim.com/">
-    <meta property="twitter:title" content="Marco Ganci | マルコ・ガンチ">
-    <meta property="twitter:description" content="Senior Engineering Manager, MoM at Mercari Japan | メルカリジャパンのシニアエンジニアリングマネージャー">
+    <meta property="twitter:title" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
+    <meta property="twitter:description" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
     <meta property="twitter:image" content="https://gancim.com/logo.png">
     
     <!-- Favicon -->
@@ -68,15 +68,22 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
         }
         
         .main-container {
             text-align: center;
             max-width: 600px;
             padding: 2rem;
+            margin: 0 auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         
         
@@ -140,13 +147,11 @@
         }
         
         .footer {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
             text-align: center;
             color: #999;
             font-size: 0.8rem;
+            padding: 2rem 0;
+            width: 100%;
         }
         
         .link-icon {
@@ -217,7 +222,7 @@
         @media (max-width: 480px) {
             .logo,
             .logo-hover {
-                width: 240px;
+                width: 300px;
             }
             
             .links-container {
