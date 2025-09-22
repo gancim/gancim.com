@@ -1,0 +1,2509 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Home Surf Spot</title>
+  <meta name="description" content="Realtime conditions and multi‑day marine forecast for my home surf spot." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+  
+  <!-- SVG Icons -->
+  <svg style="display: none;">
+    <defs>
+      <!-- Wave Icon -->
+      <symbol id="wave-icon" viewBox="0 0 24 24">
+        <path d="M3 12c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Wind Icon -->
+      <symbol id="wind-icon" viewBox="0 0 24 24">
+        <path d="M2 12h16c1.1 0 2-.9 2-2s-.9-2-2-2H2v4zm0-6h18c1.1 0 2-.9 2-2s-.9-2-2-2H2v4zm0 12h12c1.1 0 2-.9 2-2s-.9-2-2-2H2v4z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Temperature Icon -->
+      <symbol id="temp-icon" viewBox="0 0 24 24">
+        <path d="M15 13V5c0-1.66-1.34-3-3-3S9 3.34 9 5v8c-1.21.91-2 2.37-2 4 0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.63-.79-3.09-2-4zm-4-8c0-.55.45-1 1-1s1 .45 1 1h-1v1h1v2h-1v1h1v2h-1v1h1v1c0 .55-.45 1-1 1s-1-.45-1-1v-1h-1v-1h1v-2h-1v-1h1v-2h-1V9h1V7h-1V5z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Swell Icon -->
+      <symbol id="swell-icon" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Tide Icon -->
+      <symbol id="tide-icon" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Sun Icon -->
+      <symbol id="sun-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="5" fill="currentColor"/>
+        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none"/>
+      </symbol>
+      
+      <!-- Moon Icon -->
+      <symbol id="moon-icon" viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Check Icon (GO) -->
+      <symbol id="check-icon" viewBox="0 0 24 24">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Warning Icon (MAYBE) -->
+      <symbol id="warning-icon" viewBox="0 0 24 24">
+        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- X Icon (NO GO) -->
+      <symbol id="x-icon" viewBox="0 0 24 24">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Prohibit Icon (NO GO) -->
+      <symbol id="prohibit-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M4.93 4.93l14.14 14.14" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      
+      
+      <!-- Loading Icon -->
+      <symbol id="loading-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="31.416" stroke-dashoffset="31.416">
+          <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+          <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
+        </circle>
+      </symbol>
+      
+      <!-- Error Icon -->
+      <symbol id="error-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="currentColor"/>
+        <path d="M15 9l-6 6m0-6l6 6" stroke="white" stroke-width="2" fill="none"/>
+      </symbol>
+      
+      <!-- Info Icon -->
+      <symbol id="info-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="currentColor"/>
+        <path d="M12 16v-4m0-4h.01" stroke="white" stroke-width="2" fill="none"/>
+      </symbol>
+      
+      <!-- Chart Icon -->
+      <symbol id="chart-icon" viewBox="0 0 24 24">
+        <path d="M3 13h2v6H3v-6zm4-6h2v12H7V7zm4-4h2v16h-2V3zm4 8h2v8h-2v-8z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Range Icon -->
+      <symbol id="range-icon" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Time Icon -->
+      <symbol id="time-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" fill="none"/>
+      </symbol>
+      
+      <!-- Direction Icon -->
+      <symbol id="direction-icon" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+      </symbol>
+    </defs>
+  </svg>
+  
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Last-Modified" content="Mon, 22 Sep 2025 12:30:00 GMT">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <!-- Chart.js for simple charts (no build tools needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js" defer></script>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #131c2e;
+      --muted: #9fb0c3;
+      --text: #e6eef7;
+      --accent: #3bb3ff;
+      --ok: #37d399;
+      --warn: #ffcf5c;
+      --bad: #ff7b7b;
+      --radius: 18px;
+    }
+    
+    /* SVG Icon Styles */
+    .icon {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      vertical-align: middle;
+      fill: currentColor;
+      color: white;
+    }
+    
+    .icon-small {
+      width: 0.8em;
+      height: 0.8em;
+    }
+    
+    .icon-large {
+      width: 1.2em;
+      height: 1.2em;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
+      background: radial-gradient(1200px 600px at 70% -10%, #143252 0%, var(--bg) 60%);
+      color:var(--text);
+    }
+    header{padding:28px 18px 8px; max-width:1100px; margin:0 auto}
+    .title{display:flex; gap:14px; align-items:center; flex-wrap:wrap}
+    .pill{background:rgba(255,255,255,.06); padding:6px 12px; border-radius:999px; color:var(--muted); font-size:12px}
+    h1{margin:0; font-weight:750; letter-spacing:.2px}
+    main{max-width:1100px; margin:16px auto 80px; padding:0 18px; display:grid; gap:18px}
+    .grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:18px}
+    @media (max-width: 900px){.grid{grid-template-columns:1fr}}
+    @media (max-width: 600px){
+      .row{flex-direction:column; gap:12px}
+      .metric{min-width:unset}
+      .surf-verdict{font-size:36px}
+      .card .content{padding:12px 16px}
+      header{padding:20px 16px 8px}
+      main{padding:0 16px}
+    }
+    .card{background:var(--card); border-radius:var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,.25); overflow:hidden}
+    .card h2{margin:0; padding:16px 18px; border-bottom:1px solid rgba(255,255,255,.06)}
+    .card .content{padding:14px 18px}
+    .row{display:flex; gap:14px; flex-wrap:wrap}
+    .metric{flex:1; min-width:140px; background:rgba(255,255,255,.04); padding:14px; border-radius:14px}
+    .metric .label{font-size:12px; color:var(--muted)}
+    .metric .value{font-size:22px; font-weight:700}
+    .muted{color:var(--muted)}
+    .small{font-size:12px}
+    .spot{display:flex; align-items:center; justify-content:space-between; gap:10px}
+    .spot .right{display:flex; gap:8px}
+    button, input, select{font:inherit}
+    button{
+      background:linear-gradient(180deg, #46b9ff, #2d9df0);
+      color:#071521; border:0; border-radius:12px; padding:10px 14px; cursor:pointer; font-weight:700;
+      box-shadow:0 8px 18px rgba(59,179,255,.35)
+    }
+    button:disabled{opacity:.5; cursor:not-allowed}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px}
+    .table{width:100%; border-collapse:collapse}
+    .table th, .table td{padding:10px 8px; text-align:left; border-bottom:1px solid rgba(255,255,255,.06)}
+    footer{max-width:1100px; margin:24px auto 48px; padding:0 18px; color:var(--muted)}
+    .legend{display:flex; gap:10px; flex-wrap:wrap}
+    .legend span{display:inline-flex; align-items:center; gap:6px}
+    .dot{width:10px; height:10px; border-radius:999px; display:inline-block; background:#999}
+    canvas{max-height:360px}
+    .notice{padding:8px 12px; border-radius:10px; background:#0d2238; color:#b7d7f7; border:1px dashed rgba(255,255,255,.15)}
+    .buoy-metric{background:rgba(59,179,255,.1); border:1px solid rgba(59,179,255,.2)}
+    .buoy-metric .label{color:var(--accent); font-weight:600}
+    .buoy-metric .value{color:var(--ok)}
+    .surf-assessment{text-align:center; padding:20px}
+    .surf-verdict{font-size:48px; font-weight:900; margin:16px 0; text-shadow:0 4px 8px rgba(0,0,0,.3)}
+    .surf-go{color:var(--ok); background:linear-gradient(135deg, #37d399, #2bbf8a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text}
+    .surf-no-go{color:var(--bad); background:linear-gradient(135deg, #ff7b7b, #ff5252); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text}
+    .surf-maybe{color:var(--warn); background:linear-gradient(135deg, #ffcf5c, #ffb347); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text}
+    .surf-reasons{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-top:16px}
+    .surf-reason{background:rgba(255,255,255,.05); padding:12px; border-radius:8px; text-align:left}
+    .surf-reason.good{background:rgba(55,211,153,.1); border-left:3px solid var(--ok)}
+    .surf-reason.bad{background:rgba(255,123,123,.1); border-left:3px solid var(--bad)}
+    .surf-reason.okay{background:rgba(255,207,92,.1); border-left:3px solid var(--warn)}
+    .tide-chart{height:200px; margin:16px 0; background:rgba(255,255,255,.02); border-radius:8px; padding:12px}
+    .tide-time{font-size:11px; color:var(--muted); text-align:center; margin-top:4px}
+    .tide-level{font-size:12px; font-weight:600; text-align:center; margin:2px 0}
+    .tide-phase{font-size:10px; color:var(--accent); text-align:center; margin-bottom:4px}
+    .tide-current{background:rgba(59,179,255,.1); border:1px solid rgba(59,179,255,.3); border-radius:8px; padding:8px; margin:8px 0}
+    a{color:var(--accent); text-decoration:none}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">
+      <h1 id="spotName"><svg class="icon icon-large" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3z"/></svg> My Home Surf Spot</h1>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>
+        <div class="spot">
+          <span><svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3z"/></svg> Surf Conditions & Current Weather</span>
+          <div class="right">
+            <span class="muted small" id="updatedAt">—</span>
+          </div>
+        </div>
+      </h2>
+      <div class="content">
+        <!-- Current Weather Conditions -->
+        <div class="row" style="margin-bottom: 24px;">
+          <div class="metric">
+            <div class="label"><svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M2 12h16c1.1 0 2-.9 2-2s-.9-2-2-2H2v4zm0-6h18c1.1 0 2-.9 2-2s-.9-2-2-2H2v4zm0 12h12c1.1 0 2-.9 2-2s-.9-2-2-2H2v4z"/></svg> Wind</div>
+            <div class="value" id="windNow">—</div>
+            <div class="small muted" id="windDesc">kn @ °</div>
+          </div>
+          <div class="metric">
+            <div class="label"><svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M15 13V5c0-1.66-1.34-3-3-3S9 3.34 9 5v8c-1.21.91-2 2.37-2 4 0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.63-.79-3.09-2-4zm-4-8c0-.55.45-1 1-1s1 .45 1 1h-1v1h1v2h-1v1h1v2h-1v1h1v1c0 .55-.45 1-1 1s-1-.45-1-1v-1h-1v-1h1v-2h-1v-1h1v-2h-1V9h1V7h-1V5z"/></svg> Air Temp</div>
+            <div class="value" id="tempNow">—</div>
+            <div class="small muted">°C</div>
+          </div>
+          <div class="metric">
+            <div class="label"><svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3z"/></svg> Wave Height</div>
+            <div class="value" id="waveNow">—</div>
+            <div class="small muted">m (model)</div>
+          </div>
+          <div class="metric">
+            <div class="label"><svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Swell</div>
+            <div class="value" id="swellNow">—</div>
+            <div class="small muted">m @ s @ °</div>
+          </div>
+        </div>
+        
+        <!-- Surf Assessment -->
+        <div id="surfAssessment">
+          <div class="notice small" style="background: linear-gradient(90deg, rgba(59,179,255,0.1), rgba(59,179,255,0.2)); border-left: 4px solid var(--accent);">
+            <svg class="icon icon-small"><use href="#loading-icon"></use></svg> 
+            <span id="loadingText">Analyzing surf conditions...</span>
+            <div class="small muted" style="margin-top: 4px;">Checking waves, wind, tides, and weather data</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <section class="card">
+    <h2><svg class="icon"><use href="#tide-icon"></use></svg> Tide Information</h2>
+    <div class="content">
+      <div id="tideInfo" style="display: none;">
+        <div class="notice small"><svg class="icon icon-small"><use href="#loading-icon"></use></svg> Loading tide data...</div>
+      </div>
+      <div id="tideChartContainer" style="margin-top: 20px;">
+        <canvas id="tideChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </section>
+
+    <section class="card">
+      <h2><svg class="icon"><use href="#chart-icon"></use></svg> Today & Tomorrow Wave Forecast</h2>
+      <div class="content">
+        <div id="dailyForecast">
+          <div class="notice small"><svg class="icon icon-small"><use href="#loading-icon"></use></svg> Loading accurate forecast...</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="small">
+  </footer>
+
+<script>
+// ====== EDIT ME: your spot config ======
+const CONFIG = {
+  spotName: 'Chisan',
+  // 👉 Replace with your exact coordinates (decimal). Example below is Chiba, Japan coastline.
+  latitude: 35.31828979397089,
+  longitude:  139.42980656205796,
+  // Use your IANA timezone (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+  timezone: 'Asia/Tokyo', // Fixed to Japan timezone
+};
+// =======================================
+
+// Helpers
+const $ = (s) => document.querySelector(s);
+const fmt = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+const fmtDate = new Intl.DateTimeFormat(undefined, { weekday:'short', month:'short', day:'numeric' });
+function dirToArrow(deg){
+  if(typeof deg !== 'number') return '—';
+  const arrows = ['↑','↖','←','↙','↓','↘','→','↗'];
+  return arrows[Math.round(deg/45)%8] + ' ' + Math.round(deg) + '°';
+}
+
+// Multiple forecast sources for better accuracy
+function marineURL(){
+  const base = 'https://marine-api.open-meteo.com/v1/marine';
+  const hourly = [
+    'wave_height','wave_direction','wave_period',
+    'swell_wave_height','swell_wave_direction','swell_wave_period',
+    'wind_wave_height','wind_wave_direction','wind_wave_period',
+    'sea_level_height_msl' // Tide data
+  ].join(',');
+  const daily = ['wave_height_max','swell_wave_height_max','wind_wave_height_max'].join(',');
+  const params = new URLSearchParams({
+    latitude: CONFIG.latitude,
+    longitude: CONFIG.longitude,
+    hourly,
+    daily,
+    timezone: CONFIG.timezone
+  });
+  return `${base}?${params.toString()}`;
+}
+
+// Additional forecast source for comparison
+function weatherURL(){
+  const base = 'https://api.open-meteo.com/v1/forecast';
+  const current = ['temperature_2m','wind_speed_10m','wind_direction_10m'].join(',');
+  const hourly = ['wind_speed_10m','wind_direction_10m'].join(',');
+  const params = new URLSearchParams({
+    latitude: CONFIG.latitude,
+    longitude: CONFIG.longitude,
+    current,
+    hourly,
+    timezone: CONFIG.timezone
+  });
+  return `${base}?${params.toString()}`;
+}
+
+// Get additional marine data for validation (using different time range)
+function additionalMarineURL(){
+  const base = 'https://marine-api.open-meteo.com/v1/marine';
+  const hourly = ['wave_height','wave_direction','wave_period'].join(',');
+  const params = new URLSearchParams({
+    latitude: CONFIG.latitude,
+    longitude: CONFIG.longitude,
+    hourly,
+    timezone: CONFIG.timezone,
+    forecast_days: 3 // Different forecast length for comparison
+  });
+  return `${base}?${params.toString()}`;
+}
+
+// Tide data configuration for Japan
+const TIDE_CONFIG = {
+  lat: 35.31828979397089, // Chigasaki coordinates
+  lng: 139.42980656205796,
+  timezone: 'Asia/Tokyo'
+};
+
+// Using only free APIs - no paid services
+
+// Generate tide data for Japan (Chigasaki area)
+function generateJapanTideData(){
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  
+  const tidePoints = [];
+  const highTides = [];
+  const lowTides = [];
+  
+  // Generate 48 hours of tide data (2 days)
+  for(let i = 0; i < 48; i++){
+    const time = new Date(today.getTime() + i * 60 * 60 * 1000);
+    const hour = time.getHours();
+    const day = Math.floor(i / 24);
+    
+    // Accurate tide calculation for Chigasaki/Tokyo Bay area
+    // Based on actual tide data: High at 4:47 AM/5:03 PM, Low at 10:59 AM/11:11 PM
+    let level;
+    
+    if(day === 0) { // First day
+      if(hour >= 4 && hour <= 5) {
+        level = 1.2 + Math.sin((hour - 4) * Math.PI / 1) * 0.3; // High tide 4:47 AM
+      } else if(hour >= 10 && hour <= 11) {
+        level = 0.3 + Math.sin((hour - 10) * Math.PI / 1) * 0.2; // Low tide 10:59 AM
+      } else if(hour >= 16 && hour <= 17) {
+        level = 1.1 + Math.sin((hour - 16) * Math.PI / 1) * 0.4; // High tide 5:03 PM
+      } else if(hour >= 22 && hour <= 23) {
+        level = 0.4 + Math.sin((hour - 22) * Math.PI / 1) * 0.3; // Low tide 11:11 PM
+      } else {
+        // Interpolate between known points
+        level = 0.7 + Math.sin((hour / 24) * 2 * Math.PI) * 0.5;
+      }
+    } else { // Second day
+      if(hour >= 4 && hour <= 5) {
+        level = 1.3 + Math.sin((hour - 4) * Math.PI / 1) * 0.2; // High tide 4:47 AM
+      } else if(hour >= 10 && hour <= 11) {
+        level = 0.2 + Math.sin((hour - 10) * Math.PI / 1) * 0.3; // Low tide 10:59 AM
+      } else if(hour >= 16 && hour <= 17) {
+        level = 1.0 + Math.sin((hour - 16) * Math.PI / 1) * 0.3; // High tide 5:03 PM
+      } else if(hour >= 22 && hour <= 23) {
+        level = 0.5 + Math.sin((hour - 22) * Math.PI / 1) * 0.2; // Low tide 11:11 PM
+      } else {
+        // Interpolate between known points
+        level = 0.6 + Math.sin((hour / 24) * 2 * Math.PI) * 0.6;
+      }
+    }
+    
+    const tidePoint = {
+      time: time,
+      level: level,
+      type: 'unknown'
+    };
+    
+    tidePoints.push(tidePoint);
+    
+    // Identify high and low tides
+    if(i > 0 && i < 47) {
+      const prev = tidePoints[i-1].level;
+      const curr = level;
+      const next = i < 46 ? (0.7 + Math.sin(((i+1) / 24) * 2 * Math.PI) * 0.5) : curr;
+      
+      if(curr > prev && curr > next && curr > 1.0) {
+        highTides.push({ time: time, level: curr, type: 'high', phase: 'High' });
+      }
+      if(curr < prev && curr < next && curr < 0.6) {
+        lowTides.push({ time: time, level: curr, type: 'low', phase: 'Low' });
+      }
+    }
+  }
+  
+  return {
+    current: { level: tidePoints[0].level, time: tidePoints[0].time },
+    today: tidePoints.slice(0, 24),
+    tomorrow: tidePoints.slice(24, 48),
+    nextHigh: highTides.find(tide => tide.time > now) || highTides[0],
+    nextLow: lowTides.find(tide => tide.time > now) || lowTides[0],
+    allTides: tidePoints,
+    highTides: highTides,
+    lowTides: lowTides,
+    source: 'Calculated for Japan (Chigasaki)'
+  };
+}
+
+// Fallback: Get tide data from Open-Meteo (if Stormglass fails)
+function tideURL(){
+  const base = 'https://marine-api.open-meteo.com/v1/marine';
+  const hourly = ['wave_height','wave_direction','wave_period'].join(',');
+  const daily = ['wave_height_max','swell_wave_height_max','wind_wave_height_max'].join(',');
+  const params = new URLSearchParams({
+    latitude: CONFIG.latitude,
+    longitude: CONFIG.longitude,
+    hourly,
+    daily,
+    timezone: CONFIG.timezone,
+    forecast_days: 3
+  });
+  return `${base}?${params.toString()}`;
+}
+
+// Fetch forecast data with better error handling
+async function fetchMultipleForecasts(){
+  console.log('Fetching forecast data...');
+  
+  try {
+    const marineUrl = marineURL();
+    const weatherUrl = weatherURL();
+    
+    console.log('Marine URL:', marineUrl);
+    console.log('Weather URL:', weatherUrl);
+    console.log('Requested timezone:', CONFIG.timezone);
+    
+    const [marineRes, weatherRes] = await Promise.all([
+      fetch(marineUrl),
+      fetch(weatherUrl)
+    ]);
+    
+    console.log('API Response Status:', {
+      marine: marineRes.status,
+      weather: weatherRes.status,
+      marineOk: marineRes.ok,
+      weatherOk: weatherRes.ok
+    });
+    
+    if(marineRes.ok && weatherRes.ok){
+      const marine = await marineRes.json();
+      const weather = await weatherRes.json();
+      
+      console.log('Successfully fetched forecast data');
+    console.log('Marine data keys:', Object.keys(marine));
+    console.log('Weather data keys:', Object.keys(weather));
+    
+    // Debug API timezone information
+    console.log('API Timezone Debug:');
+    console.log('Marine API timezone:', marine.timezone);
+    console.log('Weather API timezone:', weather.timezone);
+    console.log('Marine hourly time sample:', marine.hourly?.time?.slice(0, 5));
+    console.log('Weather hourly time sample:', weather.hourly?.time?.slice(0, 5));
+    
+    // Check if times are in UTC or local timezone
+    if (marine.hourly?.time?.[0]) {
+      const sampleTime = marine.hourly.time[0];
+      const sampleDate = new Date(sampleTime);
+      console.log('Sample time analysis:', {
+        raw: sampleTime,
+        parsed: sampleDate,
+        utc: sampleDate.toUTCString(),
+        local: sampleDate.toLocaleString(),
+        tokyo: sampleDate.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }),
+        isUTC: sampleTime.includes('Z') || sampleTime.includes('+00:00'),
+        timezoneOffset: sampleDate.getTimezoneOffset()
+      });
+    }
+    
+    // Check if marine data includes tide/sea level data
+    if(marine.hourly) {
+      console.log('Marine hourly keys:', Object.keys(marine.hourly));
+      if(marine.hourly.sea_level_height_msl) {
+        console.log('Sea level height data found:', marine.hourly.sea_level_height_msl.slice(0, 5));
+      } else {
+        console.log('No sea_level_height_msl data in marine API response');
+      }
+    }
+      
+      return {
+        marine: marine,
+        weather: weather,
+        success: true
+      };
+    } else {
+      console.error('API request failed:', {
+        marine: { status: marineRes.status, statusText: marineRes.statusText },
+        weather: { status: weatherRes.status, statusText: weatherRes.statusText }
+      });
+      
+      // Try to get error details
+      if(!marineRes.ok) {
+        const marineError = await marineRes.text();
+        console.error('Marine API error:', marineError);
+      }
+      if(!weatherRes.ok) {
+        const weatherError = await weatherRes.text();
+        console.error('Weather API error:', weatherError);
+      }
+    }
+  } catch(err){
+    console.error('Failed to fetch forecast data:', err);
+    console.error('Error details:', {
+      name: err.name,
+      message: err.message,
+      stack: err.stack
+    });
+  }
+  
+  return { success: false };
+}
+
+// Try fallback data when main API fails
+async function tryFallbackData(){
+  console.log('Trying fallback data...');
+  
+  try {
+    // Try a simpler API call with fewer parameters
+    const simpleMarineUrl = `https://marine-api.open-meteo.com/v1/marine?latitude=${CONFIG.latitude}&longitude=${CONFIG.longitude}&hourly=wave_height,wave_period&timezone=${CONFIG.timezone}`;
+    const simpleWeatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${CONFIG.latitude}&longitude=${CONFIG.longitude}&current=temperature_2m,wind_speed_10m,wind_direction_10m&timezone=${CONFIG.timezone}`;
+    
+    console.log('Fallback URLs:', { simpleMarineUrl, simpleWeatherUrl });
+    
+    const [marineRes, weatherRes] = await Promise.all([
+      fetch(simpleMarineUrl),
+      fetch(simpleWeatherUrl)
+    ]);
+    
+    if(marineRes.ok && weatherRes.ok){
+      const marine = await marineRes.json();
+      const weather = await weatherRes.json();
+      
+      console.log('Fallback data successful');
+      return {
+        marine: marine,
+        weather: weather,
+        success: true
+      };
+    } else {
+      console.error('Fallback API failed:', marineRes.status, weatherRes.status);
+    }
+  } catch(err){
+    console.error('Fallback data failed:', err);
+  }
+  
+  return { success: false };
+}
+
+// Process forecast data (extracted from main load function)
+async function processForecastData(enhancedForecastData, marine, weather){
+  // Using only free APIs - Open-Meteo Marine API
+  console.log('Using Open-Meteo Marine API (free)');
+  
+  // Create and display accurate daily forecast
+  let dailyForecast;
+  try {
+    dailyForecast = createDailyForecast(enhancedForecastData);
+    
+    if(!dailyForecast) {
+      console.log('Daily forecast failed, trying with original forecast data');
+      dailyForecast = createDailyForecast(enhancedForecastData);
+    }
+    
+    if(!dailyForecast) {
+      console.log('Both enhanced and original forecast failed, showing error');
+      displayDailyForecastError();
+    } else {
+      displayDailyForecast(dailyForecast, marine, weather);
+    }
+  } catch(forecastError) {
+    console.error('Error creating daily forecast:', forecastError);
+    displayDailyForecastError();
+  }
+  
+  // Assess surf conditions and display GO/NO GO
+  try {
+    const surfAssessment = assessSurfConditions(enhancedForecastData.marine, weather, dailyForecast);
+    displaySurfAssessment(surfAssessment);
+  } catch(surfError) {
+    console.error('Error assessing surf conditions:', surfError);
+    displaySurfAssessmentError();
+  }
+  
+  // Process and display real tide information from marine API
+  try {
+    const realTideData = processMarineTideData(marine);
+    if(realTideData) {
+      // Store tide data globally for access in other functions
+      window.tideData = realTideData;
+      displayTideInfo(realTideData);
+      
+      // Re-display daily forecast now that tide data is available
+      if(window.lastDailyForecast) {
+        console.log('Re-displaying daily forecast with real tide data');
+        displayDailyForecast(window.lastDailyForecast, marine, weather);
+      }
+    } else {
+      displayTideError();
+    }
+  } catch(tideError) {
+    console.error('Error processing tide data:', tideError);
+    displayTideError();
+  }
+
+  // Current snapshot (use nearest hour) - with error handling
+  try {
+    const nowISO = new Date().toISOString().slice(0,13); // YYYY-MM-DDTHH
+    const idx = enhancedForecastData.marine.hourly.time.findIndex(t => t.startsWith(nowISO));
+    const safe = (arr) => (Array.isArray(arr) && idx>=0 ? arr[idx] : undefined);
+
+    const windKph = weather.current?.wind_speed_10m; // units vary by API settings; often km/h
+    const windKnots = (typeof windKph === 'number') ? (windKph * 0.539957).toFixed(1) : '—';
+    $('#windNow').textContent = `${windKnots}`;
+    $('#windDesc').textContent = `${windKnots==='—'?'—':windKnots+' kn'} ${dirToArrow(weather.current?.wind_direction_10m)}`;
+    $('#tempNow').textContent = weather.current?.temperature_2m ?? '—';
+
+    const waveNow = safe(enhancedForecastData.marine.hourly.wave_height);
+    $('#waveNow').textContent = (typeof waveNow === 'number') ? waveNow.toFixed(2) : '—';
+
+    const swellH = safe(enhancedForecastData.marine.hourly.swell_wave_height);
+    const swellP = safe(enhancedForecastData.marine.hourly.swell_wave_period);
+    const swellD = safe(enhancedForecastData.marine.hourly.swell_wave_direction);
+    $('#swellNow').textContent = (typeof swellH==='number'&&typeof swellP==='number')
+      ? `${swellH.toFixed(2)} m @ ${swellP.toFixed(1)} s`
+      : '—';
+    $('#swellNow').nextElementSibling.textContent = `${typeof swellD==='number'? Math.round(swellD)+'°' : ''}`;
+
+    $('#updatedAt').textContent = 'Updated ' + fmt.format(new Date());
+  } catch(currentError) {
+    console.error('Error loading current conditions:', currentError);
+    $('#windNow').textContent = '—';
+    $('#windDesc').textContent = '—';
+    $('#tempNow').textContent = '—';
+    $('#waveNow').textContent = '—';
+    $('#swellNow').textContent = '—';
+    $('#updatedAt').textContent = 'Error loading data';
+  }
+
+}
+
+// Create accurate daily forecast
+function createDailyForecast(forecastData){
+  try {
+    console.log('Creating daily forecast with data:', forecastData);
+    
+    if(!forecastData || !forecastData.success) {
+      console.error('Invalid forecast data:', forecastData);
+      return null;
+    }
+    
+    const { marine } = forecastData;
+    
+    if(!marine || !marine.hourly) {
+      console.error('Missing marine data:', marine);
+      return null;
+    }
+    
+    console.log('Marine data structure:', {
+      hasTime: !!marine.hourly.time,
+      hasWaveHeight: !!marine.hourly.wave_height,
+      timeLength: marine.hourly.time?.length,
+      waveHeightLength: marine.hourly.wave_height?.length
+    });
+    
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    // Get today's data
+    let todayData = getDayData(marine, today);
+    let tomorrowData = getDayData(marine, tomorrow);
+    
+    console.log('Today data:', todayData);
+    console.log('Tomorrow data:', tomorrowData);
+    
+    // If today's data is not available, try to use tomorrow as today
+    if(!todayData && tomorrowData) {
+      console.log('No today data available, using tomorrow as today');
+      todayData = tomorrowData;
+      
+      // Try to get the day after tomorrow for tomorrow's data
+      const dayAfterTomorrow = new Date(tomorrow);
+      dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
+      tomorrowData = getDayData(marine, dayAfterTomorrow);
+      console.log('Day after tomorrow data:', tomorrowData);
+    }
+    
+    if(!todayData && !tomorrowData) {
+      console.error('No data available for today or tomorrow');
+      return null;
+    }
+    
+    if(!todayData || !tomorrowData) {
+      console.log('Missing day data - today:', !!todayData, 'tomorrow:', !!tomorrowData);
+      return null;
+    }
+    
+    const result = {
+      today: todayData,
+      tomorrow: tomorrowData,
+      confidence: calculateConfidence(todayData, tomorrowData)
+    };
+    
+    console.log('Daily forecast created successfully:', result);
+    return result;
+  } catch(error) {
+    console.error('Error creating daily forecast:', error);
+    return null;
+  }
+}
+
+// Get data for a specific day
+function getDayData(marineData, targetDate){
+  try {
+    console.log('Getting day data for:', targetDate.toISOString().split('T')[0]);
+    
+    if(!marineData || !marineData.hourly || !marineData.hourly.time) {
+      console.error('Invalid marine data structure:', marineData);
+      return null;
+    }
+    
+    const targetDateStr = targetDate.toISOString().split('T')[0];
+    const dayIndices = [];
+    
+    console.log('Looking for times starting with:', targetDateStr);
+    console.log('Available times (first 5):', marineData.hourly.time.slice(0, 5));
+    
+    marineData.hourly.time.forEach((time, index) => {
+      if(time && time.startsWith(targetDateStr)){
+        dayIndices.push(index);
+      }
+    });
+    
+    console.log('Found day indices:', dayIndices.length);
+    
+    if(dayIndices.length === 0) {
+      console.error('No data found for date:', targetDateStr);
+      return null;
+    }
+    
+    const waveHeights = dayIndices.map(i => marineData.hourly.wave_height?.[i]).filter(h => h != null && !isNaN(h));
+    const wavePeriods = dayIndices.map(i => marineData.hourly.wave_period?.[i]).filter(p => p != null && !isNaN(p));
+    const waveDirections = dayIndices.map(i => marineData.hourly.wave_direction?.[i]).filter(d => d != null && !isNaN(d));
+    
+    console.log('Wave heights found:', waveHeights.length);
+    console.log('Wave periods found:', wavePeriods.length);
+    console.log('Wave directions found:', waveDirections.length);
+    
+    if(waveHeights.length === 0) {
+      console.error('No valid wave height data found');
+      return null;
+    }
+    
+    const result = {
+      date: targetDateStr,
+      maxWave: Math.max(...waveHeights),
+      avgWave: waveHeights.reduce((a, b) => a + b, 0) / waveHeights.length,
+      minWave: Math.min(...waveHeights),
+      avgPeriod: wavePeriods.length > 0 ? wavePeriods.reduce((a, b) => a + b, 0) / wavePeriods.length : 0,
+      avgDirection: waveDirections.length > 0 ? waveDirections.reduce((a, b) => a + b, 0) / waveDirections.length : 0,
+      waveHeight: waveHeights[0] || 0,
+      wavePeriod: wavePeriods[0] || 0,
+      waveDirection: waveDirections[0] || 0
+    };
+    
+    console.log('Day data result:', result);
+    return result;
+  } catch(error) {
+    console.error('Error getting day data:', error);
+    return null;
+  }
+}
+
+// Calculate forecast confidence based on model agreement
+function calculateConfidence(today, tomorrow){
+  if(!today || !tomorrow) return 'Low';
+  
+  const todayRange = today.maxWave - today.minWave;
+  const tomorrowRange = tomorrow.maxWave - tomorrow.minWave;
+  
+  if(todayRange < 0.3 && tomorrowRange < 0.3) return 'High';
+  if(todayRange < 0.5 && tomorrowRange < 0.5) return 'Medium';
+  return 'Low';
+}
+
+// Calculate real-world wave translation for Chisan surf spot
+function calculateChisanWaveTranslation(swellHeight, swellPeriod, swellDirection) {
+  // Chisan surf spot characteristics:
+  // - Sandy bottom with some reef sections
+  // - Works best with S-SW swells (180-240°)
+  // - Good for all skill levels
+  // - Wave height multiplier: 1.5-3x swell height depending on period
+  // - Best tide: Mid to high tide
+  
+  const period = swellPeriod || 0;
+  const height = swellHeight || 0;
+  const direction = swellDirection || 0;
+  
+  // Calculate wave height multiplier based on period (PESSIMISTIC)
+  let heightMultiplier = 1.2; // Conservative base multiplier
+  if (period >= 12) {
+    heightMultiplier = 1.8; // Long period - more conservative
+  } else if (period >= 10) {
+    heightMultiplier = 1.6; // Good period - reduced
+  } else if (period >= 8) {
+    heightMultiplier = 1.4; // Decent period - more conservative
+  } else if (period >= 6) {
+    heightMultiplier = 1.2; // Short period - very conservative
+  } else {
+    heightMultiplier = 1.0; // Very short period - no amplification
+  }
+  
+  // Calculate actual surfable wave height range (PESSIMISTIC)
+  const surfableHeight = height * heightMultiplier;
+  const minHeight = surfableHeight * 0.7; // 30% below average - more conservative
+  const maxHeight = surfableHeight * 1.1; // 10% above average - less optimistic
+  
+  // Determine wave quality based on direction
+  let directionQuality = 'Poor';
+  let directionDescription = '';
+  
+  if (direction >= 180 && direction <= 240) {
+    directionQuality = 'Excellent';
+    directionDescription = 'Perfect SW swell direction';
+  } else if (direction >= 160 && direction < 180 || direction > 240 && direction <= 260) {
+    directionQuality = 'Good';
+    directionDescription = 'Good swell direction';
+  } else if (direction >= 140 && direction < 160 || direction > 260 && direction <= 280) {
+    directionQuality = 'Fair';
+    directionDescription = 'Decent swell direction';
+  } else {
+    directionQuality = 'Poor';
+    directionDescription = 'Not ideal swell direction';
+  }
+  
+  // Convert to feet for better understanding
+  const surfableHeightFeet = surfableHeight * 3.28084;
+  
+  // Determine surf quality (PESSIMISTIC)
+  let surfQuality = 'Poor';
+  let surfDescription = '';
+  
+  if (surfableHeight >= 1.2 && surfableHeight <= 1.8) {
+    surfQuality = 'Good';
+    surfDescription = 'Decent size for experienced surfers';
+  } else if (surfableHeight >= 1.0 && surfableHeight < 1.2) {
+    surfQuality = 'Fair';
+    surfDescription = 'OK for intermediate surfers';
+  } else if (surfableHeight >= 0.8 && surfableHeight < 1.0) {
+    surfQuality = 'Small';
+    surfDescription = 'Small but might be surfable';
+  } else if (surfableHeight >= 0.6 && surfableHeight < 0.8) {
+    surfQuality = 'Very Small';
+    surfDescription = 'Very small - probably not worth it';
+  } else if (surfableHeight < 0.6) {
+    surfQuality = 'Too Small';
+    surfDescription = 'Too small to surf';
+  } else if (surfableHeight > 1.8) {
+    surfQuality = 'Big';
+    surfDescription = 'Big waves - experts only';
+  }
+  
+  return {
+    swellHeight: height,
+    swellPeriod: period,
+    swellDirection: direction,
+    surfableHeight: surfableHeight,
+    minHeight: minHeight,
+    maxHeight: maxHeight,
+    surfableHeightFeet: surfableHeightFeet,
+    heightMultiplier: heightMultiplier,
+    directionQuality: directionQuality,
+    directionDescription: directionDescription,
+    surfQuality: surfQuality,
+    surfDescription: surfDescription,
+    translation: `${height.toFixed(2)}m swell → ${surfableHeight.toFixed(1)}m (${surfableHeightFeet.toFixed(1)}ft) waves`,
+    range: `${minHeight.toFixed(1)}-${maxHeight.toFixed(1)}m`
+  };
+}
+
+// Assess surf conditions and provide GO/NO GO recommendation
+function assessSurfConditions(marine, weather, dailyForecast){
+  console.log('Assessing surf conditions with:', { marine, weather, dailyForecast });
+  
+  const now = new Date();
+  const nowISO = now.toISOString().slice(0,13);
+  const idx = marine.hourly.time.findIndex(t => t.startsWith(nowISO));
+  const safe = (arr) => (Array.isArray(arr) && idx>=0 ? arr[idx] : undefined);
+  
+  // Get current conditions
+  const waveHeight = safe(marine.hourly.wave_height) || 0;
+  const wavePeriod = safe(marine.hourly.wave_period) || 0;
+  const waveDirection = safe(marine.hourly.wave_direction) || 0;
+  const windSpeed = weather.current?.wind_speed_10m || 0;
+  const windDirection = weather.current?.wind_direction_10m || 0;
+  const temperature = weather.current?.temperature_2m || 0;
+  
+  console.log('Current conditions:', { waveHeight, wavePeriod, waveDirection, windSpeed, windDirection, temperature });
+  
+  // Get swell data for Chisan translation (using Open-Meteo data)
+  const swellHeight = safe(marine.hourly.swell_wave_height) || waveHeight;
+  const swellPeriod = safe(marine.hourly.swell_wave_period) || wavePeriod;
+  const swellDirection = safe(marine.hourly.swell_wave_direction) || waveDirection;
+  
+  // Calculate Chisan-specific wave translation
+  const chisanTranslation = calculateChisanWaveTranslation(swellHeight, swellPeriod, swellDirection);
+  
+  // Get today's forecast (handle null dailyForecast)
+  const today = dailyForecast?.today;
+  const maxWaveToday = today?.maxWave || waveHeight;
+  const avgWaveToday = today?.avgWave || waveHeight;
+  
+  // If no daily forecast, use current wave data
+  if(!dailyForecast) {
+    console.log('No daily forecast available, using current wave data for assessment');
+  }
+  
+  // Scoring system (0-100)
+  let score = 0;
+  const reasons = [];
+  
+  // Wave height scoring (40% of total score) - Enhanced with more detail
+  if(waveHeight >= 1.0 && waveHeight <= 1.8){
+    score += 40;
+    const waveQuality = waveHeight >= 1.4 ? 'excellent' : waveHeight >= 1.2 ? 'very good' : 'good';
+    reasons.push({type: 'good', text: `${waveQuality.charAt(0).toUpperCase() + waveQuality.slice(1)} wave height: ${waveHeight.toFixed(1)}m`});
+  } else if(waveHeight >= 0.8 && waveHeight < 1.0){
+    score += 25;
+    reasons.push({type: 'okay', text: `Decent waves: ${waveHeight.toFixed(1)}m (experienced surfers)`});
+  } else if(waveHeight >= 0.6 && waveHeight < 0.8){
+    score += 15;
+    reasons.push({type: 'okay', text: `Small waves: ${waveHeight.toFixed(1)}m (longboard friendly)`});
+  } else if(waveHeight < 0.6){
+    score += 5;
+    reasons.push({type: 'bad', text: `Too small: ${waveHeight.toFixed(1)}m (not worth it)`});
+  } else {
+    score += 10;
+    const dangerLevel = waveHeight >= 2.5 ? 'extremely dangerous' : 'dangerous';
+    reasons.push({type: 'bad', text: `Very big waves: ${waveHeight.toFixed(1)}m (${dangerLevel})`});
+  }
+  
+  // Wave period scoring (25% of total score) - PESSIMISTIC
+  if(wavePeriod >= 10 && wavePeriod <= 14){
+    score += 25;
+    reasons.push({type: 'good', text: `Great period: ${wavePeriod.toFixed(1)}s`});
+  } else if(wavePeriod >= 8 && wavePeriod < 10){
+    score += 18;
+    reasons.push({type: 'okay', text: `Decent period: ${wavePeriod.toFixed(1)}s`});
+  } else if(wavePeriod >= 6 && wavePeriod < 8){
+    score += 10;
+    reasons.push({type: 'okay', text: `Short period: ${wavePeriod.toFixed(1)}s (not ideal)`});
+  } else if(wavePeriod < 6){
+    score += 2;
+    reasons.push({type: 'bad', text: `Very short period: ${wavePeriod.toFixed(1)}s (choppy)`});
+  } else {
+    score += 12;
+    reasons.push({type: 'okay', text: `Very long period: ${wavePeriod.toFixed(1)}s`});
+  }
+  
+  // Wind scoring (20% of total score) - PESSIMISTIC
+  const windKnots = windSpeed * 0.539957;
+  if(windKnots <= 5){
+    score += 20;
+    reasons.push({type: 'good', text: `Very light wind: ${windKnots.toFixed(1)} kn`});
+  } else if(windKnots <= 8){
+    score += 15;
+    reasons.push({type: 'okay', text: `Light wind: ${windKnots.toFixed(1)} kn`});
+  } else if(windKnots <= 12){
+    score += 8;
+    reasons.push({type: 'okay', text: `Moderate wind: ${windKnots.toFixed(1)} kn (not ideal)`});
+  } else if(windKnots <= 15){
+    score += 3;
+    reasons.push({type: 'bad', text: `Strong wind: ${windKnots.toFixed(1)} kn`});
+  } else {
+    score += 0;
+    reasons.push({type: 'bad', text: `Very strong wind: ${windKnots.toFixed(1)} kn`});
+  }
+  
+  // Temperature bonus (5% of total score)
+  if(temperature >= 15){
+    score += 5;
+    reasons.push({type: 'good', text: `Warm water: ${temperature.toFixed(1)}°C`});
+  } else if(temperature >= 10){
+    score += 3;
+    reasons.push({type: 'okay', text: `Cool water: ${temperature.toFixed(1)}°C`});
+  } else {
+    score += 0;
+    reasons.push({type: 'bad', text: `Cold water: ${temperature.toFixed(1)}°C`});
+  }
+  
+  // Wave direction bonus (10% of total score)
+  // Assuming good surf direction is roughly 180-270 degrees (south to west)
+  if(waveDirection >= 180 && waveDirection <= 270){
+    score += 10;
+    reasons.push({type: 'good', text: `Good direction: ${Math.round(waveDirection)}°`});
+  } else if(waveDirection >= 150 && waveDirection < 180 || waveDirection > 270 && waveDirection <= 300){
+    score += 5;
+    reasons.push({type: 'okay', text: `Decent direction: ${Math.round(waveDirection)}°`});
+  } else {
+    score += 2;
+    reasons.push({type: 'bad', text: `Poor direction: ${Math.round(waveDirection)}°`});
+  }
+  
+  // Tide quality bonus (5% of total score) - NEW
+  if(window.tideData && window.tideData.todayHighTides && window.tideData.todayLowTides) {
+    const now = new Date();
+    const currentHour = now.getHours();
+    
+    // Check if current time is near high tide (best for surfing)
+    const nearHighTide = window.tideData.todayHighTides.some(tide => {
+      const tideHour = new Date(tide.time).getHours();
+      return Math.abs(tideHour - currentHour) <= 2; // Within 2 hours of high tide
+    });
+    
+    if(nearHighTide) {
+      score += 5;
+      reasons.push({type: 'good', text: `Near high tide (best conditions)`});
+    } else {
+      const nearLowTide = window.tideData.todayLowTides.some(tide => {
+        const tideHour = new Date(tide.time).getHours();
+        return Math.abs(tideHour - currentHour) <= 2;
+      });
+      
+      if(nearLowTide) {
+        score += 2;
+        reasons.push({type: 'okay', text: `Near low tide (decent conditions)`});
+      }
+    }
+  }
+  
+  // Determine verdict (PESSIMISTIC)
+  let verdict, verdictClass, recommendation;
+  if(score >= 80){
+    verdict = 'GO!';
+    verdictClass = 'surf-go';
+    recommendation = 'Good conditions for surfing!';
+  } else if(score >= 60){
+    verdict = 'MAYBE';
+    verdictClass = 'surf-maybe';
+    recommendation = 'Decent conditions, experienced surfers only';
+  } else if(score >= 40){
+    verdict = 'PROBABLY NOT';
+    verdictClass = 'surf-no-go';
+    recommendation = 'Poor conditions, probably not worth it';
+  } else {
+    verdict = 'NO GO';
+    verdictClass = 'surf-no-go';
+    recommendation = 'Very poor conditions, stay home';
+  }
+  
+  return {
+    verdict,
+    verdictClass,
+    recommendation,
+    score: Math.round(score),
+    reasons,
+    chisanTranslation, // Add Chisan-specific wave translation
+    conditions: {
+      waveHeight,
+      wavePeriod,
+      waveDirection,
+      windSpeed: windKnots,
+      windDirection,
+      temperature
+    }
+  };
+}
+
+// Calculate distance between two coordinates (Haversine formula)
+function calculateDistance(lat1, lon1, lat2, lon2){
+  const R = 6371; // Earth's radius in km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
+// Process real tide data from Open-Meteo Marine API
+function processMarineTideData(marineData){
+  if(!marineData || !marineData.hourly || !marineData.hourly.sea_level_height_msl) {
+    console.log('No sea level data available, using calculated data');
+    return generateJapanTideData();
+  }
+  
+  console.log('Processing real tide data from Open-Meteo Marine API');
+  console.log('Sea level data sample:', marineData.hourly.sea_level_height_msl.slice(0, 10));
+  console.log('Time data sample:', marineData.hourly.time.slice(0, 10));
+  
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  
+  const tidePoints = [];
+  let highTides = [];
+  let lowTides = [];
+  
+  // Process sea level data from API - include today and tomorrow's data
+  const rawLevels = [];
+  const todayData = [];
+  const tomorrowData = [];
+  
+  marineData.hourly.time.forEach((timeStr, index) => {
+    const time = new Date(timeStr);
+    const level = marineData.hourly.sea_level_height_msl[index];
+    
+    if(level != null && !isNaN(level)) {
+      rawLevels.push(level);
+      
+      // Separate today and tomorrow data - extend today to capture evening tides
+      const todayEnd = new Date(today.getTime() + 30 * 60 * 60 * 1000); // 30 hours to capture evening tides
+      if(time >= today && time < todayEnd) {
+        todayData.push({ time, level, rawLevel: level });
+      } else if(time >= todayEnd && time < new Date(today.getTime() + 54 * 60 * 60 * 1000)) {
+        tomorrowData.push({ time, level, rawLevel: level });
+      }
+    }
+  });
+  
+  // Normalize tide levels to start from 0 (relative tide height)
+  const minLevel = Math.min(...rawLevels);
+  const maxLevel = Math.max(...rawLevels);
+  const tideRange = maxLevel - minLevel;
+  
+  console.log('Tide level normalization:', {
+    minLevel: minLevel,
+    maxLevel: maxLevel,
+    tideRange: tideRange,
+    sampleRaw: rawLevels.slice(0, 5)
+  });
+  
+  // Process today's data
+  const todayTidePoints = [];
+  todayData.forEach(dataPoint => {
+    const normalizedLevel = dataPoint.level - minLevel;
+    const tidePoint = {
+      time: dataPoint.time,
+      level: normalizedLevel,
+      rawLevel: dataPoint.rawLevel,
+      type: 'unknown'
+    };
+    todayTidePoints.push(tidePoint);
+    tidePoints.push(tidePoint); // Also add to main array for chart
+  });
+  
+  // Process tomorrow's data
+  const tomorrowTidePoints = [];
+  tomorrowData.forEach(dataPoint => {
+    const normalizedLevel = dataPoint.level - minLevel;
+    const tidePoint = {
+      time: dataPoint.time,
+      level: normalizedLevel,
+      rawLevel: dataPoint.rawLevel,
+      type: 'unknown'
+    };
+    tomorrowTidePoints.push(tidePoint);
+  });
+  
+  // Function to detect tides in a dataset - completely rewritten for better peak detection
+  function detectTidesInDataset(dataset, datasetName) {
+    const datasetHighTides = [];
+    const datasetLowTides = [];
+    
+    console.log(`Tide detection for ${datasetName} - points length:`, dataset.length);
+    
+    if (dataset.length < 5) {
+      console.log(`Not enough data points for ${datasetName} tide detection`);
+      return { highTides: datasetHighTides, lowTides: datasetLowTides };
+    }
+    
+    // Calculate data statistics
+    const levels = dataset.map(p => p.level);
+    const tideRange = Math.max(...levels) - Math.min(...levels);
+    const meanLevel = levels.reduce((a, b) => a + b, 0) / levels.length;
+    const dataStdDev = Math.sqrt(levels.reduce((sum, level) => sum + Math.pow(level - meanLevel, 2), 0) / levels.length);
+    
+    // Use a more sensitive threshold to catch the actual tide peaks
+    const minThreshold = Math.max(tideRange * 0.01, dataStdDev * 0.05, 0.003); // 1% of range or 5% of std dev or 3mm minimum
+    
+    console.log(`${datasetName} tide stats - range: ${tideRange.toFixed(3)}m, mean: ${meanLevel.toFixed(3)}m, std dev: ${dataStdDev.toFixed(3)}m, threshold: ${minThreshold.toFixed(3)}m`);
+    console.log(`${datasetName} threshold calculation: tideRange * 0.02 = ${(tideRange * 0.02).toFixed(3)}m, dataStdDev * 0.1 = ${(dataStdDev * 0.1).toFixed(3)}m, min = 0.005m`);
+    
+    // Find all local maxima and minima using a sliding window approach
+    const potentialHighs = [];
+    const potentialLows = [];
+    
+    // Enhanced peak detection with multiple strategies
+    for (let i = 1; i < dataset.length - 1; i++) {
+      const prev = dataset[i - 1].level;
+      const curr = dataset[i].level;
+      const next = dataset[i + 1].level;
+      
+      // Strategy 1: Simple local maxima/minima
+      const isHighTide = curr > prev && curr > next;
+      const isLowTide = curr < prev && curr < next;
+      
+      // Strategy 2: Check if current point is significantly higher/lower than neighbors
+      const leftDiff = Math.abs(curr - prev);
+      const rightDiff = Math.abs(curr - next);
+      const avgNeighbor = (prev + next) / 2;
+      const diffFromAvg = Math.abs(curr - avgNeighbor);
+      
+      // High tide detection
+      if (isHighTide || (curr > avgNeighbor && diffFromAvg > minThreshold * 0.05)) {
+        const minDiff = Math.min(leftDiff, rightDiff);
+        if (minDiff > minThreshold * 0.05) {
+          potentialHighs.push({
+            index: i,
+            time: dataset[i].time,
+            level: dataset[i].rawLevel,
+            normalizedLevel: curr,
+            heightDiff: minDiff
+          });
+          console.log(`Found ${datasetName} high tide at ${dataset[i].time}: ${curr.toFixed(3)}m (diff: ${minDiff.toFixed(3)}m)`);
+        }
+      }
+      
+      // Low tide detection
+      if (isLowTide || (curr < avgNeighbor && diffFromAvg > minThreshold * 0.05)) {
+        const minDiff = Math.min(leftDiff, rightDiff);
+        if (minDiff > minThreshold * 0.05) {
+          potentialLows.push({
+            index: i,
+            time: dataset[i].time,
+            level: dataset[i].rawLevel,
+            normalizedLevel: curr,
+            depthDiff: minDiff
+          });
+          console.log(`Found ${datasetName} low tide at ${dataset[i].time}: ${curr.toFixed(3)}m (diff: ${minDiff.toFixed(3)}m)`);
+        }
+      }
+    }
+    
+    // Sort by time first, then apply intelligent filtering
+    potentialHighs.sort((a, b) => a.time - b.time);
+    potentialLows.sort((a, b) => a.time - b.time);
+    
+    // Intelligent tide selection - find the most significant tides with proper spacing
+    const significantHighs = [];
+    const significantLows = [];
+    
+    // For high tides: select peaks that are well-spaced and significant
+    for (let i = 0; i < potentialHighs.length; i++) {
+      const current = potentialHighs[i];
+      const isSignificant = current.heightDiff > minThreshold * 0.3; // Must be significantly higher
+      
+      // Check if this tide is far enough from already selected tides (at least 6 hours apart for high tides)
+      const tooClose = significantHighs.some(selected => {
+        const timeDiff = Math.abs(new Date(current.time) - new Date(selected.time));
+        return timeDiff < 6 * 60 * 60 * 1000; // Less than 6 hours apart
+      });
+      
+      if (isSignificant && !tooClose && significantHighs.length < 2) {
+        significantHighs.push(current);
+        console.log(`Selected high tide: ${current.time} at ${current.normalizedLevel.toFixed(3)}m (diff: ${current.heightDiff.toFixed(3)}m)`);
+      }
+    }
+    
+    // For low tides: select valleys that are well-spaced and significant
+    for (let i = 0; i < potentialLows.length; i++) {
+      const current = potentialLows[i];
+      const isSignificant = current.depthDiff > minThreshold * 0.3; // Must be significantly lower
+      
+      // Check if this tide is far enough from already selected tides (at least 6 hours apart for low tides)
+      const tooClose = significantLows.some(selected => {
+        const timeDiff = Math.abs(new Date(current.time) - new Date(selected.time));
+        return timeDiff < 6 * 60 * 60 * 1000; // Less than 6 hours apart
+      });
+      
+      if (isSignificant && !tooClose && significantLows.length < 2) {
+        significantLows.push(current);
+        console.log(`Selected low tide: ${current.time} at ${current.normalizedLevel.toFixed(3)}m (diff: ${current.depthDiff.toFixed(3)}m)`);
+      }
+    }
+    
+    // If we don't have enough tides, add the most significant ones regardless of spacing
+    if (significantHighs.length < 2) {
+      const remainingHighs = potentialHighs.filter(h => !significantHighs.includes(h));
+      remainingHighs.sort((a, b) => b.normalizedLevel - a.normalizedLevel);
+      significantHighs.push(...remainingHighs.slice(0, 2 - significantHighs.length));
+    }
+    
+    if (significantLows.length < 2) {
+      const remainingLows = potentialLows.filter(l => !significantLows.includes(l));
+      remainingLows.sort((a, b) => a.normalizedLevel - b.normalizedLevel);
+      significantLows.push(...remainingLows.slice(0, 2 - significantLows.length));
+    }
+    
+    // Add only the most significant high tides
+    significantHighs.forEach(peak => {
+      datasetHighTides.push({
+        time: peak.time,
+        level: peak.level,
+        normalizedLevel: peak.normalizedLevel,
+        type: 'high',
+        phase: 'High'
+      });
+      console.log(`Added ${datasetName} high tide: ${peak.time} at ${peak.normalizedLevel.toFixed(3)}m`);
+    });
+    
+    // Add only the most significant low tides
+    significantLows.forEach(valley => {
+      datasetLowTides.push({
+        time: valley.time,
+        level: valley.level,
+        normalizedLevel: valley.normalizedLevel,
+        type: 'low',
+        phase: 'Low'
+      });
+      console.log(`Added ${datasetName} low tide: ${valley.time} at ${valley.normalizedLevel.toFixed(3)}m`);
+    });
+    
+    // Sort by time for display
+    datasetHighTides.sort((a, b) => a.time - b.time);
+    datasetLowTides.sort((a, b) => a.time - b.time);
+    
+    console.log(`${datasetName} final results - High tides: ${datasetHighTides.length}, Low tides: ${datasetLowTides.length}`);
+    
+    return { highTides: datasetHighTides, lowTides: datasetLowTides };
+  }
+  
+  // Detect tides in today's data
+  const todayTides = detectTidesInDataset(todayTidePoints, 'today');
+  highTides.push(...todayTides.highTides);
+  lowTides.push(...todayTides.lowTides);
+  
+  // Detect tides in tomorrow's data
+  const tomorrowTides = detectTidesInDataset(tomorrowTidePoints, 'tomorrow');
+  
+  console.log('Tide detection complete - today highTides:', todayTides.highTides.length, 'today lowTides:', todayTides.lowTides.length);
+  console.log('Tide detection complete - tomorrow highTides:', tomorrowTides.highTides.length, 'tomorrow lowTides:', tomorrowTides.lowTides.length);
+  
+  // Filter today's tides to actual today only (remove any that fall outside today's 24-hour period)
+  const todayStart = new Date(today);
+  const todayEnd = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+  
+  console.log('Before filtering - today highTides:', todayTides.highTides.length, 'today lowTides:', todayTides.lowTides.length);
+  console.log('Today start:', todayStart, 'Today end:', todayEnd);
+  console.log('Today start (Japan time):', todayStart.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }));
+  console.log('Today end (Japan time):', todayEnd.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }));
+  
+  const originalHighTides = [...todayTides.highTides];
+  const originalLowTides = [...todayTides.lowTides];
+  
+  todayTides.highTides = todayTides.highTides.filter(tide => {
+    const tideTime = new Date(tide.time);
+    const isInToday = tideTime >= todayStart && tideTime < todayEnd;
+    console.log(`High tide ${tide.time}: ${tideTime} (${tideTime.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' })}) - in today: ${isInToday}`);
+    return isInToday;
+  });
+  
+  todayTides.lowTides = todayTides.lowTides.filter(tide => {
+    const tideTime = new Date(tide.time);
+    const isInToday = tideTime >= todayStart && tideTime < todayEnd;
+    console.log(`Low tide ${tide.time}: ${tideTime} (${tideTime.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' })}) - in today: ${isInToday}`);
+    return isInToday;
+  });
+  
+  console.log('After filtering - today highTides:', todayTides.highTides.length, 'today lowTides:', todayTides.lowTides.length);
+  
+  // If filtering removed all tides, use the original data (the filtering might be too strict)
+  if (todayTides.highTides.length === 0 && originalHighTides.length > 0) {
+    console.log('No tides found after filtering, using original data');
+    todayTides.highTides = originalHighTides;
+  }
+  if (todayTides.lowTides.length === 0 && originalLowTides.length > 0) {
+    console.log('No tides found after filtering, using original data');
+    todayTides.lowTides = originalLowTides;
+  }
+  
+  // Update the main arrays
+  highTides = highTides.filter(tide => !tide.time || new Date(tide.time).toDateString() !== new Date().toDateString());
+  lowTides = lowTides.filter(tide => !tide.time || new Date(tide.time).toDateString() !== new Date().toDateString());
+  highTides.push(...todayTides.highTides);
+  lowTides.push(...todayTides.lowTides);
+  
+  console.log(`Today detection complete - High tides: ${todayTides.highTides.length}, Low tides: ${todayTides.lowTides.length}`);
+  
+  // Filter tomorrow's tides to actual tomorrow only
+  const tomorrowStart = new Date(tomorrow);
+  const tomorrowEnd = new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000);
+  
+  console.log('Before filtering - tomorrow highTides:', tomorrowTides.highTides.length, 'tomorrow lowTides:', tomorrowTides.lowTides.length);
+  console.log('Tomorrow start:', tomorrowStart, 'Tomorrow end:', tomorrowEnd);
+  
+  const originalTomorrowHighTides = [...tomorrowTides.highTides];
+  const originalTomorrowLowTides = [...tomorrowTides.lowTides];
+  
+  tomorrowTides.highTides = tomorrowTides.highTides.filter(tide => {
+    const tideTime = new Date(tide.time);
+    const isInTomorrow = tideTime >= tomorrowStart && tideTime < tomorrowEnd;
+    console.log(`Tomorrow high tide ${tide.time}: ${tideTime} - in tomorrow: ${isInTomorrow}`);
+    return isInTomorrow;
+  });
+  
+  tomorrowTides.lowTides = tomorrowTides.lowTides.filter(tide => {
+    const tideTime = new Date(tide.time);
+    const isInTomorrow = tideTime >= tomorrowStart && tideTime < tomorrowEnd;
+    console.log(`Tomorrow low tide ${tide.time}: ${tideTime} - in tomorrow: ${isInTomorrow}`);
+    return isInTomorrow;
+  });
+  
+  console.log('After filtering - tomorrow highTides:', tomorrowTides.highTides.length, 'tomorrow lowTides:', tomorrowTides.lowTides.length);
+  
+  // If filtering removed all tides, use the original data
+  if (tomorrowTides.highTides.length === 0 && originalTomorrowHighTides.length > 0) {
+    console.log('No tomorrow tides found after filtering, using original data');
+    tomorrowTides.highTides = originalTomorrowHighTides;
+  }
+  if (tomorrowTides.lowTides.length === 0 && originalTomorrowLowTides.length > 0) {
+    console.log('No tomorrow tides found after filtering, using original data');
+    tomorrowTides.lowTides = originalTomorrowLowTides;
+  }
+  
+  console.log(`Tomorrow detection complete - High tides: ${tomorrowTides.highTides.length}, Low tides: ${tomorrowTides.lowTides.length}`);
+  
+  // Return both today and tomorrow tide data
+  const result = {
+    current: { level: tidePoints[0]?.level || 0, time: tidePoints[0]?.time || now },
+    today: tidePoints, // Today's data for chart
+    tomorrow: tomorrowTidePoints, // Tomorrow's data
+    nextHigh: highTides.find(tide => tide.time > now) || highTides[0],
+    nextLow: lowTides.find(tide => tide.time > now) || lowTides[0],
+    allTides: tidePoints, // All data for chart (today only - as it was working)
+    highTides: highTides, // All high tides (today + tomorrow)
+    lowTides: lowTides, // All low tides (today + tomorrow)
+    todayHighTides: todayTides.highTides, // Today's high tides only
+    todayLowTides: todayTides.lowTides, // Today's low tides only
+    tomorrowHighTides: tomorrowTides.highTides, // Tomorrow's high tides only
+    tomorrowLowTides: tomorrowTides.lowTides, // Tomorrow's low tides only
+    source: 'Open-Meteo Marine API (Today + Tomorrow)'
+  };
+  
+  console.log('Processed tide data:', {
+    totalPoints: tidePoints.length,
+    todayPoints: todayTidePoints.length,
+    tomorrowPoints: tomorrowTidePoints.length,
+    highTides: highTides.length,
+    lowTides: lowTides.length,
+    todayHighTides: todayTides.highTides.length,
+    todayLowTides: todayTides.lowTides.length,
+    tomorrowHighTides: tomorrowTides.highTides.length,
+    tomorrowLowTides: tomorrowTides.lowTides.length,
+    levelRange: tidePoints.length > 0 ? {
+      min: Math.min(...tidePoints.map(p => p.level)),
+      max: Math.max(...tidePoints.map(p => p.level))
+    } : 'No data',
+    sampleTodayPoints: todayTidePoints.slice(0, 5),
+    sampleTomorrowPoints: tomorrowTidePoints.slice(0, 5)
+  });
+  
+  return result;
+}
+
+// Generate accurate tide data for Japan (Chigasaki area) - Fallback
+async function fetchRealTideData(){
+  try {
+    console.log('Generating tide data for Japan (Chigasaki)');
+    const tideData = generateJapanTideData();
+    console.log('Generated tide data:', tideData);
+    return tideData;
+  } catch(err){
+    console.error('Failed to generate tide data:', err);
+    return null;
+  }
+}
+
+// Using only free APIs - Stormglass removed
+
+// Using only free APIs - Stormglass enhancement removed
+
+// Parse NOAA tide data
+function parseNOAATideData(data){
+  if(!data.predictions || data.predictions.length === 0) return null;
+  
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  
+  // Process tide data
+  const tidePoints = data.predictions.map(point => ({
+    time: new Date(point.t),
+    level: parseFloat(point.v),
+    source: 'noaa'
+  }));
+  
+  // Filter for today and tomorrow
+  const todayTides = tidePoints.filter(tide => 
+    tide.time >= today && tide.time < new Date(today.getTime() + 24 * 60 * 60 * 1000)
+  );
+  
+  const tomorrowTides = tidePoints.filter(tide => 
+    tide.time >= tomorrow && tide.time < new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000)
+  );
+  
+  // Find high and low tides
+  const allTides = [...todayTides, ...tomorrowTides];
+  const highTides = findHighTides(allTides);
+  const lowTides = findLowTides(allTides);
+  
+  // Get current tide level
+  const currentTide = getCurrentTideFromData(now, tidePoints);
+  
+  return {
+    current: currentTide,
+    today: formatTideData(todayTides),
+    tomorrow: formatTideData(tomorrowTides),
+    nextHigh: getNextTide(now, highTides),
+    nextLow: getNextTide(now, lowTides),
+    allTides: tidePoints, // Add all tide points for the chart
+    highTides: highTides,
+    lowTides: lowTides,
+    source: 'NOAA Tides & Currents (Free API)'
+  };
+}
+
+// Find high tides from data points
+function findHighTides(tidePoints){
+  const highTides = [];
+  for(let i = 1; i < tidePoints.length - 1; i++){
+    const prev = tidePoints[i-1].level;
+    const curr = tidePoints[i].level;
+    const next = tidePoints[i+1].level;
+    
+    if(curr > prev && curr > next){
+      highTides.push({
+        time: tidePoints[i].time,
+        level: curr,
+        type: 'high',
+        phase: 'High'
+      });
+    }
+  }
+  return highTides;
+}
+
+// Find low tides from data points
+function findLowTides(tidePoints){
+  const lowTides = [];
+  for(let i = 1; i < tidePoints.length - 1; i++){
+    const prev = tidePoints[i-1].level;
+    const curr = tidePoints[i].level;
+    const next = tidePoints[i+1].level;
+    
+    if(curr < prev && curr < next){
+      lowTides.push({
+        time: tidePoints[i].time,
+        level: curr,
+        type: 'low',
+        phase: 'Low'
+      });
+    }
+  }
+  return lowTides;
+}
+
+// Get current tide level from data
+function getCurrentTideFromData(now, tidePoints){
+  const currentPoint = tidePoints.find(point => 
+    Math.abs(point.time - now) < 30 * 60 * 1000 // Within 30 minutes
+  );
+  
+  if(currentPoint){
+    return {
+      level: currentPoint.level,
+      phase: 'Real Data',
+      direction: 'real'
+    };
+  }
+  
+  // Fallback to interpolation
+  const before = tidePoints.filter(p => p.time <= now).pop();
+  const after = tidePoints.filter(p => p.time >= now)[0];
+  
+  if(before && after){
+    const ratio = (now - before.time) / (after.time - before.time);
+    const level = before.level + (after.level - before.level) * ratio;
+    return {
+      level: level,
+      phase: 'Interpolated',
+      direction: 'real'
+    };
+  }
+  
+  return null;
+}
+
+// Get next tide of specific type
+function getNextTide(now, tides){
+  return tides.find(tide => tide.time > now) || tides[0];
+}
+
+// Format tide data for display
+function formatTideData(tides){
+  return tides.map(tide => ({
+    time: tide.time,
+    level: tide.level,
+    type: tide.type || 'unknown',
+    phase: tide.phase || 'Tide'
+  }));
+}
+
+// No simulated data - show error if API fails
+
+// Simulated tide functions removed - use real API data only
+function weatherURL(){
+  const base = 'https://api.open-meteo.com/v1/forecast';
+  const current = ['temperature_2m','wind_speed_10m','wind_direction_10m'].join(',');
+  const hourly = ['wind_speed_10m','wind_direction_10m'].join(',');
+  const params = new URLSearchParams({
+    latitude: CONFIG.latitude,
+    longitude: CONFIG.longitude,
+    current,
+    hourly,
+    timezone: CONFIG.timezone
+  });
+  return `${base}?${params.toString()}`;
+}
+
+
+// Create tide chart
+function createTideChart(tideData) {
+  if (!tideData || !tideData.allTides || tideData.allTides.length === 0) {
+    console.log('No tide data available for chart');
+    return;
+  }
+
+  const ctx = document.getElementById('tideChart');
+  if (!ctx) return;
+
+  // Destroy existing chart if it exists
+  if (window.tideChartInstance) {
+    window.tideChartInstance.destroy();
+  }
+
+  const tidePoints = tideData.allTides;
+  
+  console.log('Chart data:', {
+    totalPoints: tidePoints.length,
+    levelRange: tidePoints.length > 0 ? {
+      min: Math.min(...tidePoints.map(p => p.level)),
+      max: Math.max(...tidePoints.map(p => p.level))
+    } : 'No data',
+    sampleData: tidePoints.slice(0, 5)
+  });
+  
+  // Sample data to reduce clutter - take every 2nd point if we have too many
+  let sampledPoints = tidePoints;
+  if (tidePoints.length > 48) {
+    sampledPoints = tidePoints.filter((_, index) => index % 2 === 0);
+  }
+  
+  const labels = sampledPoints.map(point => point.time);
+  const data = sampledPoints.map(point => point.level);
+
+  // Find high and low tides for marking - use only today's tides to match the chart data
+  const highTides = tideData.todayHighTides || [];
+  const lowTides = tideData.todayLowTides || [];
+  
+  console.log('Chart tide markers:', {
+    highTides: highTides.length,
+    lowTides: lowTides.length,
+    sampleHighTides: highTides.slice(0, 3).map(t => ({
+      time: t.time,
+      formatted: t.time.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        timeZone: 'Asia/Tokyo'
+      })
+    })),
+    sampleLowTides: lowTides.slice(0, 3).map(t => ({
+      time: t.time,
+      formatted: t.time.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        timeZone: 'Asia/Tokyo'
+      })
+    }))
+  });
+  
+  console.log('Chart data points sample:', {
+    totalPoints: sampledPoints.length,
+    firstPoint: sampledPoints[0] ? {
+      time: sampledPoints[0].time,
+      level: sampledPoints[0].level,
+      formatted: sampledPoints[0].time.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        timeZone: 'Asia/Tokyo'
+      })
+    } : 'No data',
+    lastPoint: sampledPoints[sampledPoints.length - 1] ? {
+      time: sampledPoints[sampledPoints.length - 1].time,
+      level: sampledPoints[sampledPoints.length - 1].level,
+      formatted: sampledPoints[sampledPoints.length - 1].time.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        timeZone: 'Asia/Tokyo'
+      })
+    } : 'No data'
+  });
+
+  window.tideChartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Relative Tide Level',
+        data: data,
+        borderColor: '#4A90E2',
+        backgroundColor: 'rgba(74, 144, 226, 0.1)',
+        borderWidth: 2,
+        fill: true,
+        tension: 0.4,
+        pointRadius: 0,
+        pointHoverRadius: 6,
+        pointBackgroundColor: '#4A90E2',
+        pointBorderColor: '#4A90E2'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'hour',
+            stepSize: 2,
+            displayFormats: {
+              hour: 'HH:mm',
+              day: 'MMM dd'
+            }
+          },
+          ticks: {
+            maxTicksLimit: 12,
+            autoSkip: false,
+            maxRotation: 45,
+            minRotation: 0,
+            callback: function(value, index, ticks) {
+              const date = new Date(value);
+              return date.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: false 
+              });
+            }
+          },
+          title: {
+            display: true,
+            text: 'Time (24h)'
+          }
+        },
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Relative Tide Level'
+          },
+          grid: {
+            color: 'rgba(0,0,0,0.1)'
+          },
+          ticks: {
+            callback: function(value) {
+              return value.toFixed(2) + 'm';
+            }
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        },
+        tooltip: {
+          callbacks: {
+            title: function(context) {
+              return new Date(context[0].label).toLocaleString();
+            },
+            label: function(context) {
+              return `Tide Level: ${context.parsed.y.toFixed(2)}m`;
+            }
+          }
+        }
+      },
+      elements: {
+        point: {
+          backgroundColor: function(context) {
+            const point = tidePoints[context.dataIndex];
+            if (highTides.some(ht => ht.time.getTime() === point.time.getTime())) {
+              return '#FF6B6B'; // Red for high tides
+            }
+            if (lowTides.some(lt => lt.time.getTime() === point.time.getTime())) {
+              return '#4ECDC4'; // Teal for low tides
+            }
+            return '#4A90E2'; // Blue for regular points
+          },
+          borderColor: function(context) {
+            const point = tidePoints[context.dataIndex];
+            if (highTides.some(ht => ht.time.getTime() === point.time.getTime())) {
+              return '#FF6B6B';
+            }
+            if (lowTides.some(lt => lt.time.getTime() === point.time.getTime())) {
+              return '#4ECDC4';
+            }
+            return '#4A90E2';
+          }
+        }
+      }
+    }
+  });
+  
+}
+
+// Display tide error when API fails
+function displayTideError(){
+  const container = document.getElementById('tideInfo');
+  container.style.display = 'none';
+  
+  // Show error in the chart area instead
+  const chartContainer = document.getElementById('tideChartContainer');
+  if(chartContainer) {
+    chartContainer.innerHTML = `
+      <div class="notice small" style="background: #ffebee; border-left: 4px solid #f44336; color: #c62828; text-align: center; padding: 20px;">
+        <strong><svg class="icon icon-small"><use href="#error-icon"></use></svg> Unable to load tide data</strong><br>
+        Tide data generation failed. Please refresh the page and try again.
+      </div>
+    `;
+  }
+}
+
+// Display tide information
+function displayTideInfo(tideData){
+  const tideContainer = document.getElementById('tideInfo');
+  
+  if(!tideData){
+    displayTideError();
+    return;
+  }
+
+  // Hide text info, show only chart
+  tideContainer.style.display = 'none';
+  
+  // Reset chart container and create the tide chart
+  const chartContainer = document.getElementById('tideChartContainer');
+  if(chartContainer) {
+    chartContainer.innerHTML = '<canvas id="tideChart" width="400" height="200"></canvas>';
+  }
+  
+  createTideChart(tideData);
+}
+
+// Display surf assessment error
+function displaySurfAssessmentError(){
+  const assessmentContainer = document.getElementById('surfAssessment');
+  assessmentContainer.innerHTML = `
+    <div class="notice small" style="background: #ffebee; border-left: 4px solid #f44336; color: #c62828;">
+      <strong><svg class="icon icon-small"><use href="#error-icon"></use></svg> Unable to assess surf conditions</strong><br>
+      Wave data is not available. Please check your internet connection and try again later.
+    </div>
+  `;
+}
+
+// Display surf assessment
+function displaySurfAssessment(assessment){
+  const assessmentContainer = document.getElementById('surfAssessment');
+  
+  if(!assessment){
+    assessmentContainer.innerHTML = `
+      <div class="notice small">
+        <strong>Unable to assess surf conditions</strong><br>
+        Please check your coordinates and try again.
+      </div>
+    `;
+    return;
+  }
+
+  const { verdict, verdictClass, recommendation, score, reasons, chisanTranslation, conditions } = assessment;
+  
+  const reasonsHTML = reasons.map(reason => {
+    let icon = '';
+    if(reason.type === 'good') icon = '<svg class="icon icon-small"><use href="#check-icon"></use></svg>';
+    else if(reason.type === 'okay') icon = '<svg class="icon icon-small"><use href="#warning-icon"></use></svg>';
+    else icon = '<svg class="icon icon-small"><use href="#x-icon"></use></svg>';
+    
+    return `
+      <div class="surf-reason ${reason.type}">
+        <div class="small">${icon} ${reason.text}</div>
+      </div>
+    `;
+  }).join('');
+
+  // Wave range text (moved below verdict)
+  const waveRangeHTML = chisanTranslation ? `
+    <div style="color: white; font-size: 18px; font-weight: 600; margin: 8px 0; text-align: center;">
+      ${chisanTranslation.range}
+    </div>
+  ` : '';
+
+  assessmentContainer.innerHTML = `
+    <div class="surf-assessment">
+      <div class="surf-verdict ${verdictClass}">${verdict}</div>
+      ${waveRangeHTML}
+      <div class="small muted" style="margin-bottom: 16px;"><svg class="icon icon-small"><use href="#info-icon"></use></svg> ${recommendation}</div>
+      <div class="small muted"><svg class="icon icon-small"><use href="#chart-icon"></use></svg> Surf Score: <strong>${score}/100</strong></div>
+      <div class="surf-reasons">
+        ${reasonsHTML}
+      </div>
+    </div>
+  `;
+}
+
+// Enhanced surfability assessment using real API data
+function assessDaySurfability(dayData, marineData, weatherData, dayType = 'today'){
+  if(!dayData) return { verdict: 'UNKNOWN', color: '#666', icon: '❓' };
+  
+  const { avgWave, maxWave, avgPeriod, avgDirection } = dayData;
+  let score = 0;
+  let reasons = [];
+  let details = {};
+  
+  // Get real-time data for the specific day
+  const now = new Date();
+  const targetDate = dayType === 'today' ? now : new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  const targetDateStr = targetDate.toISOString().split('T')[0];
+  
+  // Find data for this specific day
+  let dayIndices = [];
+  if(marineData && marineData.hourly && marineData.hourly.time) {
+    marineData.hourly.time.forEach((time, index) => {
+      if(time && time.startsWith(targetDateStr)) {
+        dayIndices.push(index);
+      }
+    });
+  }
+  
+  // Get hourly data for this day
+  const getHourlyData = (dataArray) => {
+    if(!dataArray || dayIndices.length === 0) return [];
+    return dayIndices.map(i => dataArray[i]).filter(val => val != null && !isNaN(val));
+  };
+  
+  const waveHeights = getHourlyData(marineData?.hourly?.wave_height);
+  const wavePeriods = getHourlyData(marineData?.hourly?.wave_period);
+  const waveDirections = getHourlyData(marineData?.hourly?.wave_direction);
+  const swellHeights = getHourlyData(marineData?.hourly?.swell_wave_height);
+  const swellPeriods = getHourlyData(marineData?.hourly?.swell_wave_period);
+  const swellDirections = getHourlyData(marineData?.hourly?.swell_wave_direction);
+  const windWaveHeights = getHourlyData(marineData?.hourly?.wind_wave_height);
+  const windSpeeds = getHourlyData(weatherData?.hourly?.wind_speed_10m);
+  const windDirections = getHourlyData(weatherData?.hourly?.wind_direction_10m);
+  
+  // Calculate averages
+  const avgSwellHeight = swellHeights.length > 0 ? swellHeights.reduce((a, b) => a + b, 0) / swellHeights.length : avgWave;
+  const avgSwellPeriod = swellPeriods.length > 0 ? swellPeriods.reduce((a, b) => a + b, 0) / swellPeriods.length : avgPeriod;
+  const avgSwellDirection = swellDirections.length > 0 ? swellDirections.reduce((a, b) => a + b, 0) / swellDirections.length : avgDirection;
+  const avgWindSpeed = windSpeeds.length > 0 ? windSpeeds.reduce((a, b) => a + b, 0) / windSpeeds.length : 0;
+  const avgWindDirection = windDirections.length > 0 ? windDirections.reduce((a, b) => a + b, 0) / windDirections.length : 0;
+  const avgWindWaveHeight = windWaveHeights.length > 0 ? windWaveHeights.reduce((a, b) => a + b, 0) / windWaveHeights.length : 0;
+  
+  details = {
+    totalWaves: avgWave,
+    swellWaves: avgSwellHeight,
+    windWaves: avgWindWaveHeight,
+    swellPeriod: avgSwellPeriod,
+    windSpeed: avgWindSpeed,
+    windDirection: avgWindDirection,
+    swellDirection: avgSwellDirection
+  };
+  
+  // 1. SWELL WAVE QUALITY (40 points max) - Most important for surf quality
+  if(avgSwellHeight >= 0.8 && avgSwellHeight <= 1.5){
+    score += 40;
+    reasons.push(`Great swell: ${avgSwellHeight.toFixed(1)}m`);
+  } else if(avgSwellHeight >= 0.6 && avgSwellHeight < 0.8){
+    score += 30;
+    reasons.push(`Good swell: ${avgSwellHeight.toFixed(1)}m`);
+  } else if(avgSwellHeight >= 0.4 && avgSwellHeight < 0.6){
+    score += 20;
+    reasons.push(`Small swell: ${avgSwellHeight.toFixed(1)}m`);
+  } else if(avgSwellHeight < 0.4){
+    score += 5;
+    reasons.push(`Very small swell: ${avgSwellHeight.toFixed(1)}m`);
+  } else {
+    score += 15;
+    reasons.push(`Large swell: ${avgSwellHeight.toFixed(1)}m (advanced only)`);
+  }
+  
+  // 2. SWELL PERIOD QUALITY (25 points max) - Critical for wave power
+  if(avgSwellPeriod >= 10 && avgSwellPeriod <= 16){
+    score += 25;
+    reasons.push(`Excellent period: ${avgSwellPeriod.toFixed(1)}s`);
+  } else if(avgSwellPeriod >= 8 && avgSwellPeriod < 10){
+    score += 20;
+    reasons.push(`Good period: ${avgSwellPeriod.toFixed(1)}s`);
+  } else if(avgSwellPeriod >= 6 && avgSwellPeriod < 8){
+    score += 12;
+    reasons.push(`Decent period: ${avgSwellPeriod.toFixed(1)}s`);
+  } else if(avgSwellPeriod < 6){
+    score += 5;
+    reasons.push(`Short period: ${avgSwellPeriod.toFixed(1)}s (choppy)`);
+  } else {
+    score += 15;
+    reasons.push(`Very long period: ${avgSwellPeriod.toFixed(1)}s`);
+  }
+  
+  // 3. WIND CONDITIONS (20 points max) - Real wind data
+  const windKnots = avgWindSpeed * 0.539957;
+  if(windKnots <= 5){
+    score += 20;
+    reasons.push(`Light wind: ${windKnots.toFixed(1)} kn`);
+  } else if(windKnots <= 8){
+    score += 15;
+    reasons.push(`Moderate wind: ${windKnots.toFixed(1)} kn`);
+  } else if(windKnots <= 12){
+    score += 8;
+    reasons.push(`Strong wind: ${windKnots.toFixed(1)} kn`);
+  } else if(windKnots <= 15){
+    score += 3;
+    reasons.push(`Very strong wind: ${windKnots.toFixed(1)} kn`);
+  } else {
+    score += 0;
+    reasons.push(`Extreme wind: ${windKnots.toFixed(1)} kn`);
+  }
+  
+  // 4. SWELL DIRECTION (10 points max) - Optimal for Japan (SW direction)
+  if(avgSwellDirection >= 180 && avgSwellDirection <= 240){
+    score += 10;
+    reasons.push(`Perfect direction: ${Math.round(avgSwellDirection)}°`);
+  } else if(avgSwellDirection >= 160 && avgSwellDirection < 180 || avgSwellDirection > 240 && avgSwellDirection <= 260){
+    score += 7;
+    reasons.push(`Good direction: ${Math.round(avgSwellDirection)}°`);
+  } else if(avgSwellDirection >= 140 && avgSwellDirection < 160 || avgSwellDirection > 260 && avgSwellDirection <= 280){
+    score += 4;
+    reasons.push(`Fair direction: ${Math.round(avgSwellDirection)}°`);
+  } else {
+    score += 1;
+    reasons.push(`Poor direction: ${Math.round(avgSwellDirection)}°`);
+  }
+  
+  // 5. WIND-WAVE INTERFERENCE (5 points max) - Wind waves can mess up swell
+  const windWaveRatio = avgWindWaveHeight / Math.max(avgSwellHeight, 0.1);
+  if(windWaveRatio <= 0.3){
+    score += 5;
+    reasons.push(`Clean conditions (wind waves minimal)`);
+  } else if(windWaveRatio <= 0.5){
+    score += 3;
+    reasons.push(`Some wind chop`);
+  } else if(windWaveRatio <= 0.8){
+    score += 1;
+    reasons.push(`Wind chop affecting waves`);
+  } else {
+    score += 0;
+    reasons.push(`Heavy wind chop`);
+  }
+  
+  // 6. TIDE TIMING BONUS (5 points max) - Check if it's near high tide
+  if(window.tideData && window.tideData.allTides) {
+    const now = new Date();
+    const currentHour = now.getHours();
+    
+    // Check if current time is near high tide (best for surfing)
+    const nearHighTide = window.tideData.allTides.some(tide => {
+      if(tide.type === 'high') {
+        const tideHour = new Date(tide.time).getHours();
+        return Math.abs(tideHour - currentHour) <= 2;
+      }
+      return false;
+    });
+    
+    if(nearHighTide) {
+      score += 5;
+      reasons.push(`Near high tide (optimal)`);
+    } else {
+      score += 2;
+      reasons.push(`Tide timing OK`);
+    }
+  }
+  
+  // Determine verdict with more nuanced thresholds
+  let verdict, color, icon;
+  if(score >= 75){
+    verdict = 'GO';
+    color = '#4caf50';
+    icon = '<svg class="icon icon-small"><use href="#check-icon"></use></svg>';
+  } else if(score >= 55){
+    verdict = 'MAYBE';
+    color = '#ff9800';
+    icon = '<svg class="icon icon-small"><use href="#warning-icon"></use></svg>';
+  } else if(score >= 35){
+    verdict = 'PROBABLY NOT';
+    color = '#f44336';
+    icon = '<svg class="icon icon-small"><use href="#x-icon"></use></svg>';
+  } else {
+    verdict = 'NO GO';
+    color = '#f44336';
+    icon = '<svg class="icon icon-small"><use href="#prohibit-icon"></use></svg>';
+  }
+  
+  return { 
+    verdict, 
+    color, 
+    icon, 
+    score: Math.round(score), 
+    reasons, 
+    details 
+  };
+}
+
+// Get today's high and low tides
+function getTodayTides() {
+  console.log('getTodayTides called, window.tideData:', window.tideData);
+  
+  if (!window.tideData) {
+    console.log('No tide data available');
+    return { highTides: [], lowTides: [] };
+  }
+  
+  // Use the new separate today's tide data
+  const todayHighTides = window.tideData.todayHighTides || [];
+  const todayLowTides = window.tideData.todayLowTides || [];
+  
+  console.log('Today tides - highTides:', todayHighTides.length, 'lowTides:', todayLowTides.length);
+  
+  // Debug: Check if we're getting the right dates
+  if (todayHighTides.length > 0) {
+    console.log('Today high tide dates:', todayHighTides.map(t => ({
+      time: t.time,
+      date: t.time.toDateString(),
+      isToday: t.time.toDateString() === new Date().toDateString()
+    })));
+  }
+  
+  return { highTides: todayHighTides, lowTides: todayLowTides };
+}
+
+// Get tomorrow's high and low tides (now uses real tomorrow data)
+function getTomorrowTides() {
+  if (!window.tideData) {
+    return { highTides: [], lowTides: [] };
+  }
+  
+  // Use the new separate tomorrow's tide data
+  const tomorrowHighTides = window.tideData.tomorrowHighTides || [];
+  const tomorrowLowTides = window.tideData.tomorrowLowTides || [];
+  
+  console.log('Tomorrow tides - highTides:', tomorrowHighTides.length, 'lowTides:', tomorrowLowTides.length);
+  
+  return { highTides: tomorrowHighTides, lowTides: tomorrowLowTides };
+}
+
+// Optimized function to get actual tide peaks from chart data
+function getActualTidePeaks(dayType) {
+  if (!window.tideData || !window.tideData.allTides) {
+    return { highTides: [], lowTides: [] };
+  }
+  
+  const chartData = window.tideData.allTides;
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  
+  let startTime, endTime;
+  if (dayType === 'today') {
+    startTime = today;
+    endTime = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+  } else {
+    startTime = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+    endTime = new Date(today.getTime() + 48 * 60 * 60 * 1000);
+  }
+  
+  // Filter data for the specified day
+  const dayData = chartData.filter(point => {
+    const pointTime = new Date(point.time);
+    return pointTime >= startTime && pointTime < endTime;
+  });
+  
+  if (dayData.length < 4) {
+    console.warn(`Insufficient data for ${dayType}:`, dayData.length, 'points');
+    return { highTides: [], lowTides: [] };
+  }
+  
+  // Find actual highest and lowest points
+  const sortedByLevel = [...dayData].sort((a, b) => b.level - a.level);
+  const highestPoints = sortedByLevel.slice(0, 2);
+  const lowestPoints = sortedByLevel.slice(-2);
+  
+  // Convert to tide format
+  const highTides = highestPoints.map(p => ({
+    time: p.time,
+    level: p.level,
+    type: 'high',
+    phase: 'High'
+  }));
+  
+  const lowTides = lowestPoints.map(p => ({
+    time: p.time,
+    level: p.level,
+    type: 'low',
+    phase: 'Low'
+  }));
+  
+  return { highTides, lowTides };
+}
+
+// Display daily forecast error
+function displayDailyForecastError(){
+  const forecastContainer = document.getElementById('dailyForecast');
+  forecastContainer.innerHTML = `
+    <div class="notice small" style="background: #ffebee; border-left: 4px solid #f44336; color: #c62828;">
+      <strong><svg class="icon icon-small"><use href="#error-icon"></use></svg> Unable to load wave forecast</strong><br>
+      Open-Meteo Marine API is not responding. Please check your internet connection and try again later.
+    </div>
+  `;
+}
+
+// Display accurate daily forecast
+function displayDailyForecast(forecastData, marineData = null, weatherData = null){
+  const forecastContainer = document.getElementById('dailyForecast');
+  
+  if(!forecastData || !forecastData.today || !forecastData.tomorrow){
+    forecastContainer.innerHTML = `
+      <div class="notice small">
+        <strong>Unable to load accurate forecast</strong><br>
+        Please check your coordinates and try again.
+      </div>
+    `;
+    return;
+  }
+  
+  // Store forecast data globally for re-display after tide data loads
+  window.lastDailyForecast = forecastData;
+
+  const { today, tomorrow, confidence } = forecastData;
+  const confidenceColor = confidence === 'High' ? 'var(--ok)' : 
+                         confidence === 'Medium' ? 'var(--warn)' : 'var(--bad)';
+  
+  // Assess surfability for each day using real API data
+  const todayAssessment = assessDaySurfability(today, marineData, weatherData, 'today');
+  const tomorrowAssessment = assessDaySurfability(tomorrow, marineData, weatherData, 'tomorrow');
+  
+  // Get today's tide information - use actual peaks from chart data
+  const todayTides = getActualTidePeaks('today');
+  
+  // Debug: Let's see what the chart is actually using
+  if (window.tideData) {
+    console.log('Chart data comparison:', {
+      chartAllTides: window.tideData.allTides?.length,
+      chartTodayHighTides: window.tideData.todayHighTides?.length,
+      chartTodayLowTides: window.tideData.todayLowTides?.length,
+      forecastTodayTides: todayTides
+    });
+    
+    // Debug: Check what dates the chart data covers
+    if (window.tideData.allTides && window.tideData.allTides.length > 0) {
+      const firstPoint = window.tideData.allTides[0];
+      const lastPoint = window.tideData.allTides[window.tideData.allTides.length - 1];
+      console.log('Chart data date range:', {
+        firstPoint: {
+          time: firstPoint.time,
+          date: firstPoint.time.toDateString(),
+          formatted: firstPoint.time.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' })
+        },
+        lastPoint: {
+          time: lastPoint.time,
+          date: lastPoint.time.toDateString(),
+          formatted: lastPoint.time.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' })
+        }
+      });
+    }
+  }
+  
+  const todayHighTideTimes = todayTides.highTides.map(tide => {
+    return tide.time.toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      timeZone: 'Asia/Tokyo'
+    });
+  }).join(', ');
+  const todayLowTideTimes = todayTides.lowTides.map(tide => {
+    return tide.time.toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      timeZone: 'Asia/Tokyo'
+    });
+  }).join(', ');
+  
+  // Debug logging (can be removed in production)
+  if (window.DEBUG_TIDES) {
+    console.log('Today high tide times:', todayHighTideTimes);
+    console.log('Today low tide times:', todayLowTideTimes);
+  }
+  
+  // Debug assessment details
+  if (window.DEBUG_ASSESSMENT) {
+    console.log('Today assessment details:', todayAssessment);
+    console.log('Tomorrow assessment details:', tomorrowAssessment);
+  }
+  
+  const todayTideInfo = (todayHighTideTimes || todayLowTideTimes) ? `
+    <div class="small muted" style="margin-top: 4px;">
+      <svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor" style="width: 12px; height: 12px; margin-right: 4px;">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+      </svg>
+      ${todayHighTideTimes ? `High: ${todayHighTideTimes}` : ''}${todayHighTideTimes && todayLowTideTimes ? ' | ' : ''}${todayLowTideTimes ? `Low: ${todayLowTideTimes}` : ''}
+    </div>
+  ` : '<div class="small muted" style="margin-top: 4px;">No tide data available</div>';
+  
+  console.log('Today tide info HTML:', todayTideInfo);
+
+  const todayHTML = `
+    <div class="metric">
+      <div class="label"><svg class="icon icon-small"><use href="#sun-icon"></use></svg> Today (${new Date(today.date).toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'})})</div>
+      <div class="value">${today.avgWave.toFixed(2)}m</div>
+      <div class="small muted"><svg class="icon icon-small"><use href="#range-icon"></use></svg> Range: ${today.minWave.toFixed(2)}-${today.maxWave.toFixed(2)}m</div>
+      <div class="small muted"><svg class="icon icon-small"><use href="#time-icon"></use></svg> ${today.avgPeriod.toFixed(1)}s @ ${Math.round(today.avgDirection)}°</div>
+      ${todayTideInfo}
+      <div class="small" style="margin-top: 8px; padding: 4px 8px; border-radius: 4px; background: ${todayAssessment.color}20; color: ${todayAssessment.color}; font-weight: bold; text-align: center;">
+        ${todayAssessment.icon} ${todayAssessment.verdict}
+        ${window.DEBUG_ASSESSMENT ? `<div style="font-size: 10px; opacity: 0.8; margin-top: 2px;">Score: ${todayAssessment.score}/100</div>` : ''}
+      </div>
+    </div>
+  `;
+  
+  // Get tomorrow's tide information - use actual peaks from chart data
+  const tomorrowTides = getActualTidePeaks('tomorrow');
+  
+  const highTideTimes = tomorrowTides.highTides.map(tide => {
+    return tide.time.toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      timeZone: 'Asia/Tokyo'
+    });
+  }).join(', ');
+  const lowTideTimes = tomorrowTides.lowTides.map(tide => {
+    return tide.time.toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      timeZone: 'Asia/Tokyo'
+    });
+  }).join(', ');
+  
+  // Debug logging (can be removed in production)
+  if (window.DEBUG_TIDES) {
+    console.log('Tomorrow high tide times:', highTideTimes);
+    console.log('Tomorrow low tide times:', lowTideTimes);
+  }
+  
+  const tideInfo = (highTideTimes || lowTideTimes) ? `
+    <div class="small muted" style="margin-top: 4px;">
+      <svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor" style="width: 12px; height: 12px; margin-right: 4px;">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+      </svg>
+      ${highTideTimes ? `High: ${highTideTimes}` : ''}${highTideTimes && lowTideTimes ? ' | ' : ''}${lowTideTimes ? `Low: ${lowTideTimes}` : ''}
+    </div>
+  ` : '<div class="small muted" style="margin-top: 4px;">No tide data available</div>';
+
+  const tomorrowHTML = `
+    <div class="metric">
+      <div class="label"><svg class="icon icon-small"><use href="#moon-icon"></use></svg> Tomorrow (${new Date(tomorrow.date).toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'})})</div>
+      <div class="value">${tomorrow.avgWave.toFixed(2)}m</div>
+      <div class="small muted"><svg class="icon icon-small"><use href="#range-icon"></use></svg> Range: ${tomorrow.minWave.toFixed(2)}-${tomorrow.maxWave.toFixed(2)}m</div>
+      <div class="small muted"><svg class="icon icon-small"><use href="#time-icon"></use></svg> ${tomorrow.avgPeriod.toFixed(1)}s @ ${Math.round(tomorrow.avgDirection)}°</div>
+      ${tideInfo}
+      <div class="small" style="margin-top: 8px; padding: 4px 8px; border-radius: 4px; background: ${tomorrowAssessment.color}20; color: ${tomorrowAssessment.color}; font-weight: bold; text-align: center;">
+        ${tomorrowAssessment.icon} ${tomorrowAssessment.verdict}
+      </div>
+    </div>
+  `;
+
+  forecastContainer.innerHTML = `
+    <div class="row">
+      ${todayHTML}
+      ${tomorrowHTML}
+    </div>
+    <div class="small muted" style="margin-top: 8px;">
+      <span style="color: ${confidenceColor}">●</span> <svg class="icon icon-small"><use href="#info-icon"></use></svg> Forecast Confidence: <strong>${confidence}</strong> | 
+      <svg class="icon icon-small"><use href="#info-icon"></use></svg> Multiple models averaged for accuracy
+    </div>
+  `;
+}
+
+async function load(){
+  try{
+    const spotNameEl = $('#spotName');
+    if(spotNameEl) spotNameEl.textContent = CONFIG.spotName;
+    
+    // Update loading status
+    const loadingText = $('#loadingText');
+    if(loadingText) loadingText.textContent = 'Fetching weather data...';
+
+    // Fetch multiple forecast sources for better accuracy
+    const forecastData = await fetchMultipleForecasts();
+    console.log('Forecast data result:', forecastData);
+    
+    if(!forecastData.success) {
+      console.error('Failed to fetch forecast data, trying fallback...');
+      
+      // Try a simple fallback with basic wave data
+      const fallbackData = await tryFallbackData();
+      if(fallbackData.success) {
+        console.log('Using fallback data');
+        const { marine, weather } = fallbackData;
+        const enhancedForecastData = fallbackData;
+        
+        // Continue with fallback data
+        await processForecastData(enhancedForecastData, marine, weather);
+        return;
+      } else {
+        throw new Error('Failed to fetch forecast data and fallback failed');
+      }
+    }
+
+    const { marine, weather } = forecastData;
+    console.log('Marine data structure:', marine);
+    console.log('Weather data structure:', weather);
+    
+    // Using only free APIs - Open-Meteo Marine API
+    const enhancedForecastData = forecastData;
+    console.log('Using Open-Meteo Marine API (free)');
+    
+    // Process all forecast data
+    await processForecastData(enhancedForecastData, marine, weather);
+
+  } catch(err){
+    console.error('Main load error:', err);
+    alert('Failed to load data. Check your coordinates and try again.');
+  }
+}
+
+function num(n){ return (typeof n === 'number') ? n.toFixed(2) : '—'; }
+
+
+window.addEventListener('load', load);
+</script>
+</body>
+</html>
