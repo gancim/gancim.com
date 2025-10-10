@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Home Surf Spot</title>
-  <meta name="description" content="Realtime conditions and multi‑day marine forecast for my home surf spot." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Sesh - Surf Session Tracker</title>
+  <meta name="description" content="Track your surf sessions and conditions at your home surf spot." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <!-- SVG Icons -->
   <svg style="display: none;">
@@ -108,6 +109,90 @@
       <symbol id="direction-icon" viewBox="0 0 24 24">
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
       </symbol>
+      
+      <!-- Target/Location Icon -->
+      <symbol id="target-icon" viewBox="0 0 24 24">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Save Icon -->
+      <symbol id="save-icon" viewBox="0 0 24 24">
+        <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Wave Size Icons -->
+      <symbol id="wave-small-icon" viewBox="0 0 24 24">
+        <path d="M3 12c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3z" fill="currentColor"/>
+      </symbol>
+      <symbol id="wave-medium-icon" viewBox="0 0 24 24">
+        <path d="M3 12c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3z" fill="currentColor"/>
+      </symbol>
+      <symbol id="wave-big-icon" viewBox="0 0 24 24">
+        <path d="M3 12c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Weather Icons -->
+      <symbol id="weather-sunny-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="5" fill="currentColor"/>
+        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none"/>
+      </symbol>
+      <symbol id="weather-cloudy-icon" viewBox="0 0 24 24">
+        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" fill="currentColor"/>
+      </symbol>
+      <symbol id="weather-rainy-icon" viewBox="0 0 24 24">
+        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" fill="currentColor"/>
+        <path d="M8 14l2 2 2-2 2 2 2-2" stroke="currentColor" stroke-width="2" fill="none"/>
+      </symbol>
+      <symbol id="weather-stormy-icon" viewBox="0 0 24 24">
+        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" fill="currentColor"/>
+        <path d="M13 16l-2 2-2-2 2-2 2 2z" fill="currentColor"/>
+      </symbol>
+      
+      <!-- Wind Direction Icons -->
+      <symbol id="wind-north-icon" viewBox="0 0 24 24">
+        <path d="M12 2l3 6h-6l3-6z" fill="currentColor"/>
+        <path d="M12 8v14" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="wind-northeast-icon" viewBox="0 0 24 24">
+        <path d="M16 2l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none"/>
+        <path d="M22 8H8v14" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="wind-east-icon" viewBox="0 0 24 24">
+        <path d="M22 12l-6-6v6h-14v6h14v6l6-6z" fill="currentColor"/>
+      </symbol>
+      <symbol id="wind-southeast-icon" viewBox="0 0 24 24">
+        <path d="M8 2l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none"/>
+        <path d="M2 8h14v14" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="wind-south-icon" viewBox="0 0 24 24">
+        <path d="M12 22l-3-6h6l-3 6z" fill="currentColor"/>
+        <path d="M12 16V2" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="wind-southwest-icon" viewBox="0 0 24 24">
+        <path d="M8 22l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none"/>
+        <path d="M2 16h14V2" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="wind-west-icon" viewBox="0 0 24 24">
+        <path d="M2 12l6 6v-6h14v-6H8V6l-6 6z" fill="currentColor"/>
+      </symbol>
+      <symbol id="wind-northwest-icon" viewBox="0 0 24 24">
+        <path d="M16 22l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none"/>
+        <path d="M22 16H8V2" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      
+      <!-- Wind Strength Icons -->
+      <symbol id="wind-calm-icon" viewBox="0 0 24 24">
+        <path d="M3 12h18" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="wind-light-icon" viewBox="0 0 24 24">
+        <path d="M3 12h18M6 8h12M6 16h12" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="wind-moderate-icon" viewBox="0 0 24 24">
+        <path d="M3 12h18M6 8h12M6 16h12M9 6h6M9 18h6" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="wind-strong-icon" viewBox="0 0 24 24">
+        <path d="M3 12h18M6 8h12M6 16h12M9 6h6M9 18h6M12 4h6M12 20h6" stroke="currentColor" stroke-width="2"/>
+      </symbol>
     </defs>
   </svg>
   
@@ -159,7 +244,14 @@
       color:var(--text);
     }
     header{padding:28px 18px 8px; max-width:1100px; margin:0 auto}
-    .title{display:flex; gap:14px; align-items:center; flex-wrap:wrap}
+    .title{display:flex; gap:14px; align-items:center; flex-wrap:wrap; justify-content:center}
+    .logo-container{display:flex; flex-direction:column; align-items:center; gap:8px}
+    .logo{height:60px; width:auto; max-width:200px; object-fit:contain}
+    .subtitle{color:var(--muted); font-size:14px; font-weight:400; text-align:center}
+    
+    /* Data management links */
+    #dataManagementPanel a:hover{opacity:1 !important}
+    #toggleDataManagement:hover{color:var(--text) !important}
     .pill{background:rgba(255,255,255,.06); padding:6px 12px; border-radius:999px; color:var(--muted); font-size:12px}
     h1{margin:0; font-weight:750; letter-spacing:.2px}
     main{max-width:1100px; margin:16px auto 80px; padding:0 18px; display:grid; gap:18px}
@@ -170,8 +262,69 @@
       .metric{min-width:unset}
       .surf-verdict{font-size:36px}
       .card .content{padding:12px 16px}
-      header{padding:20px 16px 8px}
-      main{padding:0 16px}
+      header{padding:20px 12px 8px}
+      .logo{height:50px; max-width:150px}
+      .subtitle{font-size:12px}
+      
+      /* Analytics mobile responsiveness */
+      #analyticsPanel .grid{grid-template-columns:1fr !important; gap:8px}
+      #analyticsPanel canvas{max-height:80px}
+      #analyticsPanel .card{padding:8px !important}
+      #analyticsPanel .card div{font-size:9px !important; margin-bottom:6px !important}
+      main{padding:0 12px; margin:12px auto 60px}
+      
+      /* Mobile-specific improvements */
+      h1{font-size:24px; text-align:center}
+      
+      /* Better touch targets */
+      button{padding:12px 16px; font-size:14px; min-height:44px}
+      select, input, textarea{padding:12px; font-size:16px; min-height:44px}
+      
+      /* Calendar mobile improvements */
+      .calendar-month{font-size:16px; margin-bottom:12px}
+      .calendar-grid{grid-template-columns:repeat(7, 1fr); gap:2px}
+      .calendar-day{padding:8px 4px; font-size:12px; min-height:60px}
+      .calendar-day .day-number{font-size:14px; margin-bottom:4px}
+      
+      /* Session cards mobile */
+      .session-card{font-size:11px; padding:6px 8px; margin-bottom:4px}
+      .session-card .spot-name{font-size:12px; margin-bottom:2px}
+      .session-card .emojis{gap:3px}
+      
+      /* Modal mobile improvements */
+      .modal > div{max-width:95vw; margin:10px; padding:16px; max-height:90vh}
+      .modal h3{font-size:18px; margin-bottom:12px}
+      
+      /* Form improvements */
+      .metric .label{font-size:14px; margin-bottom:6px}
+      textarea{min-height:80px; font-size:16px}
+      
+      /* Button spacing */
+      .button-group{flex-direction:column; gap:8px}
+      .button-group button{width:100%; margin:0}
+      
+      /* Touch improvements */
+      button, select, input, textarea{-webkit-tap-highlight-color:rgba(0,0,0,0.1)}
+      button:active{transform:scale(0.98)}
+      
+      /* Prevent zoom on input focus */
+      input, select, textarea{font-size:16px !important}
+      
+      /* Better spacing for small screens */
+      .card{margin-bottom:16px}
+      .card h2{padding:12px 16px; font-size:16px}
+      .card .content{padding:12px 16px}
+      
+      /* Session history mobile */
+      #sessionHistory .calendar-month{margin-bottom:16px}
+      #sessionHistory .calendar-grid{gap:1px}
+      #sessionHistory .calendar-day{min-height:50px; padding:6px 2px}
+      
+      /* Stats mobile */
+      #sessionStats{grid-template-columns:1fr 1fr; gap:12px}
+      #sessionStats .stat{text-align:center; padding:12px 8px}
+      #sessionStats .stat-value{font-size:18px}
+      #sessionStats .stat-label{font-size:11px}
     }
     .card{background:var(--card); border-radius:var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,.25); overflow:hidden}
     .card h2{margin:0; padding:16px 18px; border-bottom:1px solid rgba(255,255,255,.06)}
@@ -224,76 +377,275 @@
 <body>
   <header>
     <div class="title">
-      <h1 id="spotName"><svg class="icon icon-large" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3z"/></svg> My Home Surf Spot</h1>
+      <div class="logo-container">
+        <img src="logo.png" alt="SESH" class="logo" />
+      </div>
     </div>
   </header>
 
   <main>
+
+    <!-- Location Configuration Section -->
     <section class="card">
-      <h2>
-        <div class="spot">
-          <span><svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3z"/></svg> Surf Conditions & Current Weather</span>
-          <div class="right">
-            <span class="muted small" id="updatedAt">—</span>
+      <h2><svg class="icon"><use href="#direction-icon"></use></svg> Surf Spot Location</h2>
+      <div class="content">
+        <div class="row">
+          <div class="metric">
+            <div class="label">Latitude</div>
+            <input type="number" id="latitude" step="any" placeholder="35.3183" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: var(--card); color: var(--text);">
+          </div>
+          <div class="metric">
+            <div class="label">Longitude</div>
+            <input type="number" id="longitude" step="any" placeholder="139.4298" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: var(--card); color: var(--text);">
+          </div>
+          <div class="metric">
+            <div class="label">Spot Name</div>
+            <input type="text" id="spotNameInput" placeholder="Sesh" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: var(--card); color: var(--text);">
+          </div>
+          <div class="metric" style="display: flex; align-items: end; gap: 8px;">
+            <button type="button" id="findLocationBtn" style="background: linear-gradient(180deg, #2196f3, #1976d2); font-size: 12px; padding: 12px; flex: 1; display: flex; align-items: center; justify-content: center;" title="Find My Location">
+              <svg class="icon" style="width: 20px; height: 20px;"><use href="#target-icon"></use></svg>
+            </button>
+            <button type="button" id="updateLocationBtn" style="background: linear-gradient(180deg, #ff5722, #e64a19); font-size: 12px; padding: 12px; flex: 1; display: flex; align-items: center; justify-content: center;" title="Update Location">
+              <svg class="icon" style="width: 20px; height: 20px;"><use href="#save-icon"></use></svg>
+            </button>
           </div>
         </div>
-      </h2>
+        <div class="small muted" style="margin-top: 8px;">
+          <svg class="icon icon-small" style="margin-right: 4px;"><use href="#info-icon"></use></svg>
+          Enter your surf spot coordinates to get accurate weather and wave data for auto-fill
+        </div>
+      </div>
+    </section>
+
+    <!-- Session Logging Section -->
+    <section class="card">
+      <h2><svg class="icon"><use href="#time-icon"></use></svg> Log Surf Session</h2>
       <div class="content">
-        <!-- Current Weather Conditions -->
-        <div class="row" style="margin-bottom: 24px;">
-          <div class="metric">
-            <div class="label"><svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M2 12h16c1.1 0 2-.9 2-2s-.9-2-2-2H2v4zm0-6h18c1.1 0 2-.9 2-2s-.9-2-2-2H2v4zm0 12h12c1.1 0 2-.9 2-2s-.9-2-2-2H2v4z"/></svg> Wind</div>
-            <div class="value" id="windNow">—</div>
-            <div class="small muted" id="windDesc">kn @ °</div>
+        <form id="sessionForm" style="display: grid; gap: 16px;">
+          <!-- Date and Time Section -->
+          <div class="row">
+            <div class="metric">
+              <div class="label">Session Date</div>
+              <input type="date" id="sessionDate" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: var(--card); color: var(--text);">
+            </div>
+            <div class="metric">
+              <div class="label">Session Time</div>
+              <input type="time" id="sessionTime" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: var(--card); color: var(--text);">
+            </div>
+            <div class="metric" style="display: flex; align-items: end;">
+              <button type="button" id="useCurrentTimeBtn" style="background: linear-gradient(180deg, #9c27b0, #7b1fa2); font-size: 12px; padding: 12px; width: calc(100% + 8px); display: flex; align-items: center; justify-content: center;" title="Use Current Time">
+                <svg class="icon" style="width: 20px; height: 20px;"><use href="#time-icon"></use></svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Surf Conditions Section -->
+          <div class="row">
+            <div class="metric">
+              <div class="label">Wave Size</div>
+              <div class="custom-select" style="position: relative; width: 100%;">
+                <select id="waveSize" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: var(--card); color: var(--text); appearance: none; padding-right: 30px;">
+                  <option value="">Select wave size</option>
+                  <option value="small">Small (0-1.5ft)</option>
+                  <option value="medium">Medium (1.5-3ft)</option>
+                  <option value="big">Big (3ft+)</option>
+                </select>
+                <div class="select-icon" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                  <svg class="icon" style="width: 16px; height: 16px; color: var(--muted);"><use href="#wave-small-icon"></use></svg>
+                </div>
+              </div>
+            </div>
+            <div class="metric">
+              <div class="label">Weather</div>
+              <div class="custom-select" style="position: relative; width: 100%;">
+                <select id="weather" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: var(--card); color: var(--text); appearance: none; padding-right: 30px;">
+                  <option value="">Select weather</option>
+                  <option value="sunny">Sunny</option>
+                  <option value="cloudy">Cloudy</option>
+                  <option value="overcast">Overcast</option>
+                  <option value="rainy">Rainy</option>
+                  <option value="stormy">Stormy</option>
+                </select>
+                <div class="select-icon" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                  <svg class="icon" style="width: 16px; height: 16px; color: var(--muted);"><use href="#weather-sunny-icon"></use></svg>
+                </div>
+              </div>
+            </div>
+            <div class="metric">
+              <div class="label">Wind Direction</div>
+              <div class="custom-select" style="position: relative; width: 100%;">
+                <select id="windDirection" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: var(--card); color: var(--text); appearance: none; padding-right: 30px;">
+                  <option value="">Select direction</option>
+                  <option value="N">North</option>
+                  <option value="NE">Northeast</option>
+                  <option value="E">East</option>
+                  <option value="SE">Southeast</option>
+                  <option value="S">South</option>
+                  <option value="SW">Southwest</option>
+                  <option value="W">West</option>
+                  <option value="NW">Northwest</option>
+                </select>
+                <div class="select-icon" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                  <svg class="icon" style="width: 16px; height: 16px; color: var(--muted);"><use href="#wind-north-icon"></use></svg>
+                </div>
+              </div>
+            </div>
+            <div class="metric">
+              <div class="label">Wind Strength</div>
+              <div class="custom-select" style="position: relative; width: 100%;">
+                <select id="windStrength" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: var(--card); color: var(--text); appearance: none; padding-right: 30px;">
+                  <option value="">Select strength</option>
+                  <option value="calm">Calm (0-5 kn)</option>
+                  <option value="light">Light (5-10 kn)</option>
+                  <option value="moderate">Moderate (10-15 kn)</option>
+                  <option value="strong">Strong (15+ kn)</option>
+                </select>
+                <div class="select-icon" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                  <svg class="icon" style="width: 16px; height: 16px; color: var(--muted);"><use href="#wind-calm-icon"></use></svg>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="metric">
-            <div class="label"><svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M15 13V5c0-1.66-1.34-3-3-3S9 3.34 9 5v8c-1.21.91-2 2.37-2 4 0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.63-.79-3.09-2-4zm-4-8c0-.55.45-1 1-1s1 .45 1 1h-1v1h1v2h-1v1h1v2h-1v1h1v1c0 .55-.45 1-1 1s-1-.45-1-1v-1h-1v-1h1v-2h-1v-1h1v-2h-1V9h1V7h-1V5z"/></svg> Air Temp</div>
-            <div class="value" id="tempNow">—</div>
-            <div class="small muted">°C</div>
+            <div class="label">Session Notes (Optional)</div>
+            <textarea id="sessionNotes" placeholder="How was the session? Any observations..." style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: var(--card); color: var(--text); min-height: 60px; resize: vertical;"></textarea>
+          </div>
+          <div class="button-group" style="display: flex; gap: 12px; justify-content: center;">
+            <button type="submit" style="flex: 1; max-width: 200px;">
+              <svg class="icon icon-small" style="margin-right: 8px;"><use href="#check-icon"></use></svg>
+              Log Session
+            </button>
+            <button type="button" id="autoFillBtn" style="flex: 1; max-width: 200px; background: linear-gradient(180deg, #ff9800, #f57c00); position: relative;">
+              <svg class="icon icon-small" style="margin-right: 8px;"><use href="#info-icon"></use></svg>
+              Auto-fill from API
+              <span id="dataStatus" style="position: absolute; top: -8px; right: -8px; background: var(--ok); color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Session History Section -->
+    <section class="card">
+      <h2><svg class="icon"><use href="#chart-icon"></use></svg> Session History</h2>
+      <div class="content">
+        <div id="sessionStats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 20px;">
+          <div class="metric">
+            <div class="label">Total Sessions</div>
+            <div class="value" id="totalSessions">0</div>
           </div>
           <div class="metric">
-            <div class="label"><svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3zm6 0c0-1.5 1-3 2.5-3s2.5 1.5 2.5 3-1 3-2.5 3-2.5-1.5-2.5-3z"/></svg> Wave Height</div>
-            <div class="value" id="waveNow">—</div>
-            <div class="small muted">m (model)</div>
+            <div class="label">This Month</div>
+            <div class="value" id="monthlySessions">0</div>
           </div>
           <div class="metric">
-            <div class="label"><svg class="icon icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Swell</div>
-            <div class="value" id="swellNow">—</div>
-            <div class="small muted">m @ s @ °</div>
+            <div class="label">Avg Wave Size</div>
+            <div class="value" id="avgWaveSize">—</div>
+          </div>
+          <div class="metric">
+            <div class="label">Last Session</div>
+            <div class="value" id="lastSession">—</div>
+          </div>
+        </div>
+        <div id="sessionHistory">
+          <div class="notice small">
+            <svg class="icon icon-small"><use href="#info-icon"></use></svg>
+            No sessions logged yet. Log your first surf session above!
           </div>
         </div>
         
-        <!-- Surf Assessment -->
-        <div id="surfAssessment">
-          <div class="notice small" style="background: linear-gradient(90deg, rgba(59,179,255,0.1), rgba(59,179,255,0.2)); border-left: 4px solid var(--accent);">
-            <svg class="icon icon-small"><use href="#loading-icon"></use></svg> 
-            <span id="loadingText">Analyzing surf conditions...</span>
-            <div class="small muted" style="margin-top: 4px;">Checking waves, wind, tides, and weather data</div>
+        <!-- Analytics Section -->
+        <div style="margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px;">
+          <div id="toggleAnalytics" style="color: var(--muted); font-size: 11px; cursor: pointer; text-align: center; padding: 4px 0; display: flex; align-items: center; justify-content: center; gap: 4px;">
+            <span id="analyticsToggleIcon" style="transition: transform 0.3s ease; font-size: 10px;">▼</span>
+            Analytics & Charts
+          </div>
+          
+          <div id="analyticsPanel" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; margin-top: 12px; display: block;">
+            <!-- Quick Stats -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 16px;">
+              <div style="background: rgba(59,179,255,0.1); padding: 12px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 20px; font-weight: 600; color: var(--accent);" id="totalSessions">0</div>
+                <div style="font-size: 10px; color: var(--muted);">Total Sessions</div>
+              </div>
+              <div style="background: rgba(76,175,80,0.1); padding: 12px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 20px; font-weight: 600; color: #4caf50;" id="avgSessionsPerWeek">0</div>
+                <div style="font-size: 10px; color: var(--muted);">Per Week</div>
+              </div>
+              <div style="background: rgba(255,193,7,0.1); padding: 12px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 20px; font-weight: 600; color: #ffc107;" id="favoriteWaveSize">-</div>
+                <div style="font-size: 10px; color: var(--muted);">Fav Wave Size</div>
+              </div>
+              <div style="background: rgba(156,39,176,0.1); padding: 12px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 20px; font-weight: 600; color: #9c27b0;" id="favoriteWeather">-</div>
+                <div style="font-size: 10px; color: var(--muted);">Fav Weather</div>
+              </div>
+            </div>
+            
+            <!-- Charts Container -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+              <!-- Wave Size Distribution -->
+              <div style="background: var(--card); padding: 12px; border-radius: 6px;">
+                <div style="font-size: 10px; font-weight: 600; margin-bottom: 8px; color: var(--muted);">Wave Size</div>
+                <canvas id="waveSizeChart" width="120" height="80"></canvas>
+              </div>
+              
+              <!-- Weather Distribution -->
+              <div style="background: var(--card); padding: 12px; border-radius: 6px;">
+                <div style="font-size: 10px; font-weight: 600; margin-bottom: 8px; color: var(--muted);">Weather</div>
+                <canvas id="weatherChart" width="120" height="80"></canvas>
+              </div>
+            </div>
+            
+            <!-- Monthly Sessions Chart -->
+            <div style="background: var(--card); padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+              <div style="font-size: 10px; font-weight: 600; margin-bottom: 8px; color: var(--muted);">Sessions Over Time</div>
+              <canvas id="monthlyChart" width="300" height="100"></canvas>
+            </div>
+            
+            <!-- Wind Analysis -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+              <!-- Wind Direction -->
+              <div style="background: var(--card); padding: 12px; border-radius: 6px;">
+                <div style="font-size: 10px; font-weight: 600; margin-bottom: 8px; color: var(--muted);">Wind Direction</div>
+                <canvas id="windDirectionChart" width="120" height="80"></canvas>
+              </div>
+              
+              <!-- Wind Strength -->
+              <div style="background: var(--card); padding: 12px; border-radius: 6px;">
+                <div style="font-size: 10px; font-weight: 600; margin-bottom: 8px; color: var(--muted);">Wind Strength</div>
+                <canvas id="windStrengthChart" width="120" height="80"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Management Section -->
+        <div style="margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px;">
+          <div id="toggleDataManagement" style="color: var(--muted); font-size: 11px; cursor: pointer; text-align: center; padding: 4px 0; display: flex; align-items: center; justify-content: center; gap: 4px;">
+            <span id="toggleIcon" style="transition: transform 0.3s ease; font-size: 10px;">▼</span>
+            Data Management
+          </div>
+          
+          <div id="dataManagementPanel" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; margin-top: 8px;">
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; font-size: 10px;">
+              <a href="#" id="exportBtn" style="color: var(--accent); text-decoration: none; padding: 2px 0; display: flex; align-items: center; gap: 3px; opacity: 0.8; transition: opacity 0.2s;">
+                Export
+              </a>
+              <a href="#" id="importBtn" style="color: var(--accent); text-decoration: none; padding: 2px 0; display: flex; align-items: center; gap: 3px; opacity: 0.8; transition: opacity 0.2s;">
+                Import
+              </a>
+              <a href="#" id="resetBtn" style="color: #f44336; text-decoration: none; padding: 2px 0; display: flex; align-items: center; gap: 3px; opacity: 0.8; transition: opacity 0.2s;">
+                Reset
+              </a>
+              <input type="file" id="importFile" accept=".json" style="display: none;">
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-  <section class="card">
-    <h2><svg class="icon"><use href="#tide-icon"></use></svg> Tide Information</h2>
-    <div class="content">
-      <div id="tideInfo" style="display: none;">
-        <div class="notice small"><svg class="icon icon-small"><use href="#loading-icon"></use></svg> Loading tide data...</div>
-      </div>
-      <div id="tideChartContainer" style="margin-top: 20px;">
-        <canvas id="tideChart" width="400" height="200"></canvas>
-      </div>
-    </div>
-  </section>
-
-    <section class="card">
-      <h2><svg class="icon"><use href="#chart-icon"></use></svg> Today & Tomorrow Wave Forecast</h2>
-      <div class="content">
-        <div id="dailyForecast">
-          <div class="notice small"><svg class="icon icon-small"><use href="#loading-icon"></use></svg> Loading accurate forecast...</div>
-        </div>
-      </div>
-    </section>
 
   </main>
 
@@ -301,16 +653,191 @@
   </footer>
 
 <script>
-// ====== EDIT ME: your spot config ======
-const CONFIG = {
-  spotName: 'Chisan',
-  // 👉 Replace with your exact coordinates (decimal). Example below is Chiba, Japan coastline.
+// ====== DYNAMIC SPOT CONFIG ======
+let CONFIG = {
+  spotName: 'Sesh',
   latitude: 35.31828979397089,
-  longitude:  139.42980656205796,
-  // Use your IANA timezone (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
-  timezone: 'Asia/Tokyo', // Fixed to Japan timezone
+  longitude: 139.42980656205796,
+  timezone: 'Asia/Tokyo',
 };
-// =======================================
+
+// Load saved location from localStorage
+function loadSavedLocation() {
+  try {
+    const savedConfig = localStorage.getItem('sesh_location_config');
+    if (savedConfig) {
+      const parsed = JSON.parse(savedConfig);
+      CONFIG = { ...CONFIG, ...parsed };
+      console.log('Loaded saved location:', CONFIG);
+    }
+  } catch (error) {
+    console.error('Error loading saved location:', error);
+  }
+}
+
+// Save location to localStorage
+function saveLocation(latitude, longitude, spotName) {
+  const newConfig = {
+    latitude: parseFloat(latitude),
+    longitude: parseFloat(longitude),
+    spotName: spotName || 'Sesh'
+  };
+  
+  CONFIG = { ...CONFIG, ...newConfig };
+  
+  try {
+    localStorage.setItem('sesh_location_config', JSON.stringify(newConfig));
+    console.log('Saved location:', newConfig);
+  } catch (error) {
+    console.error('Error saving location:', error);
+  }
+}
+
+// Update location configuration
+function updateLocation() {
+  const latitude = document.getElementById('latitude').value;
+  const longitude = document.getElementById('longitude').value;
+  const spotName = document.getElementById('spotNameInput').value;
+  
+  if (!latitude || !longitude) {
+    alert('Please enter both latitude and longitude');
+    return;
+  }
+  
+  const lat = parseFloat(latitude);
+  const lng = parseFloat(longitude);
+  
+  if (isNaN(lat) || isNaN(lng)) {
+    alert('Please enter valid numbers for coordinates');
+    return;
+  }
+  
+  if (lat < -90 || lat > 90) {
+    alert('Latitude must be between -90 and 90');
+    return;
+  }
+  
+  if (lng < -180 || lng > 180) {
+    alert('Longitude must be between -180 and 180');
+    return;
+  }
+  
+  // Save the new location
+  saveLocation(lat, lng, spotName);
+  
+  // Update the display
+  
+  // Show success message
+  const updateBtn = document.getElementById('updateLocationBtn');
+  const originalText = updateBtn.innerHTML;
+  updateBtn.innerHTML = '<svg class="icon icon-small" style="margin-right: 4px;"><use href="#check-icon"></use></svg>Updated!';
+  updateBtn.style.background = 'linear-gradient(180deg, #4caf50, #45a049)';
+  
+  setTimeout(() => {
+    updateBtn.innerHTML = originalText;
+    updateBtn.style.background = 'linear-gradient(180deg, #ff5722, #e64a19)';
+  }, 2000);
+  
+  // Reload weather data with new coordinates
+  load();
+}
+
+// Populate location form with current config
+function populateLocationForm() {
+  document.getElementById('latitude').value = CONFIG.latitude;
+  document.getElementById('longitude').value = CONFIG.longitude;
+  document.getElementById('spotNameInput').value = CONFIG.spotName;
+}
+
+// Find current location using browser GPS
+function findCurrentLocation() {
+  const findBtn = document.getElementById('findLocationBtn');
+  const originalText = findBtn.innerHTML;
+  
+  // Show loading state
+  findBtn.innerHTML = '<svg class="icon icon-small" style="margin-right: 4px;"><use href="#loading-icon"></use></svg>Finding...';
+  findBtn.disabled = true;
+  
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by this browser');
+    resetFindButton(findBtn, originalText);
+    return;
+  }
+  
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 300000 // 5 minutes
+  };
+  
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      
+      // Update the form fields
+      document.getElementById('latitude').value = lat.toFixed(6);
+      document.getElementById('longitude').value = lng.toFixed(6);
+      
+      // Try to get a location name (reverse geocoding)
+      getLocationName(lat, lng);
+      
+      // Show success
+      findBtn.innerHTML = '<svg class="icon icon-small" style="margin-right: 4px;"><use href="#check-icon"></use></svg>Found!';
+      findBtn.style.background = 'linear-gradient(180deg, #4caf50, #45a049)';
+      
+      setTimeout(() => {
+        resetFindButton(findBtn, originalText);
+      }, 2000);
+    },
+    function(error) {
+      let errorMessage = 'Unable to get your location. ';
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          errorMessage += 'Please allow location access and try again.';
+          break;
+        case error.POSITION_UNAVAILABLE:
+          errorMessage += 'Location information is unavailable.';
+          break;
+        case error.TIMEOUT:
+          errorMessage += 'Location request timed out.';
+          break;
+        default:
+          errorMessage += 'An unknown error occurred.';
+          break;
+      }
+      alert(errorMessage);
+      resetFindButton(findBtn, originalText);
+    },
+    options
+  );
+}
+
+// Reset find button to original state
+function resetFindButton(btn, originalText) {
+  btn.innerHTML = originalText;
+  btn.style.background = 'linear-gradient(180deg, #2196f3, #1976d2)';
+  btn.disabled = false;
+}
+
+// Get location name from coordinates (reverse geocoding)
+function getLocationName(lat, lng) {
+  // Use a free reverse geocoding service
+  fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.locality && data.principalSubdivision) {
+        const locationName = `${data.locality}, ${data.principalSubdivision}`;
+        document.getElementById('spotNameInput').value = locationName;
+      } else if (data.city) {
+        document.getElementById('spotNameInput').value = data.city;
+      }
+    })
+    .catch(error => {
+      console.log('Could not get location name:', error);
+      // Don't show error to user, just use coordinates
+    });
+}
 
 // Helpers
 const $ = (s) => document.querySelector(s);
@@ -614,169 +1141,7 @@ async function tryFallbackData(){
   return { success: false };
 }
 
-// Process forecast data (extracted from main load function)
-async function processForecastData(enhancedForecastData, marine, weather){
-  // Using only free APIs - Open-Meteo Marine API
-  console.log('Using Open-Meteo Marine API (free)');
-  
-  // Create and display accurate daily forecast
-  let dailyForecast;
-  try {
-    dailyForecast = createDailyForecast(enhancedForecastData);
-    
-    if(!dailyForecast) {
-      console.log('Daily forecast failed, trying with original forecast data');
-      dailyForecast = createDailyForecast(enhancedForecastData);
-    }
-    
-    if(!dailyForecast) {
-      console.log('Both enhanced and original forecast failed, showing error');
-      displayDailyForecastError();
-    } else {
-      displayDailyForecast(dailyForecast, marine, weather);
-    }
-  } catch(forecastError) {
-    console.error('Error creating daily forecast:', forecastError);
-    displayDailyForecastError();
-  }
-  
-  // Assess surf conditions and display GO/NO GO
-  try {
-    const surfAssessment = assessSurfConditions(enhancedForecastData.marine, weather, dailyForecast);
-    displaySurfAssessment(surfAssessment);
-  } catch(surfError) {
-    console.error('Error assessing surf conditions:', surfError);
-    displaySurfAssessmentError();
-  }
-  
-  // Process and display real tide information from marine API
-  try {
-    const realTideData = processMarineTideData(marine);
-    if(realTideData) {
-      // Store tide data globally for access in other functions
-      window.tideData = realTideData;
-      displayTideInfo(realTideData);
-      
-      // Re-display daily forecast now that tide data is available
-      if(window.lastDailyForecast) {
-        console.log('Re-displaying daily forecast with real tide data');
-        displayDailyForecast(window.lastDailyForecast, marine, weather);
-      }
-    } else {
-      displayTideError();
-    }
-  } catch(tideError) {
-    console.error('Error processing tide data:', tideError);
-    displayTideError();
-  }
 
-  // Current snapshot (use nearest hour) - with error handling
-  try {
-    const nowISO = new Date().toISOString().slice(0,13); // YYYY-MM-DDTHH
-    const idx = enhancedForecastData.marine.hourly.time.findIndex(t => t.startsWith(nowISO));
-    const safe = (arr) => (Array.isArray(arr) && idx>=0 ? arr[idx] : undefined);
-
-    const windKph = weather.current?.wind_speed_10m; // units vary by API settings; often km/h
-    const windKnots = (typeof windKph === 'number') ? (windKph * 0.539957).toFixed(1) : '—';
-    $('#windNow').textContent = `${windKnots}`;
-    $('#windDesc').textContent = `${windKnots==='—'?'—':windKnots+' kn'} ${dirToArrow(weather.current?.wind_direction_10m)}`;
-    $('#tempNow').textContent = weather.current?.temperature_2m ?? '—';
-
-    const waveNow = safe(enhancedForecastData.marine.hourly.wave_height);
-    $('#waveNow').textContent = (typeof waveNow === 'number') ? waveNow.toFixed(2) : '—';
-
-    const swellH = safe(enhancedForecastData.marine.hourly.swell_wave_height);
-    const swellP = safe(enhancedForecastData.marine.hourly.swell_wave_period);
-    const swellD = safe(enhancedForecastData.marine.hourly.swell_wave_direction);
-    $('#swellNow').textContent = (typeof swellH==='number'&&typeof swellP==='number')
-      ? `${swellH.toFixed(2)} m @ ${swellP.toFixed(1)} s`
-      : '—';
-    $('#swellNow').nextElementSibling.textContent = `${typeof swellD==='number'? Math.round(swellD)+'°' : ''}`;
-
-    $('#updatedAt').textContent = 'Updated ' + fmt.format(new Date());
-  } catch(currentError) {
-    console.error('Error loading current conditions:', currentError);
-    $('#windNow').textContent = '—';
-    $('#windDesc').textContent = '—';
-    $('#tempNow').textContent = '—';
-    $('#waveNow').textContent = '—';
-    $('#swellNow').textContent = '—';
-    $('#updatedAt').textContent = 'Error loading data';
-  }
-
-}
-
-// Create accurate daily forecast
-function createDailyForecast(forecastData){
-  try {
-    console.log('Creating daily forecast with data:', forecastData);
-    
-    if(!forecastData || !forecastData.success) {
-      console.error('Invalid forecast data:', forecastData);
-      return null;
-    }
-    
-    const { marine } = forecastData;
-    
-    if(!marine || !marine.hourly) {
-      console.error('Missing marine data:', marine);
-      return null;
-    }
-    
-    console.log('Marine data structure:', {
-      hasTime: !!marine.hourly.time,
-      hasWaveHeight: !!marine.hourly.wave_height,
-      timeLength: marine.hourly.time?.length,
-      waveHeightLength: marine.hourly.wave_height?.length
-    });
-    
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    
-    // Get today's data
-    let todayData = getDayData(marine, today);
-    let tomorrowData = getDayData(marine, tomorrow);
-    
-    console.log('Today data:', todayData);
-    console.log('Tomorrow data:', tomorrowData);
-    
-    // If today's data is not available, try to use tomorrow as today
-    if(!todayData && tomorrowData) {
-      console.log('No today data available, using tomorrow as today');
-      todayData = tomorrowData;
-      
-      // Try to get the day after tomorrow for tomorrow's data
-      const dayAfterTomorrow = new Date(tomorrow);
-      dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
-      tomorrowData = getDayData(marine, dayAfterTomorrow);
-      console.log('Day after tomorrow data:', tomorrowData);
-    }
-    
-    if(!todayData && !tomorrowData) {
-      console.error('No data available for today or tomorrow');
-      return null;
-    }
-    
-    if(!todayData || !tomorrowData) {
-      console.log('Missing day data - today:', !!todayData, 'tomorrow:', !!tomorrowData);
-      return null;
-    }
-    
-    const result = {
-      today: todayData,
-      tomorrow: tomorrowData,
-      confidence: calculateConfidence(todayData, tomorrowData)
-    };
-    
-    console.log('Daily forecast created successfully:', result);
-    return result;
-  } catch(error) {
-    console.error('Error creating daily forecast:', error);
-    return null;
-  }
-}
 
 // Get data for a specific day
 function getDayData(marineData, targetDate){
@@ -1676,19 +2041,6 @@ function formatTideData(tides){
 // No simulated data - show error if API fails
 
 // Simulated tide functions removed - use real API data only
-function weatherURL(){
-  const base = 'https://api.open-meteo.com/v1/forecast';
-  const current = ['temperature_2m','wind_speed_10m','wind_direction_10m'].join(',');
-  const hourly = ['wind_speed_10m','wind_direction_10m'].join(',');
-  const params = new URLSearchParams({
-    latitude: CONFIG.latitude,
-    longitude: CONFIG.longitude,
-    current,
-    hourly,
-    timezone: CONFIG.timezone
-  });
-  return `${base}?${params.toString()}`;
-}
 
 
 // Create tide chart
@@ -2452,58 +2804,1201 @@ function displayDailyForecast(forecastData, marineData = null, weatherData = nul
   `;
 }
 
-async function load(){
-  try{
-    const spotNameEl = $('#spotName');
-    if(spotNameEl) spotNameEl.textContent = CONFIG.spotName;
-    
-    // Update loading status
-    const loadingText = $('#loadingText');
-    if(loadingText) loadingText.textContent = 'Fetching weather data...';
+// ====== SESSION TRACKING FUNCTIONS ======
 
-    // Fetch multiple forecast sources for better accuracy
-    const forecastData = await fetchMultipleForecasts();
-    console.log('Forecast data result:', forecastData);
+// Session data structure
+const SESSION_STORAGE_KEY = 'sesh_surf_sessions';
+
+// Get all sessions from localStorage
+function getSessions() {
+  try {
+    const sessions = localStorage.getItem(SESSION_STORAGE_KEY);
+    return sessions ? JSON.parse(sessions) : [];
+  } catch (error) {
+    console.error('Error loading sessions:', error);
+    return [];
+  }
+}
+
+// Save sessions to localStorage
+function saveSessions(sessions) {
+  try {
+    localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(sessions));
+  } catch (error) {
+    console.error('Error saving sessions:', error);
+  }
+}
+
+// Add a new session
+function addSession(sessionData) {
+  const sessions = getSessions();
+  const newSession = {
+    id: Date.now().toString(),
+    timestamp: sessionData.timestamp || new Date().toISOString(),
+    ...sessionData
+  };
+  sessions.unshift(newSession); // Add to beginning
+  saveSessions(sessions);
+  return newSession;
+}
+
+// Convert wind direction degrees to compass direction
+function degreesToCompass(degrees) {
+  const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  const index = Math.round(degrees / 45) % 8;
+  return directions[index];
+}
+
+// Convert wind speed to strength category
+function windSpeedToStrength(speedKnots) {
+  if (speedKnots <= 5) return 'calm';
+  if (speedKnots <= 10) return 'light';
+  if (speedKnots <= 15) return 'moderate';
+  return 'strong';
+}
+
+// Convert wave height to size category (more accurate for surf conditions)
+function waveHeightToSize(waveHeightMeters) {
+  const feet = waveHeightMeters * 3.28084;
+  
+  // More nuanced wave size detection for better surf tracking
+  if (feet <= 1.5) return 'small';      // 0-1.5ft: Small waves
+  if (feet <= 3) return 'medium';       // 1.5-3ft: Medium waves  
+  if (feet <= 5) return 'big';          // 3-5ft: Big waves
+  return 'big';                         // 5ft+: Very big waves (still "big" category)
+}
+
+// Auto-fill form with current API data
+function autoFillFromAPI() {
+  const windSpeed = window.currentWeather?.wind_speed_10m;
+  const windDirection = window.currentWeather?.wind_direction_10m;
+  const waveHeight = window.currentMarine?.wave_height;
+  const temperature = window.currentWeather?.temperature_2m;
+  
+  // Fill wave size with better detection
+  if (waveHeight !== undefined) {
+    const waveSize = waveHeightToSize(waveHeight);
+    document.getElementById('waveSize').value = waveSize;
+    console.log(`Auto-filled wave size: ${waveSize} (from ${waveHeight.toFixed(2)}m)`);
+  }
+  
+  // Fill wind direction
+  if (windDirection !== undefined) {
+    const compassDir = degreesToCompass(windDirection);
+    document.getElementById('windDirection').value = compassDir;
+    console.log(`Auto-filled wind direction: ${compassDir} (from ${windDirection}°)`);
+  }
+  
+  // Fill wind strength
+  if (windSpeed !== undefined) {
+    const windKnots = windSpeed * 0.539957;
+    const strength = windSpeedToStrength(windKnots);
+    document.getElementById('windStrength').value = strength;
+    console.log(`Auto-filled wind strength: ${strength} (from ${windKnots.toFixed(1)} kn)`);
+  }
+  
+  // Enhanced weather detection based on multiple factors
+  let weather = 'cloudy'; // default
+  
+  if (temperature !== undefined) {
+    // More sophisticated weather detection
+    if (temperature > 25) {
+      weather = 'sunny';
+    } else if (temperature > 20) {
+      weather = 'sunny'; // Still sunny if warm
+    } else if (temperature > 15) {
+      weather = 'cloudy'; // Mild weather
+    } else if (temperature > 10) {
+      weather = 'overcast'; // Cool weather
+    } else {
+      weather = 'overcast'; // Cold weather
+    }
     
-    if(!forecastData.success) {
-      console.error('Failed to fetch forecast data, trying fallback...');
-      
-      // Try a simple fallback with basic wave data
-      const fallbackData = await tryFallbackData();
-      if(fallbackData.success) {
-        console.log('Using fallback data');
-        const { marine, weather } = fallbackData;
-        const enhancedForecastData = fallbackData;
-        
-        // Continue with fallback data
-        await processForecastData(enhancedForecastData, marine, weather);
-        return;
-      } else {
-        throw new Error('Failed to fetch forecast data and fallback failed');
+    // Adjust based on wind conditions (strong wind might indicate stormy weather)
+    if (windSpeed !== undefined) {
+      const windKnots = windSpeed * 0.539957;
+      if (windKnots > 20) {
+        weather = 'stormy'; // Very strong wind = stormy
+      } else if (windKnots > 15 && temperature < 15) {
+        weather = 'rainy'; // Strong wind + cool = likely rainy
       }
     }
+    
+    console.log(`Auto-filled weather: ${weather} (from temp: ${temperature}°C, wind: ${windSpeed ? (windSpeed * 0.539957).toFixed(1) : 'unknown'} kn)`);
+  }
+  
+  document.getElementById('weather').value = weather;
+  
+  // Show success message with details
+  const autoFillBtn = document.getElementById('autoFillBtn');
+  const originalText = autoFillBtn.innerHTML;
+  const filledCount = [waveHeight, windDirection, windSpeed, temperature].filter(x => x !== undefined).length;
+  
+  autoFillBtn.innerHTML = `<svg class="icon icon-small" style="margin-right: 8px;"><use href="#check-icon"></use></svg>Auto-filled ${filledCount}/4!`;
+  autoFillBtn.style.background = 'linear-gradient(180deg, #4caf50, #45a049)';
+  
+  setTimeout(() => {
+    autoFillBtn.innerHTML = originalText;
+    autoFillBtn.style.background = 'linear-gradient(180deg, #ff9800, #f57c00)';
+  }, 3000);
+}
 
-    const { marine, weather } = forecastData;
-    console.log('Marine data structure:', marine);
-    console.log('Weather data structure:', weather);
+// Display session statistics
+function updateSessionStats() {
+  const sessions = getSessions();
+  const now = new Date();
+  const thisMonth = sessions.filter(session => {
+    const sessionDate = new Date(session.timestamp);
+    return sessionDate.getMonth() === now.getMonth() && 
+           sessionDate.getFullYear() === now.getFullYear();
+  });
+  
+  // Calculate average wave size
+  const waveSizes = sessions.map(s => s.waveSize).filter(Boolean);
+  const waveSizeValues = { small: 1, medium: 2, big: 3 };
+  const avgWaveSize = waveSizes.length > 0 ? 
+    waveSizes.reduce((sum, size) => sum + waveSizeValues[size], 0) / waveSizes.length : 0;
+  
+  const avgWaveSizeText = avgWaveSize === 0 ? '—' : 
+    avgWaveSize <= 1.5 ? 'Small' : 
+    avgWaveSize <= 2.5 ? 'Medium' : 'Big';
+  
+  // Last session date
+  const lastSessionText = sessions.length > 0 ? 
+    new Date(sessions[0].timestamp).toLocaleDateString() : '—';
+  
+  document.getElementById('totalSessions').textContent = sessions.length;
+  document.getElementById('monthlySessions').textContent = thisMonth.length;
+  document.getElementById('avgWaveSize').textContent = avgWaveSizeText;
+  document.getElementById('lastSession').textContent = lastSessionText;
+}
+
+// Display session history in calendar mode
+function displaySessionHistory() {
+  const sessions = getSessions();
+  const historyContainer = document.getElementById('sessionHistory');
+  
+  if (sessions.length === 0) {
+    historyContainer.innerHTML = `
+      <div class="notice small">
+        <svg class="icon icon-small"><use href="#info-icon"></use></svg>
+        No sessions logged yet. Log your first surf session above!
+      </div>
+    `;
+    return;
+  }
+  
+  // Group sessions by month
+  const sessionsByMonth = {};
+  sessions.forEach(session => {
+    const date = new Date(session.timestamp);
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    const monthName = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
     
-    // Using only free APIs - Open-Meteo Marine API
-    const enhancedForecastData = forecastData;
-    console.log('Using Open-Meteo Marine API (free)');
+    if (!sessionsByMonth[monthKey]) {
+      sessionsByMonth[monthKey] = {
+        monthName: monthName,
+        sessions: []
+      };
+    }
+    sessionsByMonth[monthKey].sessions.push(session);
+  });
+  
+  // Sort months (newest first)
+  const sortedMonths = Object.keys(sessionsByMonth).sort().reverse();
+  
+  const calendarHTML = sortedMonths.map(monthKey => {
+    const monthData = sessionsByMonth[monthKey];
+    const monthSessions = monthData.sessions;
     
-    // Process all forecast data
-    await processForecastData(enhancedForecastData, marine, weather);
+    // Group sessions by day within the month
+    const sessionsByDay = {};
+    monthSessions.forEach(session => {
+      const date = new Date(session.timestamp);
+      const dayKey = date.getDate();
+      
+      if (!sessionsByDay[dayKey]) {
+        sessionsByDay[dayKey] = [];
+      }
+      sessionsByDay[dayKey].push(session);
+    });
+    
+    // Create calendar grid for the month
+    const firstDay = new Date(monthKey + '-01');
+    const lastDay = new Date(firstDay.getFullYear(), firstDay.getMonth() + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const firstWeekday = firstDay.getDay(); // 0 = Sunday
+    
+    let calendarGrid = `
+      <div class="calendar-month" style="margin-bottom: 24px;">
+        <h3 style="margin: 0 0 16px 0; color: var(--accent); font-size: 18px; font-weight: 700;">
+          ${monthData.monthName}
+        </h3>
+        <div class="calendar-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 8px;">
+    `;
+    
+    // Add day headers
+    const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    dayHeaders.forEach(day => {
+      calendarGrid += `
+        <div style="padding: 8px; text-align: center; font-size: 12px; font-weight: 600; color: var(--muted); background: rgba(255,255,255,0.1);">
+          ${day}
+        </div>
+      `;
+    });
+    
+    // Add empty cells for days before the first day of the month
+    for (let i = 0; i < firstWeekday; i++) {
+      calendarGrid += `<div style="padding: 8px; min-height: 40px;"></div>`;
+    }
+    
+    // Add days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+      const daySessions = sessionsByDay[day] || [];
+      const isToday = new Date().toDateString() === new Date(firstDay.getFullYear(), firstDay.getMonth(), day).toDateString();
+      
+      let dayContent = `
+        <div style="padding: 4px; min-height: 40px; background: ${isToday ? 'rgba(59,179,255,0.2)' : 'rgba(255,255,255,0.02)'}; border-radius: 4px; position: relative;">
+          <div style="font-size: 12px; font-weight: 600; color: ${isToday ? 'var(--accent)' : 'var(--text)'}; margin-bottom: 4px;">
+            ${day}
+          </div>
+      `;
+      
+      if (daySessions.length > 0) {
+        daySessions.forEach(session => {
+          const time = new Date(session.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+          const spotName = session.spotName || 'Unknown Spot';
+          
+          // Get SVG icons
+          const getWaveIcon = (size) => {
+            const icons = { small: 'wave-small-icon', medium: 'wave-medium-icon', big: 'wave-big-icon' };
+            return `<svg class="icon" style="width: 12px; height: 12px;"><use href="#${icons[size] || 'wave-small-icon'}"></use></svg>`;
+          };
+          
+          const getWeatherIcon = (weather) => {
+            const icons = { sunny: 'weather-sunny-icon', cloudy: 'weather-cloudy-icon', overcast: 'weather-cloudy-icon', rainy: 'weather-rainy-icon', stormy: 'weather-stormy-icon' };
+            return `<svg class="icon" style="width: 12px; height: 12px;"><use href="#${icons[weather] || 'weather-cloudy-icon'}"></use></svg>`;
+          };
+          
+          const getWindDirectionIcon = (direction) => {
+            const icons = { N: 'wind-north-icon', NE: 'wind-northeast-icon', E: 'wind-east-icon', SE: 'wind-southeast-icon', S: 'wind-south-icon', SW: 'wind-southwest-icon', W: 'wind-west-icon', NW: 'wind-northwest-icon' };
+            return `<svg class="icon" style="width: 12px; height: 12px;"><use href="#${icons[direction] || 'wind-north-icon'}"></use></svg>`;
+          };
+          
+          const getWindStrengthIcon = (strength) => {
+            const icons = { calm: 'wind-calm-icon', light: 'wind-light-icon', moderate: 'wind-moderate-icon', strong: 'wind-strong-icon' };
+            return `<svg class="icon" style="width: 12px; height: 12px;"><use href="#${icons[strength] || 'wind-calm-icon'}"></use></svg>`;
+          };
+          
+          dayContent += `
+            <div style="font-size: 10px; margin-bottom: 2px; padding: 2px 4px; background: rgba(59,179,255,0.1); border-radius: 2px; cursor: pointer;" 
+                 onclick="showSessionDetails('${session.id}')" 
+                 title="Click for details - ${time} at ${spotName}">
+              <div style="font-weight: 600; margin-bottom: 1px;">${spotName}</div>
+              <div style="display: flex; align-items: center; gap: 2px;">
+                ${getWaveIcon(session.waveSize)} ${getWeatherIcon(session.weather)} ${getWindDirectionIcon(session.windDirection)} ${getWindStrengthIcon(session.windStrength)}
+              </div>
+            </div>
+          `;
+        });
+      }
+      
+      dayContent += `</div>`;
+      calendarGrid += dayContent;
+    }
+    
+    calendarGrid += `</div></div>`;
+    return calendarGrid;
+  }).join('');
+  
+  historyContainer.innerHTML = calendarHTML;
+}
+
+// Show session details in a modal/popup
+function showSessionDetails(sessionId) {
+  const sessions = getSessions();
+  const session = sessions.find(s => s.id === sessionId);
+  
+  if (!session) return;
+  
+  const date = new Date(session.timestamp);
+  
+  // Get SVG icons for session details
+  const getWaveIcon = (size) => {
+    const icons = { small: 'wave-small-icon', medium: 'wave-medium-icon', big: 'wave-big-icon' };
+    return `<svg class="icon" style="width: 16px; height: 16px;"><use href="#${icons[size] || 'wave-small-icon'}"></use></svg>`;
+  };
+  
+  const getWeatherIcon = (weather) => {
+    const icons = { sunny: 'weather-sunny-icon', cloudy: 'weather-cloudy-icon', overcast: 'weather-cloudy-icon', rainy: 'weather-rainy-icon', stormy: 'weather-stormy-icon' };
+    return `<svg class="icon" style="width: 16px; height: 16px;"><use href="#${icons[weather] || 'weather-cloudy-icon'}"></use></svg>`;
+  };
+  
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.8); z-index: 1000; display: flex; 
+    align-items: center; justify-content: center; padding: 20px;
+  `;
+  
+  modal.innerHTML = `
+    <div style="background: var(--card); border-radius: 12px; padding: 20px; max-width: 400px; width: 100%; position: relative;">
+      <button onclick="this.closest('.modal').remove()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: var(--bad); cursor: pointer; font-size: 20px;">×</button>
+      
+      <h3 style="margin: 0 0 16px 0; color: var(--accent);">Session Details</h3>
+      
+      <div style="margin-bottom: 12px;">
+        <div style="font-size: 14px; color: var(--muted); margin-bottom: 4px;">Date & Time</div>
+        <div style="font-weight: 600;">${date.toLocaleDateString()} at ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+      </div>
+      
+      <div style="margin-bottom: 12px;">
+        <div style="font-size: 14px; color: var(--muted); margin-bottom: 4px;">Surf Spot</div>
+        <div style="font-weight: 600; color: var(--accent);">${session.spotName || 'Unknown Spot'}</div>
+        ${session.coordinates ? `<div style="font-size: 11px; color: var(--muted); margin-top: 2px;">📍 ${session.coordinates.latitude.toFixed(4)}, ${session.coordinates.longitude.toFixed(4)}</div>` : ''}
+      </div>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+        <div>
+          <div style="font-size: 12px; color: var(--muted); margin-bottom: 4px;">Wave Size</div>
+          <div style="background: rgba(59,179,255,0.1); padding: 6px 8px; border-radius: 4px; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+            ${getWaveIcon(session.waveSize)} ${session.waveSize}
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 12px; color: var(--muted); margin-bottom: 4px;">Weather</div>
+          <div style="background: rgba(255,193,7,0.1); padding: 6px 8px; border-radius: 4px; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+            ${getWeatherIcon(session.weather)} ${session.weather}
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 12px; color: var(--muted); margin-bottom: 4px;">Wind Direction</div>
+          <div style="background: rgba(76,175,80,0.1); padding: 6px 8px; border-radius: 4px; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+            <svg class="icon" style="width: 16px; height: 16px;"><use href="#wind-${(session.windDirection || 'N').toLowerCase()}-icon"></use></svg>
+            ${session.windDirection}
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 12px; color: var(--muted); margin-bottom: 4px;">Wind Strength</div>
+          <div style="background: rgba(76,175,80,0.1); padding: 6px 8px; border-radius: 4px; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+            <svg class="icon" style="width: 16px; height: 16px;"><use href="#wind-${session.windStrength || 'calm'}-icon"></use></svg>
+            ${session.windStrength}
+          </div>
+        </div>
+      </div>
+      
+      ${session.notes ? `
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 12px; color: var(--muted); margin-bottom: 4px;">Notes</div>
+          <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; font-style: italic; border-left: 2px solid var(--muted);">
+            "${session.notes}"
+          </div>
+        </div>
+      ` : ''}
+      
+      <div style="display: flex; gap: 8px; justify-content: flex-end;">
+        <button onclick="deleteSession('${session.id}'); this.closest('.modal').remove();" 
+                style="background: var(--bad); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 12px;">
+          Delete Session
+        </button>
+        <button onclick="this.closest('.modal').remove()" 
+                style="background: var(--accent); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 12px;">
+          Close
+        </button>
+      </div>
+    </div>
+  `;
+  
+  modal.className = 'modal';
+  document.body.appendChild(modal);
+}
+
+// Delete a session
+function deleteSession(sessionId) {
+  if (confirm('Delete this session?')) {
+    const sessions = getSessions();
+    const filteredSessions = sessions.filter(s => s.id !== sessionId);
+    saveSessions(filteredSessions);
+    updateSessionStats();
+    displaySessionHistory();
+  }
+}
+
+// Handle session form submission
+function handleSessionSubmit(event) {
+  event.preventDefault();
+  
+  const formData = new FormData(event.target);
+  const sessionDate = document.getElementById('sessionDate').value;
+  const sessionTime = document.getElementById('sessionTime').value;
+  
+  // Create timestamp from date and time
+  const timestamp = new Date(`${sessionDate}T${sessionTime}`).toISOString();
+  
+  const sessionData = {
+    timestamp: timestamp,
+    waveSize: document.getElementById('waveSize').value,
+    weather: document.getElementById('weather').value,
+    windDirection: document.getElementById('windDirection').value,
+    windStrength: document.getElementById('windStrength').value,
+    notes: document.getElementById('sessionNotes').value.trim(),
+    spotName: CONFIG.spotName,
+    location: CONFIG.location || 'Unknown Location',
+    coordinates: {
+      latitude: CONFIG.latitude,
+      longitude: CONFIG.longitude
+    }
+  };
+  
+  // Validate required fields
+  if (!sessionData.waveSize || !sessionData.weather || !sessionData.windDirection || !sessionData.windStrength || !sessionDate || !sessionTime) {
+    alert('Please fill in all required fields including date and time');
+    return;
+  }
+  
+  // Validate date is not in the future
+  const sessionDateTime = new Date(`${sessionDate}T${sessionTime}`);
+  const now = new Date();
+  if (sessionDateTime > now) {
+    alert('Session date and time cannot be in the future');
+    return;
+  }
+  
+  // Validate date is not too far in the past (more than 1 year)
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  if (sessionDateTime < oneYearAgo) {
+    alert('Session date cannot be more than 1 year in the past');
+    return;
+  }
+  
+  // Sanitize notes input
+  if (sessionData.notes && sessionData.notes.length > 500) {
+    sessionData.notes = sessionData.notes.substring(0, 500);
+  }
+  
+  // Add session
+  addSession(sessionData);
+  
+  // Clear form and reset to current date/time
+  event.target.reset();
+  setCurrentDateTime();
+  
+  // Update display
+  updateSessionStats();
+  displaySessionHistory();
+  
+  // Refresh analytics if panel is open
+  const analyticsPanel = document.getElementById('analyticsPanel');
+  if (analyticsPanel && analyticsPanel.style.maxHeight !== '0px' && analyticsPanel.style.maxHeight !== '') {
+    generateAnalytics();
+  }
+  
+  // Show success message
+  const submitBtn = event.target.querySelector('button[type="submit"]');
+  const originalText = submitBtn.innerHTML;
+  submitBtn.innerHTML = '<svg class="icon icon-small" style="margin-right: 8px;"><use href="#check-icon"></use></svg>Logged!';
+  submitBtn.style.background = 'linear-gradient(180deg, #4caf50, #45a049)';
+  
+  setTimeout(() => {
+    submitBtn.innerHTML = originalText;
+    submitBtn.style.background = 'linear-gradient(180deg, #46b9ff, #2d9df0)';
+  }, 2000);
+}
+
+// Export sessions to JSON file
+function exportSessions() {
+  const sessions = getSessions();
+  const dataStr = JSON.stringify(sessions, null, 2);
+  const dataBlob = new Blob([dataStr], {type: 'application/json'});
+  
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(dataBlob);
+  link.download = `sesh-sessions-${new Date().toISOString().split('T')[0]}.json`;
+  link.click();
+}
+
+// Import sessions from JSON file
+function importSessions(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const importedSessions = JSON.parse(e.target.result);
+      
+      // Validate the data structure
+      if (!Array.isArray(importedSessions)) {
+        throw new Error('Invalid file format');
+      }
+      
+      // Merge with existing sessions (avoid duplicates by ID)
+      const existingSessions = getSessions();
+      const existingIds = new Set(existingSessions.map(s => s.id));
+      const newSessions = importedSessions.filter(s => !existingIds.has(s.id));
+      
+      if (newSessions.length === 0) {
+        alert('No new sessions to import (all sessions already exist)');
+        return;
+      }
+      
+      const mergedSessions = [...newSessions, ...existingSessions];
+      mergedSessions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      
+      saveSessions(mergedSessions);
+      updateSessionStats();
+      displaySessionHistory();
+      
+      alert(`Successfully imported ${newSessions.length} sessions`);
+    } catch (error) {
+      alert('Error importing sessions: ' + error.message);
+    }
+  };
+  reader.readAsText(file);
+  
+  // Reset file input
+  event.target.value = '';
+}
+
+// Reset all session data with confirmation
+function resetAllData() {
+  const sessions = getSessions();
+  
+  if (sessions.length === 0) {
+    alert('No data to reset. Your session history is already empty.');
+    return;
+  }
+  
+  const confirmMessage = `Are you sure you want to delete ALL ${sessions.length} surf sessions?\n\nThis action cannot be undone!\n\nType "RESET" to confirm:`;
+  const userInput = prompt(confirmMessage);
+  
+  if (userInput === 'RESET') {
+    // Clear all session data
+    localStorage.removeItem('sesh_sessions');
+    
+    // Update display
+    updateSessionStats();
+    displaySessionHistory();
+    
+    alert('All session data has been permanently deleted.');
+  } else if (userInput !== null) {
+    alert('Reset cancelled. You must type "RESET" exactly to confirm.');
+  }
+}
+
+// Toggle data management panel
+function toggleDataManagement() {
+  const panel = document.getElementById('dataManagementPanel');
+  const icon = document.getElementById('toggleIcon');
+  
+  if (panel.style.maxHeight === '0px' || panel.style.maxHeight === '') {
+    // Open panel
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    icon.style.transform = 'rotate(180deg)';
+  } else {
+    // Close panel
+    panel.style.maxHeight = '0px';
+    icon.style.transform = 'rotate(0deg)';
+  }
+}
+
+// Toggle analytics panel
+function toggleAnalytics() {
+  const panel = document.getElementById('analyticsPanel');
+  const icon = document.getElementById('analyticsToggleIcon');
+  
+  if (panel.style.maxHeight === '0px' || panel.style.maxHeight === '') {
+    // Open panel
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    icon.style.transform = 'rotate(180deg)';
+    // Generate charts when opening
+    generateAnalytics();
+  } else {
+    // Close panel
+    panel.style.maxHeight = '0px';
+    icon.style.transform = 'rotate(0deg)';
+  }
+}
+
+// Setup dynamic select icons
+function setupSelectIcons() {
+  try {
+    // Wave size select
+    const waveSizeSelect = document.getElementById('waveSize');
+    const waveSizeIcon = waveSizeSelect?.parentElement?.querySelector('.select-icon svg use');
+    if (waveSizeSelect && waveSizeIcon) {
+      waveSizeSelect.addEventListener('change', function() {
+        const icons = { small: 'wave-small-icon', medium: 'wave-medium-icon', big: 'wave-big-icon' };
+        waveSizeIcon.setAttribute('href', `#${icons[this.value] || 'wave-small-icon'}`);
+      });
+    }
+    
+    // Weather select
+    const weatherSelect = document.getElementById('weather');
+    const weatherIcon = weatherSelect?.parentElement?.querySelector('.select-icon svg use');
+    if (weatherSelect && weatherIcon) {
+      weatherSelect.addEventListener('change', function() {
+        const icons = { sunny: 'weather-sunny-icon', cloudy: 'weather-cloudy-icon', overcast: 'weather-cloudy-icon', rainy: 'weather-rainy-icon', stormy: 'weather-stormy-icon' };
+        weatherIcon.setAttribute('href', `#${icons[this.value] || 'weather-sunny-icon'}`);
+      });
+    }
+    
+    // Wind direction select
+    const windDirectionSelect = document.getElementById('windDirection');
+    const windDirectionIcon = windDirectionSelect?.parentElement?.querySelector('.select-icon svg use');
+    if (windDirectionSelect && windDirectionIcon) {
+      windDirectionSelect.addEventListener('change', function() {
+        const icons = { N: 'wind-north-icon', NE: 'wind-northeast-icon', E: 'wind-east-icon', SE: 'wind-southeast-icon', S: 'wind-south-icon', SW: 'wind-southwest-icon', W: 'wind-west-icon', NW: 'wind-northwest-icon' };
+        windDirectionIcon.setAttribute('href', `#${icons[this.value] || 'wind-north-icon'}`);
+      });
+    }
+    
+    // Wind strength select
+    const windStrengthSelect = document.getElementById('windStrength');
+    const windStrengthIcon = windStrengthSelect?.parentElement?.querySelector('.select-icon svg use');
+    if (windStrengthSelect && windStrengthIcon) {
+      windStrengthSelect.addEventListener('change', function() {
+        const icons = { calm: 'wind-calm-icon', light: 'wind-light-icon', moderate: 'wind-moderate-icon', strong: 'wind-strong-icon' };
+        windStrengthIcon.setAttribute('href', `#${icons[this.value] || 'wind-calm-icon'}`);
+      });
+    }
+  } catch (error) {
+    console.error('Error setting up select icons:', error);
+  }
+}
+
+// Generate analytics and charts
+function generateAnalytics() {
+  const sessions = getSessions();
+  console.log('Analytics: Found sessions:', sessions.length, sessions);
+  
+  if (sessions.length === 0) {
+    // Show message when no sessions
+    const analyticsPanel = document.getElementById('analyticsPanel');
+    analyticsPanel.innerHTML = `
+      <div style="text-align: center; padding: 20px; color: var(--muted); font-size: 12px;">
+        No sessions logged yet. Log your first surf session to see analytics!
+      </div>
+    `;
+    return;
+  }
+  
+  // Check if Chart.js is loaded
+  if (typeof Chart === 'undefined') {
+    console.error('Chart.js not loaded');
+    return;
+  }
+  
+  // Show analytics panel
+  document.getElementById('analyticsPanel').style.display = 'block';
+  
+  // Update quick stats
+  updateQuickStats(sessions);
+  
+  // Generate charts
+  generateWaveSizeChart(sessions);
+  generateWeatherChart(sessions);
+  generateMonthlyChart(sessions);
+  generateWindDirectionChart(sessions);
+  generateWindStrengthChart(sessions);
+}
+
+// Update quick statistics
+function updateQuickStats(sessions) {
+  const totalSessions = sessions.length;
+  document.getElementById('totalSessions').textContent = totalSessions;
+  
+  // Calculate sessions per week
+  const now = new Date();
+  const firstSession = new Date(Math.min(...sessions.map(s => new Date(s.timestamp))));
+  const weeksDiff = Math.max(1, Math.ceil((now - firstSession) / (7 * 24 * 60 * 60 * 1000)));
+  const avgPerWeek = (totalSessions / weeksDiff).toFixed(1);
+  document.getElementById('avgSessionsPerWeek').textContent = avgPerWeek;
+  
+  // Find most common wave size
+  const waveSizeCounts = sessions.reduce((acc, session) => {
+    acc[session.waveSize] = (acc[session.waveSize] || 0) + 1;
+    return acc;
+  }, {});
+  const favoriteWaveSize = Object.keys(waveSizeCounts).reduce((a, b) => 
+    waveSizeCounts[a] > waveSizeCounts[b] ? a : b, 'small');
+  document.getElementById('favoriteWaveSize').textContent = favoriteWaveSize.charAt(0).toUpperCase() + favoriteWaveSize.slice(1);
+  
+  // Find most common weather
+  const weatherCounts = sessions.reduce((acc, session) => {
+    acc[session.weather] = (acc[session.weather] || 0) + 1;
+    return acc;
+  }, {});
+  const favoriteWeather = Object.keys(weatherCounts).reduce((a, b) => 
+    weatherCounts[a] > weatherCounts[b] ? a : b, 'sunny');
+  document.getElementById('favoriteWeather').textContent = favoriteWeather.charAt(0).toUpperCase() + favoriteWeather.slice(1);
+}
+
+// Generate wave size distribution chart
+function generateWaveSizeChart(sessions) {
+  const canvas = document.getElementById('waveSizeChart');
+  if (!canvas) {
+    console.error('Wave size chart canvas not found');
+    return;
+  }
+  
+  const ctx = canvas.getContext('2d');
+  const waveSizeCounts = sessions.reduce((acc, session) => {
+    acc[session.waveSize] = (acc[session.waveSize] || 0) + 1;
+    return acc;
+  }, {});
+  
+  console.log('Wave size counts:', waveSizeCounts);
+  
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['S', 'M', 'B'],
+      datasets: [{
+        data: [
+          waveSizeCounts.small || 0,
+          waveSizeCounts.medium || 0,
+          waveSizeCounts.big || 0
+        ],
+        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false }
+      },
+      cutout: '60%'
+    }
+  });
+}
+
+// Generate weather distribution chart
+function generateWeatherChart(sessions) {
+  const canvas = document.getElementById('weatherChart');
+  if (!canvas) {
+    console.error('Weather chart canvas not found');
+    return;
+  }
+  
+  const ctx = canvas.getContext('2d');
+  const weatherCounts = sessions.reduce((acc, session) => {
+    acc[session.weather] = (acc[session.weather] || 0) + 1;
+    return acc;
+  }, {});
+  
+  console.log('Weather counts:', weatherCounts);
+  
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: Object.keys(weatherCounts).map(w => w.charAt(0).toUpperCase()),
+      datasets: [{
+        data: Object.values(weatherCounts),
+        backgroundColor: '#3b82f6',
+        borderWidth: 0,
+        borderRadius: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          display: false
+        },
+        x: {
+          display: false
+        }
+      }
+    }
+  });
+}
+
+// Generate monthly sessions chart
+function generateMonthlyChart(sessions) {
+  const ctx = document.getElementById('monthlyChart').getContext('2d');
+  
+  // Group sessions by month
+  const monthlyData = sessions.reduce((acc, session) => {
+    const date = new Date(session.timestamp);
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    acc[monthKey] = (acc[monthKey] || 0) + 1;
+    return acc;
+  }, {});
+  
+  // Get last 12 months
+  const months = [];
+  const counts = [];
+  for (let i = 11; i >= 0; i--) {
+    const date = new Date();
+    date.setMonth(date.getMonth() - i);
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    months.push(date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }));
+    counts.push(monthlyData[monthKey] || 0);
+  }
+  
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [{
+        data: counts,
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        borderWidth: 1.5,
+        fill: true,
+        tension: 0.4,
+        pointRadius: 2,
+        pointHoverRadius: 3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          display: false
+        },
+        x: {
+          display: false
+        }
+      }
+    }
+  });
+}
+
+// Generate wind direction chart
+function generateWindDirectionChart(sessions) {
+  const ctx = document.getElementById('windDirectionChart').getContext('2d');
+  const windCounts = sessions.reduce((acc, session) => {
+    acc[session.windDirection] = (acc[session.windDirection] || 0) + 1;
+    return acc;
+  }, {});
+  
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(windCounts),
+      datasets: [{
+        data: Object.values(windCounts),
+        backgroundColor: [
+          '#3b82f6', '#10b981', '#f59e0b', '#ef4444',
+          '#8b5cf6', '#06b6d4', '#84cc16', '#f97316'
+        ],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false }
+      },
+      cutout: '60%'
+    }
+  });
+}
+
+// Generate wind strength chart
+function generateWindStrengthChart(sessions) {
+  const ctx = document.getElementById('windStrengthChart').getContext('2d');
+  const windCounts = sessions.reduce((acc, session) => {
+    acc[session.windStrength] = (acc[session.windStrength] || 0) + 1;
+    return acc;
+  }, {});
+  
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['C', 'L', 'M', 'S'],
+      datasets: [{
+        data: [
+          windCounts.calm || 0,
+          windCounts.light || 0,
+          windCounts.moderate || 0,
+          windCounts.strong || 0
+        ],
+        backgroundColor: ['#10b981', '#f59e0b', '#f97316', '#ef4444'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false }
+      },
+      cutout: '60%'
+    }
+  });
+}
+
+// Update data status indicator
+function updateDataStatus() {
+  const dataStatus = document.getElementById('dataStatus');
+  if (!dataStatus) return;
+  
+  const hasWeather = window.currentWeather && 
+    (window.currentWeather.temperature_2m !== undefined || 
+     window.currentWeather.wind_speed_10m !== undefined || 
+     window.currentWeather.wind_direction_10m !== undefined);
+  
+  const hasMarine = window.currentMarine && window.currentMarine.wave_height !== undefined;
+  
+  if (hasWeather && hasMarine) {
+    dataStatus.textContent = '✓';
+    dataStatus.style.background = 'var(--ok)';
+    dataStatus.title = 'API data available for auto-fill';
+  } else if (hasWeather || hasMarine) {
+    dataStatus.textContent = '!';
+    dataStatus.style.background = 'var(--warn)';
+    dataStatus.title = 'Partial API data available';
+  } else {
+    dataStatus.textContent = '?';
+    dataStatus.style.background = 'var(--bad)';
+    dataStatus.title = 'No API data available';
+  }
+}
+
+// Set current date and time in the form
+function setCurrentDateTime() {
+  const now = new Date();
+  const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
+  const timeStr = now.toTimeString().split(' ')[0].substring(0, 5); // HH:MM
+  
+  const dateInput = document.getElementById('sessionDate');
+  const timeInput = document.getElementById('sessionTime');
+  
+  if (dateInput) dateInput.value = dateStr;
+  if (timeInput) timeInput.value = timeStr;
+}
+
+
+// Handle "Use Now" button click
+function handleUseCurrentTime() {
+  setCurrentDateTime();
+  
+  // Show success feedback
+  const useNowBtn = document.getElementById('useCurrentTimeBtn');
+  const originalText = useNowBtn.innerHTML;
+  useNowBtn.innerHTML = '<svg class="icon icon-small" style="margin-right: 4px;"><use href="#check-icon"></use></svg>Set!';
+  useNowBtn.style.background = 'linear-gradient(180deg, #4caf50, #45a049)';
+  
+  setTimeout(() => {
+    useNowBtn.innerHTML = originalText;
+    useNowBtn.style.background = 'linear-gradient(180deg, #9c27b0, #7b1fa2)';
+  }, 1500);
+}
+
+// Initialize session tracking
+function initSessionTracking() {
+  // Set up form submission
+  const sessionForm = document.getElementById('sessionForm');
+  if (sessionForm) {
+    sessionForm.addEventListener('submit', handleSessionSubmit);
+  }
+  
+  // Set up auto-fill button
+  const autoFillBtn = document.getElementById('autoFillBtn');
+  if (autoFillBtn) {
+    autoFillBtn.addEventListener('click', autoFillFromAPI);
+  }
+  
+  // Set up "Use Now" button
+  const useCurrentTimeBtn = document.getElementById('useCurrentTimeBtn');
+  if (useCurrentTimeBtn) {
+    useCurrentTimeBtn.addEventListener('click', handleUseCurrentTime);
+  }
+  
+  // Set up location update button
+  const updateLocationBtn = document.getElementById('updateLocationBtn');
+  if (updateLocationBtn) {
+    updateLocationBtn.addEventListener('click', updateLocation);
+  }
+  
+  // Set up find location button
+  const findLocationBtn = document.getElementById('findLocationBtn');
+  if (findLocationBtn) {
+    findLocationBtn.addEventListener('click', findCurrentLocation);
+  }
+  
+  
+  // Set up export button
+  const exportBtn = document.getElementById('exportBtn');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      exportSessions();
+    });
+  }
+  
+  // Set up import button
+  const importBtn = document.getElementById('importBtn');
+  const importFile = document.getElementById('importFile');
+  if (importBtn && importFile) {
+    importBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      importFile.click();
+    });
+    importFile.addEventListener('change', importSessions);
+  }
+  
+  // Set up reset button
+  const resetBtn = document.getElementById('resetBtn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      resetAllData();
+    });
+  }
+  
+  // Set up data management toggle
+  const toggleBtn = document.getElementById('toggleDataManagement');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', toggleDataManagement);
+  }
+  
+  // Set up analytics toggle
+  const analyticsToggleBtn = document.getElementById('toggleAnalytics');
+  if (analyticsToggleBtn) {
+    analyticsToggleBtn.addEventListener('click', toggleAnalytics);
+  }
+  
+  // Test analytics on load (for debugging)
+  setTimeout(() => {
+    console.log('Testing analytics...');
+    const sessions = getSessions();
+    console.log('Current sessions:', sessions);
+    if (sessions.length > 0) {
+      console.log('Sample session data:', sessions[0]);
+    } else {
+      console.log('No sessions found. You can add test data by logging a session.');
+    }
+  }, 1000);
+  
+  // Add test data function (for debugging)
+  window.addTestData = function() {
+    const testSessions = [
+      {
+        id: 'test1',
+        timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+        waveSize: 'small',
+        weather: 'sunny',
+        windDirection: 'N',
+        windStrength: 'light',
+        notes: 'Test session 1'
+      },
+      {
+        id: 'test2',
+        timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+        waveSize: 'medium',
+        weather: 'cloudy',
+        windDirection: 'SW',
+        windStrength: 'moderate',
+        notes: 'Test session 2'
+      },
+      {
+        id: 'test3',
+        timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+        waveSize: 'big',
+        weather: 'sunny',
+        windDirection: 'E',
+        windStrength: 'calm',
+        notes: 'Test session 3'
+      }
+    ];
+    
+    const existingSessions = getSessions();
+    const allSessions = [...existingSessions, ...testSessions];
+    saveSessions(allSessions);
+    
+    // Refresh display
+    updateSessionStats();
+    displaySessionHistory();
+    
+    console.log('Test data added. Total sessions:', allSessions.length);
+  };
+  
+  // Set up dynamic select icons
+  setupSelectIcons();
+  
+  // Set initial date and time to current
+  setCurrentDateTime();
+  
+  // Populate location form with current config
+  populateLocationForm();
+  
+  // Load and display existing sessions
+  updateSessionStats();
+  displaySessionHistory();
+  
+  // Update data status
+  updateDataStatus();
+}
+
+async function load(){
+  try{
+    
+    // Fetch current weather data for auto-fill functionality only
+    console.log('Fetching current conditions for auto-fill...');
+    
+    try {
+      const forecastData = await fetchMultipleForecasts();
+      if(forecastData.success) {
+        const { marine, weather } = forecastData;
+        
+        // Store current data globally for auto-fill functionality
+        window.currentWeather = weather.current;
+        window.currentMarine = {
+          wave_height: marine.hourly?.wave_height?.[0],
+          wave_period: marine.hourly?.wave_period?.[0],
+          wave_direction: marine.hourly?.wave_direction?.[0]
+        };
+        
+        console.log('Current conditions loaded for auto-fill');
+        updateDataStatus();
+      } else {
+        console.log('No weather data available - auto-fill disabled');
+        updateDataStatus();
+      }
+    } catch(weatherError) {
+      console.log('Weather data unavailable - auto-fill disabled:', weatherError);
+      updateDataStatus();
+    }
 
   } catch(err){
-    console.error('Main load error:', err);
-    alert('Failed to load data. Check your coordinates and try again.');
+    console.error('Load error:', err);
+    updateDataStatus();
   }
 }
 
 function num(n){ return (typeof n === 'number') ? n.toFixed(2) : '—'; }
 
 
-window.addEventListener('load', load);
+window.addEventListener('load', () => {
+  
+  // Load saved location first
+  loadSavedLocation();
+  load();
+  initSessionTracking();
+});
 </script>
 </body>
 </html>
