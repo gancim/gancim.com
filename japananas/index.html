@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#000000">
+  <title>Japananas</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ONBOARDING -->
+  <div id="view-onboarding" class="view active">
+    <div class="onboarding-inner">
+      <div class="app-logo">
+        <img src="icon.svg" class="logo-icon" alt="Japananas">
+        <div class="logo-name">JAPANANAS</div>
+        <div class="logo-tagline" data-i18n="tagline">From zero to Japan-ready</div>
+      </div>
+      <div class="lang-select">
+        <p data-i18n="chooseLang">Choose your language</p>
+        <div class="lang-buttons">
+          <button class="btn-lang" data-lang="en">English</button>
+          <button class="btn-lang" data-lang="it">Italiano</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div id="view-home" class="view">
+    <header class="view-header">
+      <div class="app-title">JAPANANAS</div>
+      <button class="icon-btn" id="btn-settings-home">⚙</button>
+    </header>
+    <div class="view-content">
+
+      <!-- Readiness ring -->
+      <div class="readiness-section">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120" class="ring-svg">
+            <circle class="ring-track" cx="60" cy="60" r="50"/>
+            <circle class="ring-progress" id="readiness-ring-fill" cx="60" cy="60" r="50" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="ring-label">
+            <div class="ring-pct" id="readiness-pct">0%</div>
+            <div class="ring-sub" data-i18n="ready">ready</div>
+          </div>
+        </div>
+        <div class="readiness-title" id="readiness-level-name"></div>
+        <div class="week-dots" id="week-dots"></div>
+      </div>
+
+      <!-- Featured conversation -->
+      <div class="home-section-label" data-i18n="tryToday">Try today</div>
+      <button class="featured-convo" id="featured-convo">
+        <div class="featured-icon" id="featured-icon">🏪</div>
+        <div class="featured-info">
+          <div class="featured-title" id="featured-title"></div>
+          <div class="featured-sub" id="featured-sub"></div>
+        </div>
+        <div class="featured-cta">▶</div>
+      </button>
+
+      <!-- Due cards pill -->
+      <button class="home-pill" id="btn-review-due">
+        <span class="pill-icon">🗂</span>
+        <span class="pill-label" data-i18n="reviewDue">Review due cards</span>
+        <span class="due-badge" id="due-count"></span>
+      </button>
+
+      <!-- Stats row -->
+      <div class="home-stats">
+        <div class="stat-card">
+          <div class="stat-num" id="stat-convos">0</div>
+          <div class="stat-label" data-i18n="statConvos">convos done</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-streak">0</div>
+          <div class="stat-label" data-i18n="statStreak">day streak</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-vocab">0%</div>
+          <div class="stat-label" data-i18n="statVocab">vocab</div>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="home-links">
+        <button class="home-link" id="btn-all-convos" data-i18n="allConvos">All conversations</button>
+        <button class="home-link" id="btn-learn-new" data-i18n="vocabulary">Vocabulary</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KANA DRILL -->
+  <div id="view-learn" class="view">
+    <header class="view-header">
+      <div class="view-title" data-i18n="learn">Kana</div>
+    </header>
+    <div class="view-content">
+      <p class="convo-intro" data-i18n="kanaIntro">Master the two Japanese alphabets — your reading foundation.</p>
+      <div id="learn-content"></div>
+    </div>
+  </div>
+
+  <!-- REVIEW SESSION -->
+  <div id="view-review" class="view">
+    <header class="view-header">
+      <button class="icon-btn" id="btn-review-exit">✕</button>
+      <div class="session-progress">
+        <div class="session-bar-fill" id="session-bar"></div>
+      </div>
+      <div class="session-count" id="session-count">0/0</div>
+    </header>
+    <div class="view-content review-content">
+      <div class="card-wrap">
+        <div class="card" id="review-card">
+          <div class="card-inner" id="card-inner">
+            <div class="card-front" id="card-front"></div>
+            <div class="card-back" id="card-back"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions" id="card-actions">
+        <button class="btn-reveal" id="btn-reveal" data-i18n="reveal">Reveal</button>
+      </div>
+      <div class="grade-buttons hidden" id="grade-buttons">
+        <button class="btn-grade btn-again" data-grade="0" data-i18n="again">Again</button>
+        <button class="btn-grade btn-hard" data-grade="1" data-i18n="hard">Hard</button>
+        <button class="btn-grade btn-good" data-grade="2" data-i18n="good">Good</button>
+        <button class="btn-grade btn-easy" data-grade="3" data-i18n="easy">Easy</button>
+      </div>
+      <button class="btn-hear" id="btn-hear-review" data-i18n="hear">Hear</button>
+    </div>
+  </div>
+
+  <!-- CONVERSATIONS LIST -->
+  <div id="view-speak" class="view">
+    <header class="view-header">
+      <div class="view-title" data-i18n="conversations">Conversations</div>
+    </header>
+    <div class="view-content">
+      <p class="convo-intro" data-i18n="convoIntro">Real conversations. You speak. It reacts.</p>
+      <div class="convo-list" id="convo-list"></div>
+    </div>
+  </div>
+
+  <!-- ACTIVE CONVERSATION -->
+  <div id="view-convo" class="view">
+    <header class="view-header">
+      <button class="icon-btn" id="btn-convo-exit">✕</button>
+      <div class="view-title" id="convo-title"></div>
+      <div style="width:40px"></div>
+    </header>
+    <div class="convo-situation" id="convo-situation"></div>
+    <div class="convo-chat" id="convo-chat"></div>
+    <div class="convo-footer" id="convo-footer">
+      <div class="convo-prompt" id="convo-prompt"></div>
+      <button class="convo-mic-btn" id="convo-mic-btn">
+        <span class="mic-ripple"></span>
+        <span class="mic-glyph">⏺</span>
+      </button>
+      <div class="convo-hint" id="convo-hint"></div>
+      <div class="convo-model" id="convo-model"></div>
+      <div class="convo-skip-wrap" id="convo-skip-wrap">
+        <button class="btn-secondary btn-sm" id="btn-convo-skip" data-i18n="skip">Skip →</button>
+      </div>
+    </div>
+    <div class="convo-end" id="convo-end">
+      <div class="convo-end-icon">🎉</div>
+      <div class="convo-end-msg" id="convo-end-msg"></div>
+      <div class="convo-end-xp" id="convo-end-xp"></div>
+      <button class="btn-primary" id="btn-convo-replay" data-i18n="playAgain">Play again</button>
+      <button class="btn-secondary" id="btn-convo-done" data-i18n="backHome">Back to Home</button>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="view-settings" class="view">
+    <header class="view-header">
+      <button class="icon-btn" id="btn-settings-back">←</button>
+      <div class="view-title" data-i18n="settings">Settings</div>
+    </header>
+    <div class="view-content">
+      <div class="settings-section">
+        <div class="settings-label" data-i18n="language">Language</div>
+        <div class="lang-buttons">
+          <button class="btn-lang" data-lang="en">English</button>
+          <button class="btn-lang" data-lang="it">Italiano</button>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-label" data-i18n="speech">Speech</div>
+        <div class="settings-row">
+          <span data-i18n="speechRate">Speech rate</span>
+          <select id="speech-rate">
+            <option value="0.5" data-i18n="slow">Slow</option>
+            <option value="0.8" selected data-i18n="normal">Normal</option>
+            <option value="1.0" data-i18n="fast">Fast</option>
+          </select>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-label" data-i18n="progress">Progress</div>
+        <button class="btn-danger" id="btn-reset" data-i18n="resetProgress">Reset all progress</button>
+      </div>
+      <div class="settings-footer">
+        <div>Japananas v1.0</div>
+        <div data-i18n="madeWith">Made for Japanese learners</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SESSION COMPLETE MODAL -->
+  <div id="modal-complete" class="modal hidden">
+    <div class="modal-inner">
+      <div class="modal-big">✓</div>
+      <div class="modal-title" data-i18n="sessionDone">Session Complete!</div>
+      <div class="modal-xp" id="modal-xp">+0 XP</div>
+      <div class="modal-stats" id="modal-stats"></div>
+      <button class="btn-primary" id="btn-modal-home" data-i18n="backHome">Back to Home</button>
+    </div>
+  </div>
+
+  <!-- UNLOCK MODAL -->
+  <div id="modal-unlock" class="modal hidden">
+    <div class="modal-inner">
+      <div class="modal-big">★</div>
+      <div class="modal-title" data-i18n="unlocked">Unlocked!</div>
+      <div class="modal-unlock-name" id="unlock-name"></div>
+      <button class="btn-primary" id="btn-modal-unlock-ok">OK</button>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav id="bottom-nav" class="hidden">
+    <button class="nav-btn active" data-view="home">
+      <span class="nav-icon">⌂</span>
+      <span class="nav-label" data-i18n="home">Home</span>
+    </button>
+    <button class="nav-btn" data-view="learn">
+      <span class="nav-icon">あ</span>
+      <span class="nav-label" data-i18n="learn">Kana</span>
+    </button>
+    <button class="nav-btn" data-view="speak">
+      <span class="nav-icon">話</span>
+      <span class="nav-label" data-i18n="live">Live</span>
+    </button>
+    <button class="nav-btn" data-view="settings">
+      <span class="nav-icon">⚙</span>
+      <span class="nav-label" data-i18n="settings">Settings</span>
+    </button>
+  </nav>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/conversations.js"></script>
+  <script src="js/srs.js"></script>
+  <script src="js/speech.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/convo-engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
