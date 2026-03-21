@@ -63,7 +63,10 @@ function startRecognition(onResult, onError) {
   recognition.maxAlternatives = 3;
   isRecognizing = true;
 
+  let gotResult = false;
+
   recognition.onresult = (e) => {
+    gotResult = true;
     isRecognizing = false;
     const results = [];
     for (let i = 0; i < e.results[0].length; i++) {
@@ -74,10 +77,12 @@ function startRecognition(onResult, onError) {
 
   recognition.onerror = (e) => {
     isRecognizing = false;
-    onError(e.error);
+    if (!gotResult) onError(e.error);
   };
 
   recognition.onend = () => {
+    // Always fire onError if we ended without a result
+    if (!gotResult) onError('no-speech');
     isRecognizing = false;
   };
 

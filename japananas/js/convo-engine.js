@@ -102,11 +102,15 @@ function listenForConvoResponse(node) {
   );
 }
 
-function handleConvoSpeech(transcript, node) {
-  const lower = transcript.toLowerCase();
+function handleConvoSpeech(transcripts, node) {
+  // transcripts is an array of alternatives from speech.js (up to maxAlternatives)
+  const alts = Array.isArray(transcripts) ? transcripts : [String(transcripts)];
+  const lowers = alts.map(s => s.toLowerCase());
+  const displayText = alts[0] || '';
+
   for (const branch of node.branches) {
-    if (branch.keywords.some(kw => lower.includes(kw.toLowerCase()))) {
-      addChatBubble('you', { text: transcript });
+    if (branch.keywords.some(kw => lowers.some(alt => alt.includes(kw.toLowerCase())))) {
+      addChatBubble('you', { text: displayText });
       convo.attempts = 0;
       clearConvoHint();
       convo.nodeId = branch.next;
@@ -114,9 +118,9 @@ function handleConvoSpeech(transcript, node) {
       return;
     }
   }
-  // No match
+  // No match across any alternative
   convo.attempts++;
-  addChatBubble('you', { text: transcript, failed: true });
+  addChatBubble('you', { text: displayText, failed: true });
   handleConvoMiss(node);
 }
 
