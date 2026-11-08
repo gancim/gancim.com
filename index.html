@@ -1,307 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者</title>
-    <meta name="description" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
-    <meta name="keywords" content="Marco Ganci, Dad, Surfer, Pizza Expert, Software Maker, マルコ・ガンチ, パパ, サーファー, ピザ職人, ソフトウェア開発者">
-    <meta name="author" content="Marco Ganci">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="en, ja">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gancim.com/">
-    <meta property="og:title" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
-    <meta property="og:description" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
-    <meta property="og:image" content="https://gancim.com/logo.png">
-    <meta property="og:site_name" content="Marco Ganci | マルコ・ガンチ">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:locale:alternate" content="ja_JP">
-    
-    <!-- Twitter / X -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://gancim.com/">
-    <meta property="twitter:title" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
-    <meta property="twitter:description" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
-    <meta property="twitter:image" content="https://gancim.com/logo.png">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png?v=2">
-    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png?v=2">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    
-    <!-- Web App Manifest -->
-    <link rel="manifest" href="/site.webmanifest">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://gancim.com/">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GGXMY66EW7"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-GGXMY66EW7');
-    </script>
-    
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Preload Logo Images for faster display -->
-    <link rel="preload" href="logo.png" as="image">
-    <link rel="preload" href="logo_2.png" as="image">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #ffffff;
-            color: #000000;
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .main-container {
-            text-align: center;
-            max-width: 600px;
-            padding: 2rem;
-            margin: 0 auto;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        
-        .logo-container {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .logo {
-            width: 400px;
-            height: auto;
-            margin: 0 auto;
-            display: block;
-            transition: opacity 0.3s ease;
-        }
-        
-        .logo-hover {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 400px;
-            height: auto;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-        
-        .logo-container:hover .logo {
-            opacity: 0;
-        }
-        
-        .logo-container:hover .logo-hover {
-            opacity: 1;
-        }
-        
-        .links-container {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-        
-        .link-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: #000000;
-            transition: all 0.3s ease;
-            padding: 0.5rem;
-        }
-        
-        .link-item:hover {
-            transform: translateY(-5px);
-        }
-        
-        
-        .link-text {
-            display: none;
-        }
-        
-        .footer {
-            text-align: center;
-            color: #999;
-            font-size: 0.8rem;
-            padding: 2rem 0;
-            width: 100%;
-        }
-        
-        .link-icon {
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            transform: rotate(var(--rotation));
-        }
-        
-        .link-item:hover .link-icon {
-            transform: rotate(var(--rotation)) scale(1.2);
-        }
-        
-        .link-icon-image {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-            transition: all 0.3s ease;
-            filter: grayscale(100%) contrast(120%);
-        }
-        
-        .link-icon svg {
-            width: 100px;
-            height: 100px;
-            color: #666;
-            transition: all 0.3s ease;
-            filter: grayscale(100%) contrast(120%);
-        }
-        
-        .link-item:hover .link-icon-image,
-        .link-item:hover svg {
-            filter: grayscale(0%) contrast(100%);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker! | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者</title>
+  <meta name="description" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker! | マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
+  <meta name="keywords" content="Marco Ganci, Dad, Surfer, Pizza Expert, Software Maker, マルコ・ガンチ, パパ, サーファー, ピザ職人, ソフトウェア開発者">
+  <meta name="author" content="Marco Ganci">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gancim.com/">
 
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 1rem;
-            }
-            
-            .logo,
-            .logo-hover {
-                width: 300px;
-            }
-            
-            .links-container {
-                gap: 1.5rem;
-            }
-            
-            .link-item {
-                padding: 0.4rem;
-            }
-            
-            .link-icon {
-                width: 90px;
-                height: 90px;
-            }
-            
-            .link-icon-image,
-            .link-icon svg {
-                width: 90px;
-                height: 90px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .logo,
-            .logo-hover {
-                width: 300px;
-            }
-            
-            .links-container {
-                gap: 1rem;
-            }
-            
-            .link-icon {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .link-icon-image,
-            .link-icon svg {
-                width: 80px;
-                height: 80px;
-            }
-        }
-    </style>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gancim.com/">
+  <meta property="og:title" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker!">
+  <meta property="og:description" content="マルコ・ガンチ - パパ・サーファー・ピザ職人・時々ソフトウェア開発者">
+  <meta property="og:image" content="https://gancim.com/assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Marco Ganci, over a dark particle sea: Dad, Surfer, Pizza Expert and sometimes Software Maker!">
+  <meta property="og:site_name" content="Marco Ganci | マルコ・ガンチ">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Marco Ganci - Dad, Surfer, Pizza Expert and sometimes Software Maker!">
+  <meta name="twitter:image" content="https://gancim.com/assets/og.jpg">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#08090b" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#efe9df" media="(prefers-color-scheme: light)">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GGXMY66EW7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GGXMY66EW7');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400&family=Noto+Sans+JP:wght@400&display=swap">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="modulepreload" href="assets/vendor/three.module.min.js">
+  <script>
+    document.documentElement.classList.add('js');
+    // A theme the visitor picked earlier wins over the device setting.
+    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
 </head>
 <body>
-    <div class="main-container">
-        <!-- Logo -->
-        <div class="logo-container">
-            <img src="logo.png" alt="Marco Ganci" class="logo">
-            <img src="logo_2.png" alt="Marco Ganci" class="logo-hover">
-        </div>
-        
-        <!-- Links -->
-        <div class="links-container">
-            <a href="https://linkedin.com/in/marcoganci" target="_blank" class="link-item">
-                <div class="link-icon" style="--rotation: -5deg;">
-                    <img src="images/linkedin.png" alt="LinkedIn" class="link-icon-image">
-                </div>
-            </a>
-            
-            <a href="https://apps.apple.com/us/developer/marco-ganci/id1832268650" class="link-item">
-                <div class="link-icon" style="--rotation: 3deg;">
-                    <img src="images/applestore.png" alt="App Store" class="link-icon-image">
-                </div>
-            </a>
-            
-            <a href="https://github.com/gancim" target="_blank" class="link-item">
-                <div class="link-icon" style="--rotation: -2deg;">
-                    <img src="images/github.png" alt="Github" class="link-icon-image">
-                </div>
-            </a>
-            
-            <a href="https://twitter.com/MrGanci" target="_blank" class="link-item">
-                <div class="link-icon" style="--rotation: 4deg;">
-                    <img src="images/x.png" alt="X (Twitter)" class="link-icon-image">
-                </div>
-            </a>
-            
-            <a href="https://www.instagram.com/gancirama/" target="_blank" class="link-item">
-                <div class="link-icon" style="--rotation: -3deg;">
-                    <img src="images/instagram.png" alt="Instagram" class="link-icon-image">
-                </div>
-            </a>
-            
-            <a href="mailto:marco.ganci@gmail.com" class="link-item">
-                <div class="link-icon" style="--rotation: 1deg;">
-                    <img src="images/mail.png" alt="Email" class="link-icon-image">
-                </div>
-            </a>
-        </div>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="name" href="#top" data-roll>Marco Ganci</a>
+    <div class="top-r">
+      <nav aria-label="Sections">
+        <a href="#dad" data-roll>Dad</a>
+        <a href="#surfer" data-roll>Surfer</a>
+        <a href="#pizza" data-roll>Pizza</a>
+        <a href="#software" data-roll>Software</a>
+        <a href="#hello" data-roll>Contact</a>
+      </nav>
+      <button class="theme" id="theme" type="button" aria-label="Switch to light theme">
+        <svg class="sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3.05 3.05l1.13 1.13M11.82 11.82l1.13 1.13M3.05 12.95l1.13-1.13M11.82 4.18l1.13-1.13"/></svg>
+        <svg class="moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M13.6 10.1A6 6 0 0 1 5.9 2.4a6 6 0 1 0 7.7 7.7Z"/></svg>
+      </button>
     </div>
-    
-    <!-- Footer -->
-    <div class="footer">
-        <p>&copy; 2025 Marco Ganci / gancim.com</p>
-    </div>
+  </header>
+
+  <div class="index" aria-hidden="true"><span id="index-now">00</span><i></i><span>05</span></div>
+
+  <main>
+    <section class="s hero" id="top" data-stage="0">
+      <div class="pin">
+        <div class="hero-text">
+          <p class="hero-sub reveal"><span>Dad, Surfer, Pizza Expert and sometimes Software Maker!</span></p>
+          <p class="ja reveal" lang="ja"><span>パパ・サーファー・ピザ職人・時々ソフトウェア開発者</span></p>
+        </div>
+        <h1 class="hero-name reveal"><span>Marco</span> <span>Ganci</span></h1>
+      </div>
+    </section>
+
+    <section class="s" id="dad" data-stage="1">
+      <div class="pin">
+        <div class="copy">
+          <p class="label reveal"><span>01 <b lang="ja">パパ</b></span></p>
+          <h2 class="reveal"><span>Dad</span></h2>
+          <p class="lede reveal"><span>The job that matters most. Two boys, one black shiba, no days off.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="s" id="surfer" data-stage="2">
+      <div class="pin">
+        <div class="copy">
+          <p class="label reveal"><span>02 <b lang="ja">サーファー</b></span></p>
+          <h2 class="reveal"><span>Surfer</span></h2>
+          <p class="lede reveal"><span>First light, cold water, no signal. It's where the best ideas turn up.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="s s-long" id="pizza" data-stage="3">
+      <div class="pin">
+        <div class="copy">
+          <p class="label reveal"><span>03 <b lang="ja">ピザ職人</b></span></p>
+          <h2 class="reveal"><span>Pizza Expert</span></h2>
+          <p class="lede reveal"><span>Flour, water, salt, yeast. A long ferment, a very hot oven and ninety seconds of full attention.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="s" id="software" data-stage="4">
+      <div class="pin">
+        <div class="copy">
+          <p class="label reveal"><span>04 <b lang="ja">時々ソフトウェア開発者</b></span></p>
+          <h2 class="reveal"><span>Software Maker</span></h2>
+          <p class="lede reveal"><span>Nearly 20 years of building: products, platforms and the multicultural teams that ship them.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="s-hello" id="hello" data-stage="5">
+      <div class="hello-inner">
+        <p class="label reveal"><span>05 <b lang="ja">連絡先</b></span></p>
+        <a class="mail reveal" href="mailto:marco.ganci@gmail.com"><span>marco.ganci@gmail.com</span></a>
+        <div class="hello-foot">
+          <ul class="links">
+            <li><a href="https://linkedin.com/in/marcoganci" target="_blank" rel="noopener" data-roll>LinkedIn</a></li>
+            <li><a href="https://github.com/gancim" target="_blank" rel="noopener" data-roll>GitHub</a></li>
+            <li><a href="https://twitter.com/MrGanci" target="_blank" rel="noopener" data-roll>X</a></li>
+            <li><a href="https://www.instagram.com/gancirama/" target="_blank" rel="noopener" data-roll>Instagram</a></li>
+          </ul>
+          <p class="foot">&copy; <span id="year">2026</span> Marco Ganci</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>

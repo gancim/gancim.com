@@ -4,46 +4,33 @@ This repository contains the source code for [www.gancim.com](https://www.gancim
 
 ## About
 
-Personal website for Marco Ganci featuring:
-- Clean, minimalistic design
-- Responsive layout for all devices
-- Social media links and professional branding
-- BentoBii app showcase subpage
+Marco Ganci's personal site: **Dad, Surfer, Pizza Expert and sometimes Software Maker!**.
 
-## Features
+The homepage is one WebGL particle system on a near-black page. The same particles hold a different shape for each section (the sea, two boys and a black shiba running down the shore, a breaking wave, a pizza, a wall of code).
 
-- **Ultra-minimal single page design** with centered logo
-- **Integrated social media icons** with custom hover effects
-- **Responsive design** optimized for all screen sizes
-- **Logo hover animations** with smooth transitions
-- **Custom favicon support** for all platforms
-- **Bilingual content** (English/Japanese)
+It's a static site served by GitHub Pages from `main`, with **no build step**. Edit a file, push, done.
 
 ## File Structure
 
 ```
 gancim.com/
-├── index.html                    # Main homepage
-├── logo.png                      # Main logo
-├── logo_2.png                    # Hover logo
-├── favicon.ico                   # Favicon
-├── site.webmanifest             # Web app manifest
-├── images/                       # Social media icons
-│   ├── linkedin.png
-│   ├── github.png
-│   ├── instagram.png
-│   ├── x.png
-│   ├── mail.png
-│   └── applestore.png
-├── bentobii/                     # BentoBii app subpage
-│   ├── index.html
-│   ├── styles.css
-│   ├── privacy-policy.html
-│   └── structured-data.json
-├── sitemap.xml                   # SEO sitemap
-├── robots.txt                    # SEO robots file
-└── README.md                     # This file
+├── index.html              # Homepage: all the copy and links live here
+├── 404.html                # Self-contained
+├── assets/
+│   ├── css/site.css        # Layout, type, reveals, no-WebGL fallback
+│   ├── js/main.js          # Scroll position, hover wiring, cursor, boot
+│   ├── js/world.js         # three.js renderer, particle shaders, where each shape sits on screen
+│   ├── js/shapes.js        # The shapes themselves: one function each
+│   ├── img/                # Smaller copies of the drawing that the particles sample (b is the wink)
+│   └── vendor/             # three.js r170, vendored (no CDN, no npm)
+├── logo.png, logo_2.png    # The original drawing
+├── images/                 # Icons
+├── bentobii/, sesh/, japananas/, webcam/   # Project pages, not linked from the homepage
+├── sitemap.xml, robots.txt
+└── README.md
 ```
+
+Visitors with no WebGL get a static version, `prefers-reduced-motion` is respected, and the renderer lowers its resolution automatically on slower GPUs.
 
 ## Social Media Links
 
@@ -51,23 +38,17 @@ gancim.com/
 - **GitHub**: [github.com/gancim](https://github.com/gancim)
 - **X (Twitter)**: [twitter.com/MrGanci](https://twitter.com/MrGanci)
 - **Instagram**: [instagram.com/gancirama](https://www.instagram.com/gancirama/)
-- **App Store**: [Apple Developer Profile](https://apps.apple.com/us/developer/marco-ganci/id1832268650)
 - **Email**: marco.ganci@gmail.com
 
 ## Development
 
-To run the website locally:
+Modules need a local server rather than `file://`:
 
-1. Clone the repository
-2. Open `index.html` in your browser
-3. Or use a local server:
-   ```bash
-   # Using Python 3
-   python -m http.server 8000
-   
-   # Using Node.js
-   npx serve .
-   ```
+```bash
+python3 -m http.server 4173
+```
+
+Then open http://localhost:4173.
 
 ## Deployment
 
