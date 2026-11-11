@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mammoletta Studio</title>
+  <meta name="description" content="Make cut files for Cricut and embroidery files for the Brother Skitch PP1 from a picture, some text, or an idea.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#faf5ee">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mammoletta">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@700&family=Fredoka:wght@500;600&family=Lobster&family=Pacifico&family=Playfair+Display:wght@700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <img src="icon.svg" alt="" width="44" height="44">
+    <div>
+      <h1>Mammoletta Studio</h1>
+      <p data-i18n="tagline">One design, ready for the Cricut and the Brother Skitch.</p>
+    </div>
+    <div class="langs" role="group" aria-label="Lingua / Language / 言語">
+      <button data-lang="it" lang="it">Italiano</button>
+      <button data-lang="en" lang="en">English</button>
+      <button data-lang="ja" lang="ja">日本語</button>
+    </div>
+  </header>
+
+  <nav class="stepper" aria-label="Steps">
+    <button data-go="1"><b>1</b> <span data-i18n="w.1">Machine</span></button>
+    <button data-go="2"><b>2</b> <span data-i18n="w.2">Picture</span></button>
+    <button data-go="3"><b>3</b> <span data-i18n="w.3">Tidy up</span></button>
+    <button data-go="4"><b>4</b> <span data-i18n="w.4">Make</span></button>
+  </nav>
+
+  <main>
+      <section class="card" id="machine" data-step="1">
+        <h2 data-i18n="w.choose">What are you making it for?</h2>
+        <div class="choices">
+          <button class="choice" data-machine="cricut">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 46 L32 10 L50 46 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-dasharray="5 4"/><circle cx="32" cy="50" r="5" fill="currentColor"/></svg>
+            <strong>Cricut</strong>
+            <span data-i18n="w.cricut">Cut vinyl, iron-on, cardstock and stickers.</span>
+          </button>
+          <button class="choice" data-machine="skitch">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 38 l6-10 6 10 6-10 6 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <strong>Brother Skitch PP1</strong>
+            <span data-i18n="w.skitch">Embroider it in the 10 × 10 cm hoop.</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="card" id="source" data-step="2" hidden>
+        <h2><span data-i18n="s1.title">Start with a picture</span></h2>
+        <div class="tabs" role="tablist">
+          <button role="tab" data-tab="upload" aria-selected="true" data-i18n="tab.upload">Upload</button>
+          <button role="tab" data-tab="text" aria-selected="false" data-i18n="tab.text">Text</button>
+        </div>
+
+        <div class="pane" data-pane="upload">
+          <label class="drop" id="drop">
+            <input type="file" id="file" accept="image/*,.svg">
+            <strong data-i18n="up.choose">Choose a picture</strong>
+            <span data-i18n="up.hint">or drop one here. PNG, JPG or SVG.</span>
+          </label>
+        </div>
+
+        <div class="pane" data-pane="text" hidden>
+          <label for="text-input" data-i18n="tx.words">Words</label>
+          <textarea id="text-input" rows="2" placeholder="Hello">Hello</textarea>
+          <div class="row">
+            <div class="field grow">
+              <label for="text-font" data-i18n="tx.font">Lettering</label>
+              <select id="text-font">
+                <option value="Pacifico">Pacifico</option>
+                <option value="Lobster">Lobster</option>
+                <option value="Dancing Script">Dancing Script</option>
+                <option value="Fredoka">Fredoka</option>
+                <option value="Bebas Neue">Bebas Neue</option>
+                <option value="Playfair Display">Playfair Display</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="text-color" data-i18n="tx.color">Colour</label>
+              <input type="color" id="text-color" value="#d6336c">
+            </div>
+            <button class="primary" id="text-go" data-i18n="tx.go">Use text</button>
+          </div>
+        </div>
+
+        <p class="status" id="status" role="status" hidden></p>
+      </section>
+
+      <section class="card" id="tune" data-step="3" hidden>
+        <h2><span data-i18n="s2.title">Tidy it up</span></h2>
+        <div class="split">
+        <div>
+        <div class="stage" id="stage"><canvas id="preview"></canvas><div id="crop-box" hidden></div></div>
+        <p class="note" id="hint"></p>
+        <div class="tools">
+          <button id="rot-l" class="icon" data-i18n-title="s2.rotL">↺</button>
+          <button id="rot-r" class="icon" data-i18n-title="s2.rotR">↻</button>
+          <button id="flip-h" class="icon" data-i18n-title="s2.flipH">⇆</button>
+          <button id="flip-v" class="icon" data-i18n-title="s2.flipV">⇅</button>
+          <button id="crop" data-i18n="s2.crop" aria-pressed="false">Crop</button>
+          <button id="merge" data-i18n="s2.merge" aria-pressed="false">Merge colours</button>
+        </div>
+        <div class="swatches" id="swatches"></div>
+        </div>
+        <div>
+        <div class="controls">
+          <div class="field">
+            <label for="k"><span data-i18n="s2.colors">Colours, up to</span> <output id="k-out">6</output></label>
+            <input type="range" id="k" min="1" max="8" value="6">
+          </div>
+          <div class="field">
+            <label for="detail"><span data-i18n="s2.detail">Detail</span> <output id="detail-out">Balanced</output></label>
+            <input type="range" id="detail" min="1" max="5" value="3">
+          </div>
+          <div class="field">
+            <label for="smooth"><span data-i18n="s2.smooth">Smoothing</span> <output id="smooth-out"></output></label>
+            <input type="range" id="smooth" min="1" max="5" value="3">
+          </div>
+          <div class="field">
+            <label for="bg" data-i18n="s2.bg">Background</label>
+            <select id="bg">
+              <option value="auto" data-i18n="bg.auto">Remove</option>
+              <option value="strong" data-i18n="bg.strong">Remove more</option>
+              <option value="off" data-i18n="bg.off">Keep</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <button id="undo" disabled data-i18n="s2.undo">Undo</button>
+          <button id="reset" disabled data-i18n="s2.reset">Start over</button>
+          <div class="field grow">
+            <label for="name" data-i18n="s2.name">Design name</label>
+            <input type="text" id="name" value="design" maxlength="24">
+          </div>
+        </div>
+        </div>
+        </div>
+      </section>
+
+      <section class="card" id="cricut" data-step="4" data-for="cricut" hidden>
+        <h2>Cricut</h2>
+        <div class="split">
+        <div>
+        <div class="stage cut"><canvas id="cut-preview" width="400" height="400"></canvas></div>
+        <p class="stats" id="cut-stats"></p>
+        </div>
+        <div>
+        <div class="row">
+          <div class="field">
+            <label for="cut-width" data-i18n="c.width">Width</label>
+            <input type="number" id="cut-width" value="4" min="0.1" max="60" step="0.25">
+          </div>
+          <div class="field">
+            <label for="cut-unit" data-i18n="c.unit">Unit</label>
+            <select id="cut-unit"><option value="in" data-i18n="c.in">inches</option><option value="cm">cm</option></select>
+          </div>
+          <div class="field">
+            <label for="cut-height" data-i18n="c.height">Height</label>
+            <input type="number" id="cut-height" value="4" min="0.1" max="60" step="0.25">
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" id="mirror"> <span data-i18n="c.mirror">Mirror for iron-on</span></label>
+        <div class="row">
+          <div class="field">
+            <label for="cut-border" data-i18n="c.border">Border</label>
+            <select id="cut-border">
+              <option value="none" data-i18n="e.none">None</option>
+              <option value="whole" data-i18n="c.bWhole">Backing behind the design</option>
+              <option value="each" data-i18n="c.bEach">Lines round each colour</option>
+              <option value="both" data-i18n="e.both">Both</option>
+            </select>
+          </div>
+        </div>
+        <div id="cut-border-opts" hidden>
+          <div class="field">
+            <label for="cut-border-width"><span data-i18n="c.bWidth">Border width</span> <output id="cut-border-out">2 mm</output></label>
+            <input type="range" id="cut-border-width" min="1" max="8" step="0.5" value="2">
+          </div>
+          <div class="row">
+            <label class="check" id="cut-back-wrap"><input type="color" id="cut-back-color" value="#ffffff"> <span data-i18n="c.bBack">Backing colour</span></label>
+            <label class="check" id="cut-line-wrap"><input type="color" id="cut-line-color" value="#000000"> <span data-i18n="c.bLines">Line colour</span></label>
+          </div>
+          <p class="note" data-i18n="c.bNote">The whole piece, border included, stays at the width you set.</p>
+        </div>
+        <div class="downloads">
+          <div class="dl">
+            <button class="primary" id="dl-svg" data-i18n="c.svg">Layered SVG</button>
+            <p data-i18n="c.svgNote">One cut layer per colour, for vinyl, iron-on and cardstock.</p>
+          </div>
+          <div class="dl">
+            <button id="dl-each" data-i18n="c.each">One SVG per colour</button>
+            <p data-i18n="c.eachNote">Each colour as its own file, all lined up.</p>
+          </div>
+          <div class="dl">
+            <button id="dl-outline" data-i18n="c.outline">Outline SVG</button>
+            <p data-i18n="c.outlineNote">The whole shape as a single cut.</p>
+          </div>
+          <div class="dl">
+            <button id="dl-png" data-i18n="c.png">Sticker PNG</button>
+            <p><span data-i18n="c.pngNote">For Print Then Cut.</span></p>
+          </div>
+          <div class="dl" id="dl-original-wrap" hidden>
+            <button id="dl-original" data-i18n="c.original">Original SVG</button>
+            <p data-i18n="c.originalNote">Exactly as your file drew it.</p>
+          </div>
+        </div>
+        </div>
+        </div>
+        <details>
+          <summary data-i18n="c.how">How to get it into Design Space</summary>
+          <ol>
+            <li data-i18n="c.how1">Save the file, then open Cricut Design Space.</li>
+            <li data-i18n-html="c.how2">Choose <b>Upload</b>, then <b>Upload Image</b>, and pick the file.</li>
+            <li data-i18n-html="c.how3">An SVG arrives with its colours as separate layers. For the sticker PNG choose <b>Print Then Cut</b>.</li>
+            <li data-i18n="c.how4">Check the size on the canvas before you cut.</li>
+          </ol>
+        </details>
+      </section>
+
+      <section class="card" id="stitch" data-step="4" data-for="skitch" hidden>
+        <h2>Brother Skitch PP1</h2>
+        <div class="split">
+        <div>
+        <div class="stage hoop"><canvas id="stitches" width="640" height="640"></canvas></div>
+        <p class="stats" id="stats"></p>
+        </div>
+        <div>
+        <div class="controls">
+          <div class="field">
+            <label for="size"><span data-i18n="e.size">Size</span> <output id="size-out">80 mm</output></label>
+            <input type="range" id="size" min="20" max="98" value="80">
+          </div>
+          <div class="field">
+            <label for="density" data-i18n="e.fill">Fill</label>
+            <select id="density">
+              <option value="0.55" data-i18n="e.light">Light</option>
+              <option value="0.4" selected data-i18n="e.normal">Normal</option>
+              <option value="0.33" data-i18n="e.dense">Dense</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="outline" data-i18n="e.outline">Outline</label>
+            <select id="outline">
+              <option value="none" data-i18n="e.none">None</option>
+              <option value="whole" data-i18n="e.whole">Around the whole design</option>
+              <option value="each" data-i18n="e.each">Around each colour</option>
+              <option value="both" data-i18n="e.both">Both</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="angle" data-i18n="e.dir">Stitch direction</label>
+            <select id="angle">
+              <option value="0" data-i18n="e.dir0">Horizontal</option>
+              <option value="45" data-i18n="e.dir45">Diagonal ╲</option>
+              <option value="90" data-i18n="e.dir90">Vertical</option>
+              <option value="135" data-i18n="e.dir135">Diagonal ╱</option>
+            </select>
+          </div>
+        </div>
+        <div class="controls" id="outline-opts" hidden>
+          <div class="field">
+            <label for="outline-width"><span data-i18n="e.width">Outline width</span> <output id="outline-width-out"></output></label>
+            <input type="range" id="outline-width" min="0.5" max="4" step="0.5" value="1.5">
+          </div>
+          <div class="field">
+            <label for="outline-thread" data-i18n="e.othread">Outline thread</label>
+            <select id="outline-thread"></select>
+          </div>
+        </div>
+        <p class="note" id="outline-note" hidden></p>
+        <label class="check"><input type="checkbox" id="underlay"> <span data-i18n="e.underlay">Underlay (base stitches)</span></label>
+        <details class="adv">
+          <summary data-i18n="e.adv">Advanced</summary>
+          <div class="controls">
+            <div class="field">
+              <label for="stitch-len"><span data-i18n="e.len">Stitch length</span> <output id="stitch-len-out">3 mm</output></label>
+              <input type="range" id="stitch-len" min="2" max="4.5" step="0.5" value="3">
+            </div>
+            <div class="field">
+              <label for="overlap"><span data-i18n="e.overlap">Overlap between colours</span> <output id="overlap-out">0.2 mm</output></label>
+              <input type="range" id="overlap" min="0" max="0.6" step="0.1" value="0.2">
+            </div>
+          </div>
+        </details>
+        <p class="note" data-i18n="th.hint">Choose the thread for each colour and the order they are stitched in.</p>
+        <div class="threads" id="threads"></div>
+        <div class="downloads">
+          <div class="dl">
+            <button class="primary" id="dl-pes" data-i18n="e.pes">Embroidery file (PES)</button>
+            <p data-i18n="e.pesNote">The one to use with Artspira.</p>
+          </div>
+          <div class="dl">
+            <button id="dl-dst">DST</button>
+            <p data-i18n="e.dstNote">A spare format, without thread colours.</p>
+          </div>
+        </div>
+        <details>
+          <summary data-i18n="e.how">How to get it onto the Skitch</summary>
+          <ol>
+            <li data-i18n="e.how1">Open this page on the phone that has Artspira, or send the PES file to it.</li>
+            <li data-i18n="e.how2">In Artspira, use the option to import an embroidery file and pick the PES file.</li>
+            <li data-i18n="e.how3">Check it fits the 4 × 4 in hoop, then send it to the machine.</li>
+            <li data-i18n="e.how4">Thread the colours in the order listed above. The machine stops for each change.</li>
+          </ol>
+          <p class="note" data-i18n="e.tip">Stitch a test on scrap fabric with stabiliser first. Simple shapes with a few colours give the best results.</p>
+        </details>
+        </div>
+        </div>
+      </section>
+
+      <div class="wizard-nav">
+        <button id="back" data-i18n="w.back" hidden>Back</button>
+        <button id="also" hidden></button>
+        <button id="next" class="primary" data-i18n="w.next" hidden>Next</button>
+      </div>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

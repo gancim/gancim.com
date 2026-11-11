@@ -1,0 +1,243 @@
+// Page text in English, Italian and Japanese.
+// In the HTML, data-i18n="key" sets an element's text, data-i18n-html its markup, data-i18n-ph its placeholder,
+// data-i18n-title its tooltip and accessible name.
+
+const en = {
+  'e.outline': 'Outline', 'e.none': 'None', 'e.whole': 'Whole design', 'e.each': 'Each colour', 'e.both': 'Both',
+  'e.width': 'Outline width', 'e.line': 'line', 'e.satin': 'satin border', 'e.othread': 'Outline thread',
+  'e.same': 'Same colour', 'e.noteBlack': 'The outline around the whole design is sewn in black.',
+  'w.1': 'Machine', 'w.2': 'Picture', 'w.3': 'Tidy up', 'w.4': 'Make',
+  'w.choose': 'What are you making it for?',
+  'w.cricut': 'Cut vinyl, iron-on, cardstock and stickers.', 'w.skitch': 'Embroider it in the 10 × 10 cm hoop.',
+  'w.back': 'Back', 'w.next': 'Next',
+  'w.alsoSkitch': 'Make it for the Skitch too', 'w.alsoCricut': 'Make it for the Cricut too',
+  's2.rotL': 'Turn left', 's2.rotR': 'Turn right', 's2.flipH': 'Flip left to right', 's2.flipV': 'Flip top to bottom',
+  's2.crop': 'Crop', 's2.merge': 'Merge colours', 's2.smooth': 'Smoothing',
+  's2.cropHint': 'Drag a box over the part you want to keep.',
+  's2.mergeHint': 'Tap the colour to keep, then the colour to merge into it.',
+  'smooth.1': 'Sharp', 'smooth.2': 'Crisp', 'smooth.3': 'Balanced', 'smooth.4': 'Soft', 'smooth.5': 'Very soft',
+  'c.height': 'Height', 'c.mirror': 'Mirror for iron-on', 'c.borderColor': 'Border colour',
+  'c.each': 'One SVG per colour', 'c.eachNote': 'Each colour as its own file, all lined up.',
+  'e.dir': 'Stitch direction', 'e.dir0': 'Horizontal', 'e.dir45': 'Diagonal ╲', 'e.dir90': 'Vertical', 'e.dir135': 'Diagonal ╱',
+  'e.underlay': 'Underlay: base stitches for a firmer, fuller fill', 'e.adv': 'Advanced',
+  'e.len': 'Stitch length', 'e.overlap': 'Overlap between colours',
+  'th.hint': 'Choose the thread for each colour and the order they are stitched in.',
+  'th.up': 'Stitch earlier', 'th.down': 'Stitch later', 'th.pick': 'Thread for colour {n}', 'th.use': 'Stitch colour {n}',
+  tagline: 'One design, ready for the Cricut and the Brother Skitch.',
+  's1.title': 'Start with a picture',
+  'tab.upload': 'Upload', 'tab.text': 'Text',
+  'up.choose': 'Choose a picture', 'up.hint': 'or drop one here. PNG, JPG or SVG.',
+  'tx.words': 'Words', 'tx.sample': 'Hello', 'tx.font': 'Lettering', 'tx.color': 'Colour', 'tx.go': 'Use text',
+  's2.title': 'Tidy it up', 's2.tap': 'Tap any part of the picture to remove it.',
+  's2.colors': 'Colours, up to', 's2.detail': 'Detail', 's2.bg': 'Background',
+  'bg.auto': 'Remove', 'bg.strong': 'Remove more', 'bg.off': 'Keep',
+  's2.undo': 'Undo', 's2.reset': 'Start over', 's2.name': 'Design name',
+  'detail.1': 'Smoothest', 'detail.2': 'Smooth', 'detail.3': 'Balanced', 'detail.4': 'Detailed', 'detail.5': 'Most detail',
+  'sw.title': 'Change this colour', 'sw.aria': 'Colour {n}',
+  'c.width': 'Width', 'c.unit': 'Unit', 'c.in': 'inches',
+  'c.svg': 'Layered SVG', 'c.svgNote': 'One cut layer per colour, for vinyl, iron-on and cardstock.',
+  'c.outline': 'Outline SVG', 'c.outlineNote': 'The whole shape as a single cut.',
+  'c.png': 'Sticker PNG', 'c.pngNote': 'For Print Then Cut, with the border chosen above.', 'c.border': 'Border',
+  'c.bWhole': 'Backing behind the design', 'c.bEach': 'Lines round each colour', 'c.bWidth': 'Border width',
+  'c.bBack': 'Backing colour', 'c.bLines': 'Line colour', 'c.bNote': 'The whole piece, border included, stays at the width you set.',
+  'c.layers': '{n} layers',
+  'c.original': 'Original SVG', 'c.originalNote': 'Exactly as your file drew it.',
+  'c.how': 'How to get it into Design Space',
+  'c.how1': 'Save the file, then open Cricut Design Space.',
+  'c.how2': 'Choose <b>Upload</b>, then <b>Upload Image</b>, and pick the file.',
+  'c.how3': 'An SVG arrives with its colours as separate layers. For the sticker PNG choose <b>Print Then Cut</b>.',
+  'c.how4': 'Check the size on the canvas before you cut.',
+  'e.size': 'Size', 'e.fill': 'Fill', 'e.light': 'Light', 'e.normal': 'Normal', 'e.dense': 'Dense',
+  'e.pes': 'Embroidery file (PES)', 'e.pesNote': 'The one to use with Artspira.',
+  'e.dstNote': 'A spare format, without thread colours.',
+  'e.how': 'How to get it onto the Skitch',
+  'e.how1': 'Open this page on the phone that has Artspira, or send the PES file to it.',
+  'e.how2': 'In Artspira, use the option to import an embroidery file and pick the PES file.',
+  'e.how3': 'Check it fits the 4 × 4 in hoop, then send it to the machine.',
+  'e.how4': 'Thread the colours in the order listed above. The machine stops for each change.',
+  'e.tip': 'Stitch a test on scrap fabric with stabiliser first. Simple shapes with a few colours give the best results.',
+  'stats.line': '{n} stitches · {t} · about {m} min',
+  'stats.thread1': '1 thread', 'stats.threads': '{n} threads',
+  'stats.size': '{w} × {h} mm, inside the 100 × 100 mm hoop',
+  'stats.many': '. Lots of small separate pieces: try fewer colours or less detail for a cleaner result.',
+  'stats.none': 'Nothing to stitch yet.',
+  'th.off': 'Not stitched', 'th.outline': 'Outline',
+  'st.opening': 'Opening…',
+  'err.open': "That file couldn't be opened as a picture.",
+  'err.svg': "That doesn't look like an SVG file.",
+  'err.svgParse': 'The SVG code has a mistake in it. Try saving the file again.',
+  'err.words': 'Type some words first.',
+};
+
+const it = {
+  'e.outline': 'Contorno', 'e.none': 'Nessuno', 'e.whole': 'Tutto il disegno', 'e.each': 'Ogni colore', 'e.both': 'Entrambi',
+  'e.width': 'Spessore del contorno', 'e.line': 'linea', 'e.satin': 'punto raso', 'e.othread': 'Filo del contorno',
+  'e.same': 'Stesso colore', 'e.noteBlack': 'Il contorno intorno a tutto il disegno viene ricamato in nero.',
+  'w.1': 'Macchina', 'w.2': 'Immagine', 'w.3': 'Sistema', 'w.4': 'Crea',
+  'w.choose': 'Per quale macchina lo prepari?',
+  'w.cricut': 'Taglia vinile, termoadesivo, cartoncino e adesivi.', 'w.skitch': 'Ricamalo nel telaio da 10 × 10 cm.',
+  'w.back': 'Indietro', 'w.next': 'Avanti',
+  'w.alsoSkitch': 'Preparalo anche per la Skitch', 'w.alsoCricut': 'Preparalo anche per la Cricut',
+  's2.rotL': 'Ruota a sinistra', 's2.rotR': 'Ruota a destra', 's2.flipH': 'Specchia in orizzontale', 's2.flipV': 'Specchia in verticale',
+  's2.crop': 'Ritaglia', 's2.merge': 'Unisci colori', 's2.smooth': 'Morbidezza',
+  's2.cropHint': 'Trascina un riquadro sulla parte da tenere.',
+  's2.mergeHint': 'Tocca il colore da tenere, poi quello da unire.',
+  'smooth.1': 'Netto', 'smooth.2': 'Definito', 'smooth.3': 'Equilibrato', 'smooth.4': 'Morbido', 'smooth.5': 'Molto morbido',
+  'c.height': 'Altezza', 'c.mirror': 'Specchia per termoadesivo', 'c.borderColor': 'Colore del bordo',
+  'c.each': 'Un SVG per colore', 'c.eachNote': 'Ogni colore in un file a parte, tutti allineati.',
+  'e.dir': 'Direzione dei punti', 'e.dir0': 'Orizzontale', 'e.dir45': 'Diagonale ╲', 'e.dir90': 'Verticale', 'e.dir135': 'Diagonale ╱',
+  'e.underlay': 'Sottopunto: punti di base per un riempimento più stabile e pieno', 'e.adv': 'Avanzate',
+  'e.len': 'Lunghezza del punto', 'e.overlap': 'Sovrapposizione tra colori',
+  'th.hint': "Scegli il filo per ogni colore e l'ordine in cui vengono ricamati.",
+  'th.up': 'Ricama prima', 'th.down': 'Ricama dopo', 'th.pick': 'Filo per il colore {n}', 'th.use': 'Ricama il colore {n}',
+  tagline: 'Un solo disegno, pronto per la Cricut e la Brother Skitch.',
+  's1.title': "Parti da un'immagine",
+  'tab.upload': 'Carica', 'tab.text': 'Testo',
+  'up.choose': "Scegli un'immagine", 'up.hint': 'oppure trascinala qui. PNG, JPG o SVG.',
+  'tx.words': 'Parole', 'tx.sample': 'Ciao', 'tx.font': 'Carattere', 'tx.color': 'Colore', 'tx.go': 'Usa il testo',
+  's2.title': 'Sistemala', 's2.tap': "Tocca una parte dell'immagine per toglierla.",
+  's2.colors': 'Colori, fino a', 's2.detail': 'Dettaglio', 's2.bg': 'Sfondo',
+  'bg.auto': 'Rimuovi', 'bg.strong': 'Rimuovi di più', 'bg.off': 'Tieni',
+  's2.undo': 'Annulla', 's2.reset': 'Ricomincia', 's2.name': 'Nome del disegno',
+  'detail.1': 'Molto morbido', 'detail.2': 'Morbido', 'detail.3': 'Equilibrato', 'detail.4': 'Dettagliato', 'detail.5': 'Massimo dettaglio',
+  'sw.title': 'Cambia questo colore', 'sw.aria': 'Colore {n}',
+  'c.width': 'Larghezza', 'c.unit': 'Unità', 'c.in': 'pollici',
+  'c.svg': 'SVG a livelli', 'c.svgNote': 'Un livello di taglio per colore: vinile, termoadesivo e cartoncino.',
+  'c.outline': 'SVG del contorno', 'c.outlineNote': 'Tutta la forma in un unico taglio.',
+  'c.png': 'PNG adesivo', 'c.pngNote': 'Per Stampa e taglia, con il bordo scelto sopra.', 'c.border': 'Bordo',
+  'c.bWhole': 'Sfondo dietro il disegno', 'c.bEach': 'Linee attorno a ogni colore', 'c.bWidth': 'Spessore del bordo',
+  'c.bBack': 'Colore dello sfondo', 'c.bLines': 'Colore delle linee', 'c.bNote': 'Il pezzo intero, bordo compreso, resta della larghezza impostata.',
+  'c.layers': '{n} livelli',
+  'c.original': 'SVG originale', 'c.originalNote': "Esattamente come l'ha disegnato il tuo file.",
+  'c.how': 'Come portarlo in Design Space',
+  'c.how1': 'Salva il file, poi apri Cricut Design Space.',
+  'c.how2': 'Scegli <b>Carica</b>, poi <b>Carica immagine</b>, e seleziona il file.',
+  'c.how3': "L'SVG arriva con i colori su livelli separati. Per il PNG adesivo scegli <b>Stampa e taglia</b>.",
+  'c.how4': 'Controlla la misura sulla tela prima di tagliare.',
+  'e.size': 'Misura', 'e.fill': 'Riempimento', 'e.light': 'Leggero', 'e.normal': 'Normale', 'e.dense': 'Fitto',
+  'e.pes': 'File di ricamo (PES)', 'e.pesNote': 'Quello da usare con Artspira.',
+  'e.dstNote': 'Un formato di riserva, senza i colori dei fili.',
+  'e.how': 'Come portarlo sulla Skitch',
+  'e.how1': 'Apri questa pagina sul telefono con Artspira, oppure mandagli il file PES.',
+  'e.how2': "In Artspira usa l'opzione per importare un file di ricamo e scegli il file PES.",
+  'e.how3': 'Controlla che stia nel telaio da 10 × 10 cm, poi invialo alla macchina.',
+  'e.how4': "Infila i colori nell'ordine dell'elenco qui sopra. La macchina si ferma a ogni cambio.",
+  'e.tip': 'Fai prima una prova su un ritaglio di stoffa con lo stabilizzatore. Forme semplici e pochi colori danno i risultati migliori.',
+  'stats.line': '{n} punti · {t} · circa {m} min',
+  'stats.thread1': '1 filo', 'stats.threads': '{n} fili',
+  'stats.size': '{w} × {h} mm, dentro il telaio da 100 × 100 mm',
+  'stats.many': '. Tanti piccoli pezzi separati: prova con meno colori o meno dettaglio per un risultato più pulito.',
+  'stats.none': 'Ancora niente da ricamare.',
+  'th.off': 'Non ricamato', 'th.outline': 'Contorno',
+  'st.opening': 'Apro il file…',
+  'err.open': 'Non è stato possibile aprire il file come immagine.',
+  'err.svg': 'Non sembra un file SVG.',
+  'err.svgParse': "C'è un errore nel codice SVG. Prova a salvare di nuovo il file.",
+  'err.words': 'Scrivi prima qualche parola.',
+};
+
+const ja = {
+  'e.outline': '輪郭線', 'e.none': 'なし', 'e.whole': 'デザイン全体', 'e.each': '色ごと', 'e.both': '両方',
+  'e.width': '輪郭線の太さ', 'e.line': 'ライン', 'e.satin': 'サテン縫い', 'e.othread': '輪郭線の糸',
+  'e.same': '同じ色', 'e.noteBlack': 'デザイン全体のまわりの輪郭線は黒で縫います。',
+  'w.1': 'マシン', 'w.2': '絵', 'w.3': '整える', 'w.4': '作る',
+  'w.choose': 'どのマシンで作りますか？',
+  'w.cricut': 'ビニール、アイロンシート、厚紙、ステッカーをカット。', 'w.skitch': '10 × 10 cm の枠で刺しゅう。',
+  'w.back': '戻る', 'w.next': '次へ',
+  'w.alsoSkitch': 'Skitch 用にも作る', 'w.alsoCricut': 'Cricut 用にも作る',
+  's2.rotL': '左に回転', 's2.rotR': '右に回転', 's2.flipH': '左右反転', 's2.flipV': '上下反転',
+  's2.crop': '切り抜き', 's2.merge': '色をまとめる', 's2.smooth': 'なめらかさ',
+  's2.cropHint': '残したい部分をドラッグで囲んでください。',
+  's2.mergeHint': '残す色をタップしてから、まとめたい色をタップします。',
+  'smooth.1': 'くっきり', 'smooth.2': 'ややくっきり', 'smooth.3': '標準', 'smooth.4': 'やわらか', 'smooth.5': 'とてもやわらか',
+  'c.height': '高さ', 'c.mirror': 'アイロンシート用に反転', 'c.borderColor': 'フチの色',
+  'c.each': '色ごとの SVG', 'c.eachNote': '色ごとに別ファイル。位置はそろっています。',
+  'e.dir': '縫い方向', 'e.dir0': '横', 'e.dir45': '斜め ╲', 'e.dir90': '縦', 'e.dir135': '斜め ╱',
+  'e.underlay': '下縫い：しっかりふっくら仕上げるための下地', 'e.adv': '詳細設定',
+  'e.len': '縫い目の長さ', 'e.overlap': '色どうしの重なり',
+  'th.hint': '色ごとの糸と、縫う順番を選べます。',
+  'th.up': '先に縫う', 'th.down': '後で縫う', 'th.pick': '色 {n} の糸', 'th.use': '色 {n} を縫う',
+  tagline: 'ひとつのデザインを、Cricut と Brother Skitch の両方に。',
+  's1.title': '絵を用意する',
+  'tab.upload': 'アップロード', 'tab.text': '文字',
+  'up.choose': '画像を選ぶ', 'up.hint': 'またはここにドロップ。PNG・JPG・SVG に対応。',
+  'tx.words': '文字', 'tx.sample': 'Hello', 'tx.font': '書体', 'tx.color': '色', 'tx.go': 'この文字を使う',
+  's2.title': '整える', 's2.tap': '消したい部分をタップしてください。',
+  's2.colors': '色数（最大）', 's2.detail': '細かさ', 's2.bg': '背景',
+  'bg.auto': '消す', 'bg.strong': 'もっと消す', 'bg.off': '残す',
+  's2.undo': '元に戻す', 's2.reset': '最初から', 's2.name': 'デザイン名',
+  'detail.1': 'とてもなめらか', 'detail.2': 'なめらか', 'detail.3': '標準', 'detail.4': '細かい', 'detail.5': '最も細かい',
+  'sw.title': 'この色を変える', 'sw.aria': '色 {n}',
+  'c.width': '幅', 'c.unit': '単位', 'c.in': 'インチ',
+  'c.svg': 'レイヤー SVG', 'c.svgNote': '色ごとに 1 レイヤー。ビニール、アイロンシート、厚紙に。',
+  'c.outline': '輪郭 SVG', 'c.outlineNote': '全体をひとつの形としてカット。',
+  'c.png': 'ステッカー PNG', 'c.pngNote': 'プリント＆カット用。上で選んだフチ付き。', 'c.border': 'フチ',
+  'c.bWhole': 'デザインの後ろに台紙', 'c.bEach': '色ごとに線で囲む', 'c.bWidth': 'フチの太さ',
+  'c.bBack': '台紙の色', 'c.bLines': '線の色', 'c.bNote': 'フチを含めた全体が、設定した幅に収まります。',
+  'c.layers': '{n} レイヤー',
+  'c.original': '元の SVG', 'c.originalNote': '元のファイルのままの形。',
+  'c.how': 'Design Space への取り込み方',
+  'c.how1': 'ファイルを保存して、Cricut Design Space を開きます。',
+  'c.how2': '<b>アップロード</b> → <b>画像をアップロード</b> の順に選び、ファイルを指定します。',
+  'c.how3': 'SVG は色ごとに別レイヤーで読み込まれます。ステッカー PNG は <b>プリント＆カット</b> を選びます。',
+  'c.how4': 'カットする前に、キャンバス上でサイズを確認してください。',
+  'e.size': 'サイズ', 'e.fill': '縫い密度', 'e.light': '軽め', 'e.normal': '標準', 'e.dense': '密',
+  'e.pes': '刺しゅうファイル（PES）', 'e.pesNote': 'Artspira で使うのはこちら。',
+  'e.dstNote': '予備の形式。糸の色は含まれません。',
+  'e.how': 'Skitch への送り方',
+  'e.how1': 'Artspira の入ったスマホでこのページを開くか、PES ファイルをスマホに送ります。',
+  'e.how2': 'Artspira で刺しゅうファイルの取り込みを選び、PES ファイルを指定します。',
+  'e.how3': '10 × 10 cm の枠に収まることを確認して、ミシンに送信します。',
+  'e.how4': '上のリストの順に糸を通します。色替えのたびにミシンが止まります。',
+  'e.tip': 'まず接着芯を貼ったはぎれで試し縫いをしてください。色数の少ないシンプルな形がきれいに仕上がります。',
+  'stats.line': '{n} 針 · {t} · 約 {m} 分',
+  'stats.thread1': '糸 1 色', 'stats.threads': '糸 {n} 色',
+  'stats.size': '{w} × {h} mm（100 × 100 mm の枠内）',
+  'stats.many': '。細かいパーツが多めです。色数や細かさを減らすと、きれいに仕上がります。',
+  'stats.none': 'まだ縫うものがありません。',
+  'th.off': '縫わない', 'th.outline': '輪郭線',
+  'st.opening': '開いています…',
+  'err.open': 'このファイルは画像として開けませんでした。',
+  'err.svg': 'SVG ファイルではないようです。',
+  'err.svgParse': 'SVG コードに誤りがあります。ファイルを保存し直してみてください。',
+  'err.words': '先に文字を入力してください。',
+};
+
+const LANGS = { en, it, ja };
+const listeners = [];
+let lang = 'it';
+
+export const getLang = () => lang;
+
+export function t(key, vars) {
+  let s = LANGS[lang][key] ?? en[key] ?? key;
+  if (vars) for (const k in vars) s = s.replaceAll(`{${k}}`, vars[k]);
+  return s;
+}
+
+export function applyDom() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => { el.innerHTML = t(el.dataset.i18nHtml); });
+  document.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.placeholder = t(el.dataset.i18nPh); });
+  document.querySelectorAll('[data-i18n-title]').forEach((el) => { el.title = t(el.dataset.i18nTitle); el.setAttribute('aria-label', el.title); });
+  document.querySelectorAll('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+}
+
+export function setLang(next) {
+  if (!LANGS[next]) return;
+  lang = next;
+  try { localStorage.setItem('craft-lang', next); } catch { /* private window: just don't remember */ }
+  applyDom();
+  listeners.forEach((fn) => fn());
+}
+
+export const onLangChange = (fn) => listeners.push(fn);
+
+export function initLang() {
+  let saved = null;
+  try { saved = localStorage.getItem('craft-lang'); } catch { /* ignore */ }
+  lang = LANGS[saved] ? saved : 'it';   // Italian unless she picked another language before
+  applyDom();
+  document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
+}
