@@ -167,9 +167,36 @@ export function buildSvg({ layers, colors, w, h, widthIn, title }) {
     ? `  <g id="layer-${i + 1}" fill="${colors[i]}"><path d="${layerPath(loops)}"/></g>`
     : '').filter(Boolean).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${widthIn.toFixed(3)}in" height="${heightIn.toFixed(3)}in" viewBox="0 0 ${w} ${h}">
+<svg xmlns="http://www.w3.org/2000/svg" width="${widthIn.toFixed(3)}in" height="${heightIn.toFixed(3)}in" viewBox="0 0 ${+w.toFixed(2)} ${+h.toFixed(2)}">
   <title>${(title || 'design').replace(/[<&>]/g, '')}</title>
 ${groups}
 </svg>
 `;
+}
+
+// Cuts loops down to a rectangle (Sutherland–Hodgman, one side at a time). Holes stay holes.
+export function clipLoops(loops, x0, y0, x1, y1) {
+  const sides = [
+    [(p) => p[0] >= x0, (a, b) => [x0, a[1] + (b[1] - a[1]) * (x0 - a[0]) / (b[0] - a[0])]],
+    [(p) => p[0] <= x1, (a, b) => [x1, a[1] + (b[1] - a[1]) * (x1 - a[0]) / (b[0] - a[0])]],
+    [(p) => p[1] >= y0, (a, b) => [a[0] + (b[0] - a[0]) * (y0 - a[1]) / (b[1] - a[1]), y0]],
+    [(p) => p[1] <= y1, (a, b) => [a[0] + (b[0] - a[0]) * (y1 - a[1]) / (b[1] - a[1]), y1]],
+  ];
+  const out = [];
+  for (const loop of loops) {
+    let pts = loop;
+    for (const [inside, cross] of sides) {
+      if (!pts.length) break;
+      const next = [];
+      for (let i = 0; i < pts.length; i++) {
+        const cur = pts[i], prev = pts[(i + pts.length - 1) % pts.length];
+        const ci = inside(cur), pi = inside(prev);
+        if (ci) { if (!pi) next.push(cross(prev, cur)); next.push(cur); }
+        else if (pi) next.push(cross(prev, cur));
+      }
+      pts = next;
+    }
+    if (pts.length >= 3 && Math.abs(area(pts)) >= 4) out.push(pts);
+  }
+  return out;
 }

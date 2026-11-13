@@ -1,6 +1,6 @@
 import { hasTransparency, removeBackground, quantize, removeThin, cleanup, compact, floodMark, hex, transformImage, cropImage, mergeLabels, borderMasks } from './imaging.js';
-import { traceLayers, traceMask, layerPath, buildSvg, setCornerLimit } from './trace.js';
-import { digitize } from './stitch.js';
+import { traceLayers, traceMask, layerPath, buildSvg, setCornerLimit, clipLoops } from './trace.js';
+import { digitize, assignThreads } from './stitch.js';
 import { writePES, writeDST, STITCH, THREADS, nearestThread } from './formats.js';
 import { t, initLang, onLangChange } from './i18n.js';
 
@@ -430,6 +430,34 @@ function cutDesign() {
 // colours can change without re-tracing
 const cutColors = (c) => c.kinds.map((k, i) => k === 'back' ? $('#cut-back-color').value : k === 'lines' ? $('#cut-line-color').value : c.colors[i]);
 
+// Pieces that each fit the chosen mat: [{ name, x, y, w, h }] in frame pixels. One piece when it all fits.
+const MATS = { '12x12': [11.5, 11.5], '12x24': [11.5, 23.5], joy: [4.25, 11.75] };
+function cutPieces(c) {
+  const all = [{ name: '', x: 0, y: 0, w: c.W, h: c.H }];
+  const mat = MATS[$('#cut-mat').value];
+  if (!mat) return all;
+  const pxPerIn = c.W / widthIn(), Win = widthIn(), Hin = Win * c.H / c.W;
+  const o = +$('#cut-overlap').value / 25.4;
+  // try the mat both ways round and keep whichever needs fewer pieces
+  let best = null;
+  for (const [mw, mh] of [mat, [mat[1], mat[0]]]) {
+    const n = (len, m) => len <= m ? 1 : Math.ceil((len - o) / Math.max(0.5, m - o) - 1e-9);
+    const cols = n(Win, mw), rows = n(Hin, mh);
+    if (!best || cols * rows < best.cols * best.rows) best = { cols, rows };
+  }
+  if (best.cols * best.rows === 1) return all;
+  const { cols, rows } = best, op = o * pxPerIn;
+  const tw = (c.W + (cols - 1) * op) / cols, th = (c.H + (rows - 1) * op) / rows;
+  const out = [];
+  for (let r = 0; r < rows; r++) for (let k = 0; k < cols; k++) {
+    out.push({ name: String.fromCharCode(65 + r) + (k + 1), x: k * (tw - op), y: r * (th - op), w: tw, h: th });
+  }
+  return out;
+}
+// the layers of one piece, moved so the piece starts at 0,0
+const pieceLayers = (layers, p) => layers.map((loops) => clipLoops(loops, p.x, p.y, p.x + p.w, p.y + p.h)
+  .map((loop) => loop.map((q) => [q[0] - p.x, q[1] - p.y])));
+
 function drawCut() {
   const d = state.design;
   if (!d || !d.w || state.machine !== 'cricut' || state.step !== 4) return;
@@ -443,8 +471,30 @@ function drawCut() {
   ctx.scale(scale, scale);
   c.layers.forEach((loops, i) => { ctx.fillStyle = colors[i]; ctx.fill(new Path2D(layerPath(loops))); });
   ctx.restore();
+  const pieces = cutPieces(c);
+  if (pieces.length > 1) {
+    ctx.save();
+    ctx.scale(scale, scale);
+    // sized to the canvas, which the page shrinks to fit
+    const u = Math.max(cv.width, cv.height) / 320 / scale;
+    ctx.setLineDash([5 * u, 4 * u]);
+    ctx.lineWidth = 1.5 * u;
+    ctx.strokeStyle = 'rgba(44,38,34,.7)';
+    ctx.font = `600 ${14 * u}px system-ui, sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    for (const p of pieces) {
+      ctx.strokeRect(p.x, p.y, p.w, p.h);
+      ctx.fillStyle = 'rgba(255,255,255,.85)';
+      ctx.fillRect(p.x + p.w / 2 - 16 * u, p.y + p.h / 2 - 11 * u, 32 * u, 22 * u);
+      ctx.fillStyle = '#2c2622';
+      ctx.fillText(p.name, p.x + p.w / 2, p.y + p.h / 2 + u);
+    }
+    ctx.restore();
+  }
+  $('#cut-split-note').hidden = pieces.length < 2;
+  $('#cut-overlap-wrap').hidden = pieces.length < 2;
   const unit = $('#cut-unit').value, f = unit === 'cm' ? 2.54 : 1, w = widthIn() * f;
-  $('#cut-stats').textContent = `${trim(w)} × ${trim(w * c.H / c.W)} ${unit === 'cm' ? 'cm' : t('c.in')} · ${t('c.layers', { n: c.layers.filter((l) => l.length).length })}`;
+  $('#cut-stats').textContent = `${trim(w)} × ${trim(w * c.H / c.W)} ${unit === 'cm' ? 'cm' : t('c.in')} · ${t('c.layers', { n: c.layers.filter((l) => l.length).length })}${pieces.length > 1 ? ' · ' + t('c.pieces', { n: pieces.length }) : ''}`;
 }
 
 function updateCutSize() {
@@ -478,32 +528,44 @@ $('#cut-border-width').addEventListener('input', () => { borderControls(); updat
 $('#cut-back-color').addEventListener('input', drawCut);
 $('#cut-line-color').addEventListener('input', drawCut);
 $('#mirror').addEventListener('change', drawCut);
+$('#cut-mat').addEventListener('change', drawCut);
+$('#cut-overlap').addEventListener('input', (e) => { $('#cut-overlap-out').textContent = `${e.target.value} mm`; drawCut(); });
 
 // iron-on is cut face down, so its files are flipped left to right
 const mirrored = (layers, w) => $('#mirror').checked
   ? layers.map((loops) => loops.map((loop) => loop.map((p) => [w - p[0], p[1]]).reverse()))
   : layers;
 
-$('#dl-svg').addEventListener('click', () => {
-  const c = cutDesign();
-  download(buildSvg({ layers: mirrored(c.layers, c.W), colors: cutColors(c), w: c.W, h: c.H, widthIn: widthIn(), title: $('#name').value }), fileName('.svg'), 'image/svg+xml');
-});
+// every cut file is made once per piece; a design that fits the mat is a single piece
+function cutFiles(make) {
+  const c = cutDesign(), pieces = cutPieces(c), pxPerIn = c.W / widthIn();
+  const files = [];
+  for (const p of pieces) {
+    const layers = pieceLayers(mirrored(c.layers, c.W), p), outer = pieceLayers(mirrored([c.outer], c.W), p)[0];
+    const svg = (ls, colors, title) => buildSvg({ layers: ls, colors, w: p.w, h: p.h, widthIn: p.w / pxPerIn, title });
+    make({ c, p, layers, outer, svg, tag: p.name ? `-${p.name}` : '', files });
+  }
+  if (files.length === 1) download(files[0].content, files[0].name, files[0].type);
+  else downloadMany(files);
+}
+const svgFile = (content, name) => ({ content, name: fileName(name), type: 'image/svg+xml' });
 
-$('#dl-each').addEventListener('click', () => {
-  const c = cutDesign(), layers = mirrored(c.layers, c.W), colors = cutColors(c);
-  const suffix = (k, i) => k === 'back' ? '-border' : k === 'lines' ? '-lines' : `-${k + 1}`;
+$('#dl-svg').addEventListener('click', () => cutFiles(({ c, layers, svg, tag, files }) => {
+  if (layers.some((l) => l.length)) files.push(svgFile(svg(layers, cutColors(c), `${$('#name').value}${tag}`), `${tag}.svg`));
+}));
+
+$('#dl-each').addEventListener('click', () => cutFiles(({ c, layers, svg, tag, files }) => {
+  const colors = cutColors(c);
+  const suffix = (k) => k === 'back' ? '-border' : k === 'lines' ? '-lines' : `-${k + 1}`;
   // every file keeps the full frame, so the colours line up when stacked in Design Space
-  downloadMany(layers.map((loops, i) => ({
-    content: buildSvg({ layers: [loops], colors: [colors[i]], w: c.W, h: c.H, widthIn: widthIn(), title: `${$('#name').value}${suffix(c.kinds[i], i)}` }),
-    name: fileName(`${suffix(c.kinds[i], i)}.svg`),
-    type: 'image/svg+xml',
-  })).filter((_, i) => layers[i].length));
-});
+  layers.forEach((loops, i) => {
+    if (loops.length) files.push(svgFile(svg([loops], [colors[i]], `${$('#name').value}${tag}${suffix(c.kinds[i])}`), `${tag}${suffix(c.kinds[i])}.svg`));
+  });
+}));
 
-$('#dl-outline').addEventListener('click', () => {
-  const c = cutDesign();
-  download(buildSvg({ layers: mirrored([c.outer], c.W), colors: ['#000000'], w: c.W, h: c.H, widthIn: widthIn(), title: $('#name').value }), fileName('-outline.svg'), 'image/svg+xml');
-});
+$('#dl-outline').addEventListener('click', () => cutFiles(({ outer, svg, tag, files }) => {
+  if (outer.length) files.push(svgFile(svg([outer], ['#000000'], `${$('#name').value}${tag}`), `${tag}-outline.svg`));
+}));
 
 $('#dl-png').addEventListener('click', () => {
   const d = state.design, c = cutDesign(), { data, w, h } = state.clean, colors = cutColors(c);
@@ -541,14 +603,19 @@ function scheduleStitch() {
   stitchTimer = setTimeout(runStitch, 120);
 }
 
+// A design bigger than the hoop is cut into a grid of pieces, each sewn in its own hooping.
+const PIECE_MM = 95;
+const pieceName = (r, c) => String.fromCharCode(65 + r) + (c + 1);
+
 function runStitch() {
   const d = state.design;
   if (!d || !d.w) { state.stitch = null; drawStitches(); return; }
-  state.stitch = digitize(d, {
-    sizeMm: +$('#size').value,
+  const sizeMm = +$('#size').value, outline = $('#outline').value, outlineMm = +$('#outline-width').value;
+  const opts = {
+    sizeMm,
     spacingMm: +$('#density').value,
-    outline: $('#outline').value,
-    outlineMm: +$('#outline-width').value,
+    outline,
+    outlineMm,
     outlineThread: +$('#outline-thread').value,
     outer: state.outer,
     angleDeg: +$('#angle').value,
@@ -557,42 +624,68 @@ function runStitch() {
     overlapMm: +$('#overlap').value,
     enabled: state.enabled,
     order: state.order,
-    threads: state.picks,
+    // settled once for the whole design, so every piece uses the same threads
+    threads: assignThreads(d.palette, state.order, state.enabled, state.picks),
     layers: state.layers,
-  });
+  };
+  const long = Math.max(d.w, d.h);
+  const cols = Math.ceil(sizeMm * d.w / long / PIECE_MM - 1e-9), rows = Math.ceil(sizeMm * d.h / long / PIECE_MM - 1e-9);
+  if (cols * rows <= 1) {
+    state.stitch = digitize(d, opts);
+  } else {
+    const border = outline !== 'none' && outlineMm > 0.5 ? outlineMm * 10 : 0;
+    const S = Math.max(1, sizeMm * 10 - border) / long;
+    const pieces = [];
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const x = Math.round(c * d.w / cols), y = Math.round(r * d.h / rows);
+      const crop = { x, y, w: Math.round((c + 1) * d.w / cols) - x, h: Math.round((r + 1) * d.h / rows) - y };
+      const p = digitize(d, { ...opts, crop, unitsPerPx: S });
+      if (!p.stitches) continue;
+      p.name = pieceName(r, c);
+      p.box = [x * S - d.w * S / 2, y * S - d.h * S / 2, crop.w * S, crop.h * S];   // where the piece sits, in 0.1 mm
+      p.offset = [p.box[0] + p.box[2] / 2, p.box[1] + p.box[3] / 2];
+      pieces.push(p);
+    }
+    // the thread list shows each colour's total over all the pieces
+    const blocks = [];
+    for (const p of pieces) for (const b of p.blocks) {
+      const same = blocks.find((o) => o.color === b.color);
+      if (same) same.stitches += b.stitches; else blocks.push({ ...b });
+    }
+    const sum = (k) => pieces.reduce((a, p) => a + p[k], 0);
+    state.stitch = {
+      pieces, cols, rows, blocks,
+      stitches: sum('stitches'), jumps: sum('jumps'), minutes: sum('minutes'),
+      widthMm: d.w * S / 10, heightMm: d.h * S / 10,
+      extent: [d.w * S, d.h * S],
+    };
+  }
   drawStitches();
   drawThreads();
   const s = state.stitch;
-  const tooMany = s.jumps > 60;
+  const tooMany = s.jumps > 60 * (s.pieces ? s.pieces.length : 1);
   const threads = s.blocks.length === 1 ? t('stats.thread1') : t('stats.threads', { n: s.blocks.length });
+  const size = s.pieces
+    ? t('stats.split', { w: s.widthMm.toFixed(0), h: s.heightMm.toFixed(0), n: s.pieces.length })
+    : t('stats.size', { w: s.widthMm.toFixed(0), h: s.heightMm.toFixed(0) });
   $('#stats').innerHTML = s.stitches
     ? `${t('stats.line', { n: s.stitches.toLocaleString(), t: threads, m: s.minutes })}
-       <small>${t('stats.size', { w: s.widthMm.toFixed(0), h: s.heightMm.toFixed(0) })}${tooMany ? t('stats.many') : ''}</small>`
+       <small>${size}${tooMany ? t('stats.many') : ''}</small>`
     : t('stats.none');
+  $('#split-note').hidden = !s.pieces;
   $('#dl-pes').disabled = $('#dl-dst').disabled = !s.stitches;
 }
 
-function drawStitches() {
-  const c = $('#stitches'), ctx = c.getContext('2d');
-  const px = c.width / 1040;          // canvas pixels per 0.1 mm, with a little margin round the hoop
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.clearRect(0, 0, c.width, c.height);
-  ctx.translate(c.width / 2, c.height / 2);
-  ctx.strokeStyle = 'rgba(60,40,20,.25)';
-  ctx.setLineDash([6, 6]);
-  ctx.lineWidth = 1.5;
-  ctx.strokeRect(-500 * px, -500 * px, 1000 * px, 1000 * px);
-  ctx.setLineDash([]);
-  const s = state.stitch;
-  if (!s) return;
+function drawCmds(ctx, s, px, dx = 0, dy = 0) {
   ctx.lineWidth = Math.max(1, 3.4 * px);
   ctx.lineCap = 'round';
   let block = 0, prev = null;
   ctx.strokeStyle = s.blocks[0] ? hex(s.blocks[0].threadRgb) : '#000';
   ctx.beginPath();
   for (const cmd of s.cmds) {
+    const x = (cmd[0] + dx) * px, y = (cmd[1] + dy) * px;
     if (cmd[2] === STITCH) {
-      if (prev) ctx.lineTo(cmd[0] * px, cmd[1] * px); else ctx.moveTo(cmd[0] * px, cmd[1] * px);
+      if (prev) ctx.lineTo(x, y); else ctx.moveTo(x, y);
       prev = cmd;
     } else {
       ctx.stroke();
@@ -602,6 +695,42 @@ function drawStitches() {
     }
   }
   ctx.stroke();
+}
+
+function drawStitches() {
+  const c = $('#stitches'), ctx = c.getContext('2d');
+  const s = state.stitch;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.translate(c.width / 2, c.height / 2);
+  ctx.strokeStyle = 'rgba(60,40,20,.25)';
+  ctx.lineWidth = 1.5;
+  if (s && s.pieces) {
+    // the whole design, with each hooping marked out
+    const px = c.width / (Math.max(...s.extent) * 1.06);
+    for (const p of s.pieces) drawCmds(ctx, p, px, p.offset[0], p.offset[1]);
+    ctx.setLineDash([6, 6]);
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = 'rgba(60,40,20,.55)';
+    ctx.font = '600 22px system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    for (const p of s.pieces) {
+      const [x, y, w, h] = p.box.map((v) => v * px);
+      ctx.strokeRect(x, y, w, h);
+      ctx.fillStyle = 'rgba(255,255,255,.85)';
+      ctx.fillRect(x + w / 2 - 22, y + h / 2 - 15, 44, 30);
+      ctx.fillStyle = '#2c2622';
+      ctx.fillText(p.name, x + w / 2, y + h / 2 + 1);
+    }
+    ctx.setLineDash([]);
+    return;
+  }
+  const px = c.width / 1040;          // canvas pixels per 0.1 mm, with a little margin round the hoop
+  ctx.setLineDash([6, 6]);
+  ctx.strokeRect(-500 * px, -500 * px, 1000 * px, 1000 * px);
+  ctx.setLineDash([]);
+  if (s) drawCmds(ctx, s, px);
 }
 
 const THREAD_OPTIONS = THREADS.map((th, i) => `<option value="${i + 1}">${i + 1} · ${th[3]}</option>`).join('');
@@ -680,11 +809,17 @@ $('#angle').addEventListener('change', scheduleStitch);
 $('#underlay').addEventListener('change', scheduleStitch);
 $('#stitch-len').addEventListener('input', (e) => { $('#stitch-len-out').textContent = `${e.target.value} mm`; scheduleStitch(); });
 $('#overlap').addEventListener('input', (e) => { $('#overlap-out').textContent = `${e.target.value} mm`; scheduleStitch(); });
+// a split design downloads one file per piece, named by its place in the grid (A1, A2, B1…)
 $('#dl-pes').addEventListener('click', () => {
-  const s = state.stitch;
-  download(writePES(s.cmds, s.blocks.map((b) => b.thread), $('#name').value), fileName('.pes'), 'application/octet-stream');
+  const s = state.stitch, name = $('#name').value;
+  if (!s.pieces) return download(writePES(s.cmds, s.blocks.map((b) => b.thread), name), fileName('.pes'), 'application/octet-stream');
+  downloadMany(s.pieces.map((p) => ({ content: writePES(p.cmds, p.blocks.map((b) => b.thread), `${name} ${p.name}`), name: fileName(`-${p.name}.pes`), type: 'application/octet-stream' })));
 });
-$('#dl-dst').addEventListener('click', () => download(writeDST(state.stitch.cmds, $('#name').value), fileName('.dst'), 'application/octet-stream'));
+$('#dl-dst').addEventListener('click', () => {
+  const s = state.stitch, name = $('#name').value;
+  if (!s.pieces) return download(writeDST(s.cmds, name), fileName('.dst'), 'application/octet-stream');
+  downloadMany(s.pieces.map((p) => ({ content: writeDST(p.cmds, `${name} ${p.name}`), name: fileName(`-${p.name}.dst`), type: 'application/octet-stream' })));
+});
 
 // ---------- source: tabs, upload ----------
 

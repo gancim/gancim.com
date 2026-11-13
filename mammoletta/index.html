@@ -174,6 +174,22 @@
         <label class="check"><input type="checkbox" id="mirror"> <span data-i18n="c.mirror">Mirror for iron-on</span></label>
         <div class="row">
           <div class="field">
+            <label for="cut-mat" data-i18n="c.mat">Split to fit the mat</label>
+            <select id="cut-mat">
+              <option value="12x12" data-i18n="c.mat12">Mat 12 × 12 in</option>
+              <option value="12x24" data-i18n="c.mat24">Mat 12 × 24 in</option>
+              <option value="joy" data-i18n="c.matJoy">Cricut Joy mat 4.5 × 12 in</option>
+              <option value="none" data-i18n="c.matNone">Don't split</option>
+            </select>
+          </div>
+          <div class="field" id="cut-overlap-wrap" hidden>
+            <label for="cut-overlap"><span data-i18n="c.overlap">Overlap between pieces</span> <output id="cut-overlap-out">0 mm</output></label>
+            <input type="range" id="cut-overlap" min="0" max="15" step="1" value="0">
+          </div>
+        </div>
+        <p class="note" id="cut-split-note" data-i18n="c.splitNote" hidden>Too big for the mat, so it is cut in pieces. Each file is one piece, named by its place (A1, A2, …).</p>
+        <div class="row">
+          <div class="field">
             <label for="cut-border" data-i18n="c.border">Border</label>
             <select id="cut-border">
               <option value="none" data-i18n="e.none">None</option>
@@ -235,12 +251,13 @@
         <div>
         <div class="stage hoop"><canvas id="stitches" width="640" height="640"></canvas></div>
         <p class="stats" id="stats"></p>
+        <p class="note" id="split-note" data-i18n="e.splitNote" hidden>Bigger than the hoop, so it is split into pieces. Sew them in order (A1, A2, …): after each one, move the fabric so the next piece carries on from its edge.</p>
         </div>
         <div>
         <div class="controls">
           <div class="field">
             <label for="size"><span data-i18n="e.size">Size</span> <output id="size-out">80 mm</output></label>
-            <input type="range" id="size" min="20" max="98" value="80">
+            <input type="range" id="size" min="20" max="300" step="2" value="80">
           </div>
           <div class="field">
             <label for="density" data-i18n="e.fill">Fill</label>

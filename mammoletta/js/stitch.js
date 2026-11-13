@@ -6,8 +6,22 @@
 import { STITCH, JUMP, COLOR, END, nearestThread, THREADS } from './formats.js';
 import { loopPolyline } from './trace.js';
 
+// The Brother thread each colour will use: hand-picked ones first, then the closest free match.
+export function assignThreads(palette, order, enabled, threads = []) {
+  const taken = new Set();
+  for (const c of order) if (enabled[c] && threads[c]) taken.add(threads[c]);
+  const out = palette.map(() => 0);
+  for (const c of order) {
+    if (!enabled[c]) continue;
+    out[c] = threads[c] || nearestThread(palette[c], taken);
+    taken.add(out[c]);
+  }
+  return out;
+}
+
 export function digitize(design, opts) {
-  const { labels, w, h, palette } = design;
+  let { labels, w, h } = design;
+  const { palette } = design;
   const {
     sizeMm = 80,          // longest side of the finished design
     spacingMm = 0.4,      // distance between fill rows
@@ -23,11 +37,22 @@ export function digitize(design, opts) {
     order = palette.map((_, i) => i),   // stitching order, as palette indices
     threads = [],         // chosen Brother thread per palette index (0 or missing = closest match)
     layers = [],          // traced loops per colour, for outlines
+    crop = null,          // { x, y, w, h } in pixels: sew only this piece of a design too big for the hoop
+    unitsPerPx = 0,       // with crop: the scale of the whole design, so the pieces line up
   } = opts;
+  let { outer: outerLoops = [], layers: layerLoops = [] } = opts;
+  if (crop) {
+    const sub = new Int32Array(crop.w * crop.h);
+    for (let y = 0; y < crop.h; y++) for (let x = 0; x < crop.w; x++) sub[y * crop.w + x] = labels[(y + crop.y) * w + x + crop.x];
+    labels = sub; w = crop.w; h = crop.h;
+    const shift = (loops) => loops.map((loop) => loop.map((p) => [p[0] - crop.x, p[1] - crop.y]));
+    outerLoops = shift(outerLoops);
+    layerLoops = layerLoops.map((loops) => loops && shift(loops));
+  }
 
   // a satin border sits half outside the shapes, so the artwork shrinks to keep the total at sizeMm
   const border = outline !== 'none' && outlineMm > 0.5 ? outlineMm * 10 : 0;
-  const S = Math.max(1, sizeMm * 10 - border) / Math.max(w, h);   // units per pixel
+  const S = unitsPerPx || Math.max(1, sizeMm * 10 - border) / Math.max(w, h);   // units per pixel
   const ox = w * S / 2, oy = h * S / 2;
   const R = Math.hypot(w, h) * S / 2;        // rows are laid out across a circle that covers the design
 
@@ -171,44 +196,69 @@ export function digitize(design, opts) {
     return { pts, per };
   }
 
+  // The parts of a closed outline that fall inside this piece (all of it when the design isn't split).
+  function clipParts(poly) {
+    if (!crop) return [{ pts: poly, closed: true }];
+    const { pts } = resample(poly, 4);
+    const inside = pts.map((p) => Math.abs(p[0]) <= ox && Math.abs(p[1]) <= oy);
+    if (inside.every(Boolean)) return [{ pts: poly, closed: true }];
+    const runs = [];
+    let cur = null;
+    for (let i = 0; i < pts.length; i++) {
+      if (inside[i]) { if (!cur) runs.push(cur = []); cur.push(pts[i]); } else cur = null;
+    }
+    // a run that wraps past the start joins up with the last one
+    if (runs.length > 1 && inside[0] && inside[pts.length - 1]) runs[0] = runs.pop().concat(runs[0]);
+    return runs.filter((r) => r.length >= 10).map((r) => ({ pts: r, closed: false }));
+  }
+
   function outlines(loops, c) {
-    const width = outlineMm * 10;
     for (const loop of loops) {
       const poly = loopPolyline(loop).map((p) => [p[0] * S - ox, p[1] * S - oy]);
-      if (width <= 5) {
-        // bean stitch: forward, back, forward on every ~2 mm step for a bold line
-        const { pts, per } = resample(poly, 20);
-        if (per < 40) continue;
-        pts.push(pts[0]);
-        travel(pts[0][0], pts[0][1], c);
-        for (let i = 1; i < pts.length; i++) {
-          put(pts[i][0], pts[i][1]);
-          put(pts[i - 1][0], pts[i - 1][1]);
-          put(pts[i][0], pts[i][1]);
-        }
-        continue;
-      }
-      // satin border: stitches across the edge, 0.4 mm apart, over a running stitch that holds it flat
-      const { pts: raw, per } = resample(poly, 4);
-      if (per < 40) continue;
-      const n = raw.length, hw = width / 2;
-      // round the corners to about the border's half-width, so stitches fan out instead of crossing
-      const k = Math.min(Math.floor(n / 4), Math.ceil(hw / 4));
-      const pts = raw.map((_, i) => {
-        let sx = 0, sy = 0;
-        for (let j = -k; j <= k; j++) { const q = raw[(i + j + n) % n]; sx += q[0]; sy += q[1]; }
-        return [sx / (2 * k + 1), sy / (2 * k + 1)];
-      });
+      for (const part of clipParts(poly)) sewOutline(part.pts, part.closed, c);
+    }
+  }
+
+  function sewOutline(poly, closed, c) {
+    const width = outlineMm * 10;
+    if (width <= 5) {
+      // bean stitch: forward, back, forward on every ~2 mm step for a bold line
+      const { pts, per } = resample(poly, 20);
+      if (per < 40) return;
+      pts.push(closed ? pts[0] : poly[poly.length - 1]);
       travel(pts[0][0], pts[0][1], c);
-      for (let i = 5; i < n; i += 5) put(pts[i][0], pts[i][1]);
-      put(pts[0][0], pts[0][1]);
-      for (let i = 0; i <= n; i++) {
-        const a = pts[(i - 3 + n) % n], b = pts[(i + 3) % n], p = pts[i % n];
-        const tx = b[0] - a[0], ty = b[1] - a[1], tl = Math.hypot(tx, ty) || 1;
-        const nx = -ty / tl * hw, ny = tx / tl * hw;
-        put(p[0] + nx, p[1] + ny);
-        put(p[0] - nx, p[1] - ny);
+      for (let i = 1; i < pts.length; i++) {
+        put(pts[i][0], pts[i][1]);
+        put(pts[i - 1][0], pts[i - 1][1]);
+        put(pts[i][0], pts[i][1]);
       }
+      return;
+    }
+    // satin border: stitches across the edge, 0.4 mm apart, over a running stitch that holds it flat
+    const { pts: raw, per } = resample(poly, 4);
+    if (per < 40) return;
+    if (!closed) raw.push(poly[poly.length - 1]);
+    const n = raw.length, hw = width / 2;
+    const at = (i) => closed ? raw[((i % n) + n) % n] : raw[Math.max(0, Math.min(n - 1, i))];
+    // round the corners to about the border's half-width, so stitches fan out instead of crossing
+    const k = Math.min(Math.floor(n / 4), Math.ceil(hw / 4));
+    const pts = raw.map((_, i) => {
+      let sx = 0, sy = 0;
+      for (let j = -k; j <= k; j++) { const q = at(i + j); sx += q[0]; sy += q[1]; }
+      return [sx / (2 * k + 1), sy / (2 * k + 1)];
+    });
+    const P = (i) => closed ? pts[((i % n) + n) % n] : pts[Math.max(0, Math.min(n - 1, i))];
+    travel(pts[0][0], pts[0][1], c);
+    for (let i = 5; i < n; i += 5) put(pts[i][0], pts[i][1]);
+    if (closed) put(pts[0][0], pts[0][1]);
+    else for (let i = n - 1; i >= 0; i -= 5) put(pts[i][0], pts[i][1]);   // back to the start, under the satin
+    const last = closed ? n : n - 1;
+    for (let i = 0; i <= last; i++) {
+      const a = P(i - 3), b = P(i + 3), p = P(i);
+      const tx = b[0] - a[0], ty = b[1] - a[1], tl = Math.hypot(tx, ty) || 1;
+      const nx = -ty / tl * hw, ny = tx / tl * hw;
+      put(p[0] + nx, p[1] + ny);
+      put(p[0] - nx, p[1] - ny);
     }
   }
 
@@ -239,15 +289,15 @@ export function digitize(design, opts) {
     if (underlay) fill(c, angle + Math.PI / 2, 22, 25, -4);
     fill(c, angle, spacingMm * 10, stitchMm * 10, pull);
     // outlines in each colour's own thread go straight after its fill, saving a thread change
-    if (eachOutline && !outlineThread && layers[c]) outlines(layers[c], c);
+    if (eachOutline && !outlineThread && layerLoops[c]) outlines(layerLoops[c], c);
     close();
   }
   // outlines in one chosen thread are sewn together at the end
   const lastThread = outlineThread || 20;
   if ((eachOutline && outlineThread) || wholeOutline) {
     begin(THREADS[lastThread - 1], -1, lastThread);
-    if (eachOutline && outlineThread) for (const c of order) if (enabled[c] && layers[c]) outlines(layers[c], -1);
-    if (wholeOutline) outlines(outer, -1);
+    if (eachOutline && outlineThread) for (const c of order) if (enabled[c] && layerLoops[c]) outlines(layerLoops[c], -1);
+    if (wholeOutline) outlines(outerLoops, -1);
     close();
   }
   if (cmds.length) { lock(); cmds.push([cx, cy, END]); }
