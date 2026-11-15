@@ -26,6 +26,7 @@ gancim.com/
 ├── logo.png, logo_2.png    # The original drawing
 ├── images/                 # Icons
 ├── bentobii/, sesh/, japananas/, webcam/   # Project pages, not linked from the homepage
+├── guardaroba/             # Family wardrobe app: closet goals, laundry loads, outfits from the weather (localStorage only)
 ├── sitemap.xml, robots.txt
 └── README.md
 ```
