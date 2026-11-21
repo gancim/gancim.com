@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0b0d10">
+<meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%93%B9</text></svg>">
 <title>Webcam</title>
 <style>
@@ -20,38 +21,29 @@
     overflow: hidden;
   }
 
-  /* Video first, controls below — thumb-friendly on phones */
-  .stage {
-    flex: 1;
-    position: relative;
-    background: #000;
-    min-height: 0;
-  }
-  video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    background: #000;
-    object-fit: contain;
-  }
+  /* Picture first, controls below: thumb-friendly on phones */
+  .stage { flex: 1; position: relative; background: #000; min-height: 0; }
+  #shot, #yt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; border: 0; }
   #msg {
-    position: absolute; inset: 0; display: none;
+    position: absolute; inset: 0; display: none; flex-direction: column; gap: 14px;
     align-items: center; justify-content: center;
     color: #8a93a0; font-size: 15px; text-align: center; padding: 24px;
   }
+  #msg a, #open { color: #fff; background: #2563eb; padding: 10px 18px; border-radius: 14px; text-decoration: none; font-weight: 600; }
+  #open { position: absolute; right: 12px; bottom: 12px; font-size: 13px; padding: 8px 12px; opacity: .85; }
 
   #title {
-    padding: 10px 14px calc(6px + env(safe-area-inset-bottom, 0px));
+    padding: 10px 14px 6px;
     font-weight: 700;
     font-size: 15px;
     display: flex;
     align-items: baseline;
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 4px 8px;
     border-top: 1px solid #1c2128;
   }
-  #camjp { font-weight: 400; opacity: .55; font-size: 12px; }
+  #camjp, #note { font-weight: 400; opacity: .55; font-size: 12px; }
+  #note { flex-basis: 100%; }
 
   /* Horizontally scrollable button bar */
   .cams {
@@ -87,7 +79,6 @@
 
   /* On wider screens put the bar on top and let it wrap */
   @media (min-width: 700px) {
-    body { flex-direction: column; }
     .cams { flex-wrap: wrap; overflow-x: visible; order: -1; border-bottom: 1px solid #1c2128; }
     #title { border-top: 0; order: -2; }
   }
@@ -95,80 +86,121 @@
 </head>
 <body>
   <div class="stage">
-    <video id="video" playsinline autoplay muted controls></video>
+    <iframe id="yt" hidden allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+    <img id="shot" alt="" hidden>
+    <a id="open" target="_blank" rel="noopener"></a>
     <div id="msg"></div>
   </div>
 
-  <div id="title">📹 <span id="camname"></span> <span id="camjp"></span></div>
+  <div id="title">📹 <span id="camname"></span> <span id="camjp"></span> <span id="note"></span></div>
 
   <div class="cams" id="cams"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
   <script>
-    // Reverse-engineered from namiaru.com -> videog.jp players.
-    // Raw HLS stream feeds (no domain lock, no preroll ad).
+    // Live video: public 24h YouTube streams that allow embedding, west to east.
+    // (Namiaru's own live cameras are now paid-only in its LINE app, its old videog.jp
+    // feeds answer 403, and its YouTube channels stopped streaming in January 2026.)
+    // A YouTube live ID changes when its owner restarts the stream: if one shows
+    // "unavailable", take the new ID from the channel's /streams page.
+    // Stills: Kanagawa Prefecture coastal cameras (pref.kanagawa.jp/docs/f4i/tsunami/p613103.html),
+    // a picture that refreshes every few seconds, over http only.
     const CAMERAS = [
-      { name: '湘南・由比ガ浜',     en: 'Shonan · Yuigahama',           src: 'https://cf-iplvc21004.videog.jp/live/_definst_/69PUNRGse8Wh.stream/playlist.m3u8' },
-      { name: '湘南・江ノ島東浜',   en: 'Shonan · Enoshima East Beach', src: 'https://cf-iplvc21004.videog.jp/live/_definst_/zVFV1TcWNnGL.stream/playlist.m3u8' },
-      { name: '湘南・江ノ島水族館', en: 'Shonan · Enoshima Aquarium',   src: 'https://cf-iplvc21004.videog.jp/live/_definst_/XVrK5KbyfB0T.stream/playlist.m3u8' },
-      { name: '湘南・引地川河口',   en: 'Shonan · Hikiji River Mouth',  src: 'https://cf-iplvc21004.videog.jp/live/_definst_/-GrLD4br1o0d.stream/playlist.m3u8' },
-      { name: '湘南・辻堂',         en: 'Shonan · Tsujido',             src: 'https://cf-iplvc21004.videog.jp/live/_definst_/w_3fsrQtTh9C.stream/playlist.m3u8' },
-      { name: '伊豆・白浜',         en: 'Izu · Shirahama',              src: 'https://p13175-ipcam01.videog.jp/live/_definst_/l0Pypc9-4JQi.stream/playlist.m3u8' },
-      { name: '和歌山・磯の浦',     en: 'Wakayama · Isonoura',          src: 'https://p2705-live01-dvr.videog.jp/live/_definst_/QxtagHlr03AB.stream/playlist.m3u8' },
+      { en: 'Southern Beach',    name: '茅ヶ崎サザンビーチ',   yt: '_UzlXZz9fho', note: 'Chigasaki, live video by WITH SEA' },
+      { en: 'Chigasaki→Enoshima', name: '湘南茅ヶ崎 江ノ島方面', yt: 'j8ZbjV2jQJM', note: 'Chigasaki looking east to Enoshima, live video by Beach and Waves' },
+      { en: 'Katase East Beach', name: '片瀬海岸東浜',         yt: 'xPgeZzojY5o', note: 'Enoshima, live video by HviewCam (FlyingSuika)' },
+      { en: 'Enoshima Zoom',     name: '江の島ズーム',         yt: 'ywXRfMLuw78', note: 'Enoshima, live video by HviewCam (FlyingSuika)' },
+      { en: 'Koshigoe',          name: '腰越海岸',             yt: 'ESsZ9iB7tz0', note: 'Live video by HviewCam (FlyingSuika)' },
+      { en: 'Yuigahama',         name: '材木座・由比ガ浜',     yt: 'Z9Q9akr7QSE', note: 'Kamakura, live video by HviewCam (FlyingSuika)' },
+      { en: 'Chigasaki',   name: '茅ヶ崎海岸', ip: '221.189.0.181',   note: 'Higashi-kaigan-minami 1-chome, about 1.5–2 km west of Chisan' },
+      { en: 'Fujisawa',    name: '藤沢海岸',   ip: '153.156.235.87',  note: 'Kugenuma-kaigan 1-chome, about 5 km east of Chisan' },
+      { en: 'Shonan Port', name: '湘南港',     ip: '114.156.129.154', note: 'Enoshima 1-chome' },
+      { en: 'Kamakura',    name: '鎌倉海岸',   ip: '153.142.220.112', note: 'Yuigahama 4-chome' },
     ];
+    const REFRESH = 10000;
 
-    const video   = document.getElementById('video');
+    const shot    = document.getElementById('shot');
+    const yt      = document.getElementById('yt');
+    const open    = document.getElementById('open');
     const msg     = document.getElementById('msg');
     const camname = document.getElementById('camname');
     const camjp   = document.getElementById('camjp');
+    const note    = document.getElementById('note');
     const camsEl  = document.getElementById('cams');
-    let hls = null;
+    let cam = null, timer = 0, failed = false;
 
-    function teardown() {
-      if (hls) { hls.destroy(); hls = null; }
-      video.removeAttribute('src');
-      video.load();
-      msg.style.display = 'none';
-    }
+    // The site is served over https, where browsers block or upgrade http pictures
+    // (and the cameras don't speak https). So on https the still goes through the
+    // wsrv.nl image proxy; on plain http (local preview) it loads straight from the camera.
+    const httpsPage = location.protocol === 'https:';
+    let proxied = httpsPage;
+    const direct = (c) => `http://${c.ip}/record/current.jpg?t=${Date.now()}`;
+    const still  = (c) => proxied
+      ? `https://wsrv.nl/?url=${encodeURIComponent(direct(c))}`
+      : direct(c);
+    const viewer = (c) => `http://${c.ip}/cgi-bin/guestimage.html`;
 
-    function play(url) {
-      if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        // Safari / iOS native HLS
-        video.src = url;
-        video.play().catch(() => {});
-      } else if (window.Hls && Hls.isSupported()) {
-        hls = new Hls({ liveSyncDurationCount: 3 });
-        hls.loadSource(url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(() => {}));
-        hls.on(Hls.Events.ERROR, (e, data) => {
-          if (data.fatal) {
-            msg.textContent = 'This camera may be offline right now.';
-            msg.style.display = 'flex';
-          }
-        });
-      } else {
-        msg.textContent = 'HLS is not supported in this browser.';
-        msg.style.display = 'flex';
-      }
+    function load() {
+      clearTimeout(timer);
+      if (cam.yt) return;
+      shot.src = still(cam);
     }
+    shot.onload = () => {
+      if (cam.yt) return;
+      failed = false;
+      shot.hidden = false; open.hidden = false; msg.style.display = 'none';
+      timer = setTimeout(load, REFRESH);
+    };
+    shot.onerror = () => {
+      if (cam.yt) return;
+      // On http, try the other route once before giving up (on https only the proxy can work).
+      if (!httpsPage && !failed) { failed = true; proxied = !proxied; load(); return; }
+      failed = false;
+      // The camera's own page still opens in a new tab.
+      shot.hidden = true; open.hidden = true;
+      msg.textContent = 'This camera isn\'t answering right now.';
+      const a = document.createElement('a');
+      a.href = viewer(cam); a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = 'Open the prefecture viewer ↗';
+      msg.append(a);
+      msg.style.display = 'flex';
+      timer = setTimeout(load, REFRESH * 3);
+    };
 
     function select(i) {
-      const cam = CAMERAS[i];
-      teardown();
+      cam = CAMERAS[i];
+      clearTimeout(timer);
       camname.textContent = cam.en;
       camjp.textContent = cam.name;
+      note.textContent = cam.note;
+      msg.style.display = 'none';
+      if (cam.yt) {
+        shot.hidden = true; shot.removeAttribute('src');
+        yt.hidden = false;
+        yt.src = `https://www.youtube-nocookie.com/embed/${cam.yt}?autoplay=1&mute=1&playsinline=1`;
+        yt.title = `${cam.en} live camera`;
+        open.href = `https://www.youtube.com/watch?v=${cam.yt}`;
+        open.textContent = 'YouTube ↗';
+        open.hidden = true; // the player has its own YouTube link
+      } else {
+        yt.hidden = true; yt.removeAttribute('src');
+        open.href = viewer(cam);
+        open.textContent = 'Prefecture viewer ↗';
+        shot.alt = `Latest picture from the ${cam.en} coastal camera`;
+      }
       [...camsEl.children].forEach((b, j) => b.classList.toggle('active', j === i));
-      location.hash = i;
-      play(cam.src);
+      history.replaceState(null, '', '#' + i);
+      load();
     }
 
-    CAMERAS.forEach((cam, i) => {
+    CAMERAS.forEach((c, i) => {
       const b = document.createElement('button');
-      b.innerHTML = `<span class="en">${cam.en}</span><span class="jp">${cam.name}</span>`;
+      b.innerHTML = `<span class="en">${c.yt ? '● ' : ''}${c.en}</span><span class="jp">${c.name}${c.yt ? '' : ' · still'}</span>`;
       b.onclick = () => select(i);
       camsEl.appendChild(b);
     });
+
+    // Refresh straight away when the phone comes back to the page.
+    document.addEventListener('visibilitychange', () => { if (!document.hidden && !cam.yt) load(); });
 
     const start = parseInt(location.hash.slice(1));
     select(CAMERAS[start] ? start : 0);
